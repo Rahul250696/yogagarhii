@@ -36,28 +36,7 @@ import WhyFeatureItem from "@/components/home/WhyFeatureItem";
 import StudentStoriesSection from "@/components/home/StudentStoriesSection";
 
 // Custom scroll-aware header component
-function StickyCompactHeader({ visible, onQuickEnquiry }: { visible: boolean; onQuickEnquiry: () => void }) {
-  return (
-    <div
-      className={`fixed top-0 left-0 right-0 z-50 bg-background/98 backdrop-blur-md shadow-sm transition-transform duration-300 ${visible ? 'translate-y-0' : '-translate-y-full'
-        }`}
-    >
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="font-heading text-xl font-bold text-primary">
-          YOGAGARHI
-        </Link>
-        <div className="flex items-center gap-3">
-          <Button variant="outline" size="sm" onClick={onQuickEnquiry}>
-            Quick Enquiry
-          </Button>
-          <Button size="sm" className="bg-primary text-primary-foreground" asChild>
-            <a href="https://wa.me/917895350563" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-}
+
 
 // Review Card Component with Read More functionality
 function ReviewCard({ review }: { review: { name: string; location: string; avatar: string; rating: number; date: string; text: string } }) {
@@ -890,7 +869,6 @@ export default function Course300Hour() {
 
   return (
     <>
-      <StickyCompactHeader visible={showCompactHeader} onQuickEnquiry={() => setShowQuickEnquiryDialog(true)} />
 
       <Layout>
         {/* ===== HERO SECTION ===== */}
@@ -2002,8 +1980,8 @@ This is not a transactional relationship — it is a lifelong connection.`}
                     {/* Card with circular image attached */}
                     <div className="flex flex-col items-center h-full">
                       {/* Circular Image */}
-                      <div className="relative z-10 mb-[-40px]">
-                        <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-background shadow-lg">
+                      <div className="relative z-10 mb-[-70px]">
+                        <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-background shadow-lg">
                           <Image
                             src={item.image}
                             alt={item.title}
@@ -2014,7 +1992,7 @@ This is not a transactional relationship — it is a lifelong connection.`}
                       </div>
 
                       {/* Square Card - fixed height for consistency */}
-                      <div className="w-72 h-52 bg-card rounded-xl border border-border p-6 pt-12 shadow-sm hover:shadow-md transition-shadow flex flex-col">
+                      <div className="w-72 h-60 bg-card rounded-xl border border-border p-6 pt-20 shadow-sm hover:shadow-md transition-shadow flex flex-col">
                         <h3 className="font-heading text-lg font-semibold text-foreground text-center mb-3">
                           {item.title}
                         </h3>
@@ -2693,7 +2671,7 @@ This is not a transactional relationship — it is a lifelong connection.`}
                   >
                     {/* Hexagonal Image Container */}
                     <div className="relative mb-6">
-                      <div className="aspect-square max-w-[280px] mx-auto overflow-hidden rounded-[2rem] rotate-0 group-hover:rotate-1 transition-transform duration-500 shadow-card group-hover:shadow-elevated">
+                      <div className="aspect-square max-w-[280px] mx-auto overflow-hidden rounded-[2.5rem] shadow-card group-hover:shadow-elevated transition-shadow duration-500">
                         <Image
                           src={excursion.image}
                           alt={excursion.title}
@@ -2935,8 +2913,9 @@ This is not a transactional relationship — it is a lifelong connection.`}
                     }`}
                 >
                   {/* Image Carousel */}
-                  <div className="relative h-52 overflow-hidden">
+                  <div className="relative h-52 overflow-hidden group/carousel">
                     <div
+                      id={`carousel-${roomIndex}`}
                       className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide h-full scroll-smooth"
                       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                     >
@@ -2964,11 +2943,61 @@ This is not a transactional relationship — it is a lifelong connection.`}
                       </div>
                     )}
 
-                    {/* Slide to explore text */}
-                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10">
-                      <span className="text-[10px] text-white/80 font-medium tracking-wide bg-black/30 px-2 py-1 rounded-full">
-                        Slide to explore
-                      </span>
+                    {/* Navigation Arrows */}
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const carousel = document.getElementById(`carousel-${roomIndex}`);
+                        if (carousel) carousel.scrollBy({ left: -carousel.offsetWidth, behavior: 'smooth' });
+                      }}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300"
+                      aria-label="Previous image"
+                    >
+                      <svg className="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const carousel = document.getElementById(`carousel-${roomIndex}`);
+                        if (carousel) carousel.scrollBy({ left: carousel.offsetWidth, behavior: 'smooth' });
+                      }}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300"
+                      aria-label="Next image"
+                    >
+                      <svg className="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+
+                    {/* Dot Indicators */}
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 bg-black/40 backdrop-blur-sm px-2.5 py-1.5 rounded-full">
+                      {room.images.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            const carousel = document.getElementById(`carousel-${roomIndex}`);
+                            if (carousel) carousel.scrollTo({ left: carousel.offsetWidth * idx, behavior: 'smooth' });
+                          }}
+                          className="w-1.5 h-1.5 rounded-full bg-white/60 hover:bg-white transition-colors"
+                          aria-label={`Go to image ${idx + 1}`}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Swipe hint - visible on mobile */}
+                    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10 md:hidden">
+                      <div className="flex items-center gap-1.5 text-white/90 text-xs font-medium bg-black/30 px-3 py-1.5 rounded-full">
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+                        </svg>
+                        <span>Swipe</span>
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </div>
                     </div>
                   </div>
 
