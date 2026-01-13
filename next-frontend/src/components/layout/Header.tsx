@@ -63,15 +63,15 @@ const TestimonialsIcon = () => (
 );
 
 const courses = [
-  { name: "100 Hour YTTC", href: "/courses/100-hour", icon: ChakraSymbol1 },
-  { name: "200 Hour YTTC", href: "/courses/200-hour", icon: ChakraSymbol2 },
-  { name: "300 Hour YTTC", href: "/courses/300-hour", icon: ChakraSymbol3 },
+  { name: "100 Hour YTTC", href: "/100-hour-yoga-teacher-training-in-bali", icon: ChakraSymbol1 },
+  { name: "200 Hour YTTC", href: "/200-hour-yoga-teacher-training-in-bali", icon: ChakraSymbol2 },
+  { name: "300 Hour YTTC", href: "/300-hour-yoga-teacher-training-in-bali", icon: ChakraSymbol3 },
 ];
 
 const aboutItems = [
-  { name: "About Ashram", href: "/about/ashram", icon: AshramIcon },
-  { name: "Our Teachers", href: "/about/teachers", icon: TeachersIcon },
-  { name: "Testimonials", href: "/about/testimonials", icon: TestimonialsIcon },
+  { name: "About School", href: "/about-school", icon: AshramIcon },
+  { name: "Our Teachers", href: "/teachers", icon: TeachersIcon },
+  { name: "Testimonials", href: "/testimonials", icon: TestimonialsIcon },
 ];
 
 const navLinks = [
@@ -79,7 +79,8 @@ const navLinks = [
   { name: "About", href: "#", dropdown: aboutItems },
   { name: "Courses", href: "#", dropdown: courses },
   { name: "Gallery", href: "/gallery" },
-  { name: "Contact", href: "/contact" },
+  { name: "Blogs", href: "/blogs" },
+  { name: "Contact", href: "/contact-us" },
 ];
 
 export default function Header() {
@@ -142,8 +143,8 @@ export default function Header() {
   }, [pathname]);
 
   const isActive = (href: string) => pathname === href;
-  const isCoursesActive = pathname.startsWith("/courses");
-  const isAboutActive = pathname.startsWith("/about");
+  const isCoursesActive = pathname.includes("-hour-yoga-teacher-training-in-bali");
+  const isAboutActive = pathname === "/about-school" || pathname === "/teachers" || pathname === "/testimonials";
 
   return (
     <>

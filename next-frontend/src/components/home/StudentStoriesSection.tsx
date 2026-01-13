@@ -238,27 +238,7 @@ const StudentStoriesSection = () => {
                   videoKey={`video-${activeVideo}-${isPlaying}`}
                 />
 
-                {/* Featured Quote Card */}
-                <div className="mt-8 p-6 bg-secondary/40 rounded-2xl border border-border relative">
-                  <Quote className="w-8 h-8 text-primary/20 absolute top-4 right-4" />
-                  <p className="font-heading text-lg italic text-foreground/80 leading-relaxed mb-4">
-                    "{currentVideo.quote}"
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full overflow-hidden">
-                      <Image
-                        src={`https://img.youtube.com/vi/${currentVideo.id}/mqdefault.jpg`}
-                        alt={currentVideo.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground text-sm">{currentVideo.name}</p>
-                      <p className="text-xs text-muted-foreground">{currentVideo.country}</p>
-                    </div>
-                  </div>
-                </div>
+
 
                 {/* Stats Row */}
                 <div className="mt-6 grid grid-cols-3 gap-4">

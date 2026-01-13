@@ -4,16 +4,19 @@ import { Instagram, Facebook, Youtube, Phone, Mail, MapPin, Sparkles } from "luc
 import logo from "@/assets/yogagarhi-logo-hd-preview.png";
 
 const courses = [
-  { name: "100 Hour YTTC", href: "/courses/100-hour" },
-  { name: "200 Hour YTTC", href: "/courses/200-hour" },
-  { name: "300 Hour YTTC", href: "/courses/300-hour" },
+  { name: "100 Hour YTTC", href: "/100-hour-yoga-teacher-training-in-bali" },
+  { name: "200 Hour YTTC", href: "/200-hour-yoga-teacher-training-in-bali" },
+  { name: "300 Hour YTTC", href: "/300-hour-yoga-teacher-training-in-bali" },
 ];
 
 const explore = [
-  { name: "About", href: "/about" },
+  { name: "About School", href: "/about-school" },
+  { name: "Teachers", href: "/teachers" },
+  { name: "Testimonials", href: "/testimonials" },
   { name: "Gallery", href: "/gallery" },
-  { name: "Blog", href: "/blog" },
-  { name: "Contact", href: "/contact" },
+  { name: "Blogs", href: "/blogs" },
+  { name: "Contact", href: "/contact-us" },
+  { name: "Apply Now", href: "/apply-now" },
 ];
 
 // Animated Lotus SVG
