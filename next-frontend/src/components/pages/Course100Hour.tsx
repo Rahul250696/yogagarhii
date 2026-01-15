@@ -22,6 +22,7 @@ import {
   Cherry, Sprout, CircleDot, Sun, MessageSquare, Mail,
   Wifi, Droplets, Wind
 } from "lucide-react";
+import RoomCard from "./RoomCard";
 import heroImage from "@/assets/hero-yoga-bali.jpg";
 import activityAyurveda from "@/assets/activity-ayurveda.jpg";
 import activitySoundHealing from "@/assets/activity-sound-healing.jpg";
@@ -34,6 +35,36 @@ import yaRys200 from "@/assets/ya-rys-200.jpg";
 import yaAllCertifications from "@/assets/ya-all-certifications.jpg";
 import WhyFeatureItem from "@/components/home/WhyFeatureItem";
 import StudentStoriesSection from "@/components/home/StudentStoriesSection";
+import apartKecakDance from "@/assets/apart/kecak-dance.jpg";
+import apartYogaAllianceGraduates from "@/assets/apart/yoga-alliance-graduates.jpg";
+
+// Triple Sharing room images
+import tripleBalcony from "@/assets/rooms/triple-balcony.jpg";
+import tripleBathroom from "@/assets/rooms/triple-bathroom.jpg";
+import tripleBedroom1 from "@/assets/rooms/triple-bedroom-1.jpg";
+import tripleBedroom2 from "@/assets/rooms/triple-bedroom-2.jpg";
+import tripleBedroom3 from "@/assets/rooms/triple-bedroom-3.jpg";
+
+// Double Sharing room images
+import doubleBedroom1 from "@/assets/rooms/double-bedroom-1.jpg";
+import doubleBedroom2 from "@/assets/rooms/double-bedroom-2.jpg";
+import doubleBedroom3 from "@/assets/rooms/double-bedroom-3.jpg";
+import doubleBedroom4 from "@/assets/rooms/double-bedroom-4.jpg";
+import doubleBalcony from "@/assets/rooms/double-balcony.jpg";
+
+// Private Room images
+import privateBedroom1 from "@/assets/rooms/private-bedroom-1.jpg";
+import privateBedroom2 from "@/assets/rooms/private-bedroom-2.jpg";
+import privateBedroom3 from "@/assets/rooms/private-bedroom-3.jpg";
+import privateBathroom from "@/assets/rooms/private-bathroom.jpg";
+import privateBalcony from "@/assets/rooms/private-balcony.jpg";
+
+// Newly uploaded Private Room images
+import privateNew1 from "@/assets/rooms/private-new-1.jpg";
+import privateNew2 from "@/assets/rooms/private-new-2.png";
+import privateNew3 from "@/assets/rooms/private-new-3.png";
+import privateNew4 from "@/assets/rooms/private-new-4.png";
+import privateNew5 from "@/assets/rooms/private-new-5.png";
 
 // Custom scroll-aware header component
 
@@ -340,7 +371,7 @@ const excursions = [
   {
     title: "Balinese Dance Performance",
     description: "Witness the ancient art of Balinese dance — a mesmerizing display of grace, storytelling, and spiritual devotion passed down through generations.",
-    image: "https://images.unsplash.com/photo-1518611507436-f9221403cca2?w=600&h=600&fit=crop",
+    image: apartKecakDance,
     icon: Star
   },
   {
@@ -606,6 +637,7 @@ export default function Course100Hour() {
   const isWebinarFormComplete = webinarForm.name && webinarForm.email && webinarForm.timezone && webinarForm.date && webinarForm.time;
 
   useEffect(() => {
+    setIsMounted(true);
     const handleScroll = () => {
       setShowCompactHeader(window.scrollY > 500);
     };
@@ -632,10 +664,29 @@ export default function Course100Hour() {
   };
 
   /* Form Submission States */
+  const [isMounted, setIsMounted] = useState(false);
   const [isSubmittingManual, setIsSubmittingManual] = useState(false);
   const [isSubmittingSyllabus, setIsSubmittingSyllabus] = useState(false);
   const [isSubmittingWebinar, setIsSubmittingWebinar] = useState(false);
   const [isSubmittingPreYTTC, setIsSubmittingPreYTTC] = useState(false);
+
+  const submitToFormSubmit = async (fields: Record<string, any>) => {
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(fields),
+    });
+
+    if (response.ok) {
+      if (fields._next) {
+        window.location.href = fields._next;
+      }
+    } else {
+      throw new Error('Failed to send form');
+    }
+  };
   const [isSubmittingQuiz, setIsSubmittingQuiz] = useState(false);
   const [isSubmittingBooking, setIsSubmittingBooking] = useState(false);
   const [isSubmittingEnroll, setIsSubmittingEnroll] = useState(false);
@@ -656,19 +707,13 @@ export default function Course100Hour() {
     setIsSubmittingQuiz(true);
 
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          email: email,
-          quiz_answers: quizAnswers.join(", "),
-          _subject: "New Quiz Result: Yogic Energy",
-          source: "Course 100 Hour - Quiz Section",
-          form_type: "quiz_submission"
-        })
+      await submitToFormSubmit({
+        email: email,
+        quiz_answers: quizAnswers.join(", "),
+        _subject: "New Quiz Result: Yogic Energy",
+        _next: `${window.location.origin}/thank-you?type=enquiry`,
+        _autoresponder: "Namaste! Thank you for participating in our Yogic Energy Quiz. We have received your results and will reach out to you shortly to discuss your journey!"
       });
-      setShowQuizDialog(false);
-      setShowQuizThankYou(true);
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -681,20 +726,13 @@ export default function Course100Hour() {
     e.preventDefault();
     setIsSubmittingManual(true);
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          name: manualForm.name,
-          email: manualForm.email,
-          _subject: "New Free Manual Request",
-          source: "Course 100 Hour - Free Manual Button",
-          form_type: "manual_download"
-        })
+      await submitToFormSubmit({
+        name: manualForm.name,
+        email: manualForm.email,
+        _subject: "New Free Manual Request",
+        _next: `${window.location.origin}/thank-you?type=manual`,
+        _autoresponder: "Namaste! Your free manual is being sent to your email. We hope it helps your practice!"
       });
-      setShowManualDialog(false);
-      setShowManualThankYou(true);
-      setManualForm({ name: '', email: '' });
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -712,20 +750,15 @@ export default function Course100Hour() {
 
     setIsSubmittingSyllabus(true);
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          email: syllabusEmail,
-          course: selectedSyllabusCourse,
-          _subject: `New Syllabus Request: ${selectedSyllabusCourse} Hour`,
-          source: "Course 100 Hour - Download Syllabus",
-          form_type: "syllabus_download"
-        })
+      await submitToFormSubmit({
+        email: syllabusEmail,
+        course: selectedSyllabusCourse,
+        _subject: `New Syllabus Request: ${selectedSyllabusCourse} Hour`,
+        _template: "table",
+        _captcha: "false",
+        _next: `${window.location.origin}/thank-you?type=syllabus`,
+        _autoresponder: "Namaste! Your requested syllabus guide is being sent to your email. We look forward to seeing you at our Yoga Teacher Training in Bali!"
       });
-      setShowSyllabusDialog(false);
-      setShowSyllabusThankYou(true);
-      setSyllabusEmail("");
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -738,19 +771,14 @@ export default function Course100Hour() {
     e.preventDefault();
     setIsSubmittingWebinar(true);
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          ...webinarForm,
-          _subject: `New Webinar Registration: ${webinarForm.name}`,
-          source: "Course 100 Hour - Webinar Section",
-          form_type: "webinar_registration"
-        })
+      await submitToFormSubmit({
+        ...webinarForm,
+        _subject: `New Webinar Registration: ${webinarForm.name}`,
+        _template: "table",
+        _captcha: "false",
+        _next: `${window.location.origin}/thank-you?type=webinar`,
+        _autoresponder: "Namaste! You have successfully registered for our Free Orientation Webinar. We will send you the join link and further details shortly. See you there!"
       });
-      setShowWebinarDialog(false);
-      setShowWebinarThankYou(true);
-      setWebinarForm({ name: '', email: '', timezone: '', date: '', time: '' });
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -763,19 +791,14 @@ export default function Course100Hour() {
     e.preventDefault();
     setIsSubmittingPreYTTC(true);
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          ...preYTTCForm,
-          _subject: "New Pre-YTTC Info Request",
-          source: "Course 100 Hour - Pre-YTTC Section",
-          form_type: "pre_yttc_info"
-        })
+      await submitToFormSubmit({
+        ...preYTTCForm,
+        _subject: "New Pre-YTTC Info Request",
+        _template: "table",
+        _captcha: "false",
+        _next: `${window.location.origin}/thank-you?type=enquiry`,
+        _autoresponder: "Namaste! Thank you for your interest in our Pre-YTTC preparation. We have received your request and will send you all the information shortly. Get ready for transformation!"
       });
-      setShowPreYTTCDialog(false);
-      setShowPreYTTCThankYou(true);
-      setPreYTTCForm({ name: '', email: '' });
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -791,22 +814,17 @@ export default function Course100Hour() {
       : "";
 
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          ...bookingForm,
-          appointment_date: bookingDate,
-          appointment_time: selectedTime,
-          timezone: selectedTimezone,
-          _subject: `New Call Booking: ${bookingForm.name}`,
-          source: "Course 100 Hour - Book a Call Section",
-          form_type: "booking_request"
-        })
+      await submitToFormSubmit({
+        ...bookingForm,
+        appointment_date: bookingDate,
+        appointment_time: selectedTime,
+        timezone: selectedTimezone,
+        _subject: `New Call Booking: ${bookingForm.name}`,
+        _template: "table",
+        _captcha: "false",
+        _next: `${window.location.origin}/thank-you?type=booking`,
+        _autoresponder: "Namaste! Your call with YogaGarhi has been scheduled. We look forward to connecting with you on the selected date and time to discuss your yoga journey. See you soon!"
       });
-      setShowBookingDialog(false);
-      setBookingForm({ name: '', countryCode: '+91', contact: '', email: '', course: '' });
-      alert("Booking request sent successfully! We will contact you shortly.");
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -818,22 +836,14 @@ export default function Course100Hour() {
   const handleEnrollSubmit = async () => {
     setIsSubmittingEnroll(true);
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          ...enrollForm,
-          _subject: `New Enrollment: ${enrollForm.name}`,
-          source: "Course 100 Hour - Enrollment Popup",
-          form_type: "enrollment"
-        })
+      await submitToFormSubmit({
+        ...enrollForm,
+        _subject: `New Enrollment: ${enrollForm.name}`,
+        _template: "table",
+        _captcha: "false",
+        _next: `${window.location.origin}/thank-you?type=enrollment`,
+        _autoresponder: "Namaste! Thank you for applying to YogaGarhi. We have received your enrollment request. Our admissions team will review your application and contact you within 24 hours with the next steps."
       });
-      setShowEnrollDialog(false);
-      setEnrollForm({
-        name: '', email: '', countryCode: '+91', contact: '', courseName: '', courseDate: '',
-        accommodation: '', gender: '', country: '', source: '', message: ''
-      });
-      alert("Enrollment submitted successfully! Welcome to the journey.");
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -846,19 +856,14 @@ export default function Course100Hour() {
     e.preventDefault();
     setIsSubmittingQuick(true);
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          ...quickEnquiryForm,
-          _subject: `New Quick Enquiry: ${quickEnquiryForm.name}`,
-          source: "Course 100 Hour - Quick Enquiry Popup",
-          form_type: "quick_enquiry"
-        })
+      await submitToFormSubmit({
+        ...quickEnquiryForm,
+        _subject: `New Quick Enquiry: ${quickEnquiryForm.name}`,
+        _template: "table",
+        _captcha: "false",
+        _next: `${window.location.origin}/thank-you?type=enquiry`,
+        _autoresponder: "Namaste! Thank you for contacting YogaGarhi. We have received your quick enquiry and our team will get back to you within 24 hours."
       });
-      setShowQuickEnquiryDialog(false);
-      setQuickEnquiryForm({ name: '', email: '', message: '' });
-      alert("Enquiry sent! We will get back to you soon.");
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -1199,7 +1204,7 @@ export default function Course100Hour() {
               <circle cx="50" cy="50" r="18" />
               <circle cx="50" cy="50" r="9" />
               {/* Decorative petals */}
-              {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle, i) => (
+              {isMounted && [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle, i) => (
                 <ellipse key={i} cx={50 + 36 * Math.cos(angle * Math.PI / 180)} cy={50 + 36 * Math.sin(angle * Math.PI / 180)} rx="4" ry="8" transform={`rotate(${angle} ${50 + 36 * Math.cos(angle * Math.PI / 180)} ${50 + 36 * Math.sin(angle * Math.PI / 180)})`} />
               ))}
             </svg>
@@ -1688,8 +1693,9 @@ This is not a transactional relationship — it is a lifelong connection.`}
             <div className="flex items-center justify-center gap-2 mb-4">
               <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
               <svg className="w-10 h-10 text-primary" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="20" cy="20" r="8" />
-                {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
+                <circle cx="20" cy="20" r="9" />
+                {/* Sun rays */}
+                {isMounted && [0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
                   <line key={i} x1={20 + 11 * Math.cos(angle * Math.PI / 180)} y1={20 + 11 * Math.sin(angle * Math.PI / 180)} x2={20 + 16 * Math.cos(angle * Math.PI / 180)} y2={20 + 16 * Math.sin(angle * Math.PI / 180)} />
                 ))}
               </svg>
@@ -1748,9 +1754,9 @@ This is not a transactional relationship — it is a lifelong connection.`}
               <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
               <svg className="w-10 h-10 text-primary" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1">
                 <circle cx="20" cy="20" r="16" />
-                <circle cx="20" cy="20" r="10" />
-                <circle cx="20" cy="20" r="4" />
-                {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+                <circle cx="20" cy="20" r="6" strokeDasharray="2 2" />
+                {/* Orbital dots */}
+                {isMounted && [0, 60, 120, 180, 240, 300].map((angle, i) => (
                   <circle key={i} cx={20 + 10 * Math.cos(angle * Math.PI / 180)} cy={20 + 10 * Math.sin(angle * Math.PI / 180)} r="3" fill="currentColor" />
                 ))}
               </svg>
@@ -2489,7 +2495,8 @@ This is not a transactional relationship — it is a lifelong connection.`}
               <svg className="w-10 h-10 text-primary" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <circle cx="20" cy="20" r="16" />
                 <circle cx="20" cy="20" r="8" />
-                {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
+                {/* Petals */}
+                {isMounted && [0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
                   <ellipse key={i} cx={20 + 12 * Math.cos(angle * Math.PI / 180)} cy={20 + 12 * Math.sin(angle * Math.PI / 180)} rx="2" ry="4" transform={`rotate(${angle} ${20 + 12 * Math.cos(angle * Math.PI / 180)} ${20 + 12 * Math.sin(angle * Math.PI / 180)})`} />
                 ))}
               </svg>
@@ -2530,7 +2537,7 @@ This is not a transactional relationship — it is a lifelong connection.`}
         {/* ===== YOGA ALLIANCE CERTIFICATION ===== */}
         <section
           className="py-24 relative bg-cover bg-center bg-fixed"
-          style={{ backgroundImage: `url(${yogaAllianceBg})` }}
+          style={{ backgroundImage: `url(${apartYogaAllianceGraduates.src})` }}
         >
           {/* Dark Overlay */}
           <div className="absolute inset-0 bg-black/50" />
@@ -2866,11 +2873,7 @@ This is not a transactional relationship — it is a lifelong connection.`}
                   description: "Share your space with two like-minded yogis. A great way to build lasting friendships.",
                   originalPrice: "$1,399",
                   price: "$1,149",
-                  images: [
-                    "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=500&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500&h=400&fit=crop",
-                  ],
+                  images: [tripleBalcony, tripleBathroom, tripleBedroom1, tripleBedroom2, tripleBedroom3],
                   features: ["Hot Water", "AC/Fan", "Wi-Fi", "Daily Clean"],
                   badge: null,
                   isPopular: false,
@@ -2881,11 +2884,7 @@ This is not a transactional relationship — it is a lifelong connection.`}
                   description: "Share with one roommate. Perfect balance of community and personal space.",
                   originalPrice: "$1,649",
                   price: "$1,349",
-                  images: [
-                    "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=500&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=500&h=400&fit=crop",
-                  ],
+                  images: [doubleBedroom1, doubleBedroom2, doubleBedroom3, doubleBedroom4, doubleBalcony],
                   features: ["Hot Water", "AC/Fan", "Wi-Fi", "Daily Clean"],
                   badge: "Most Popular",
                   isPopular: true,
@@ -2897,157 +2896,26 @@ This is not a transactional relationship — it is a lifelong connection.`}
                   originalPrice: "$1,999",
                   price: "$1,649",
                   images: [
-                    "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=500&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=500&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=500&h=400&fit=crop",
+                    privateNew2,
+                    privateNew3,
+                    privateNew4,
+                    privateNew1,
+                    privateBedroom1,
+                    privateBedroom2,
+                    privateBedroom3,
+                    privateBathroom,
+                    privateBalcony,
                   ],
                   features: ["Hot Water", "AC/Fan", "Wi-Fi", "Daily Clean"],
                   badge: "Premium",
                   isPopular: false,
                 },
               ].map((room, roomIndex) => (
-                <div
+                <RoomCard
                   key={roomIndex}
-                  className={`group bg-card rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-elevated ${room.isPopular ? 'border-primary shadow-lg' : 'border-border shadow-card'
-                    }`}
-                >
-                  {/* Image Carousel */}
-                  <div className="relative h-52 overflow-hidden group/carousel">
-                    <div
-                      id={`carousel-${roomIndex}`}
-                      className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide h-full scroll-smooth"
-                      style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                    >
-                      {room.images.map((img, idx) => (
-                        <div key={idx} className="flex-shrink-0 w-full h-full snap-start">
-                          <Image
-                            src={img}
-                            alt={`${room.title} ${idx + 1}`}
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Badge */}
-                    {room.badge && (
-                      <div className="absolute top-3 left-3 z-10">
-                        <span className={`px-3 py-1 text-xs font-semibold rounded-full ${room.isPopular
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-foreground/80 text-background'
-                          }`}>
-                          {room.badge}
-                        </span>
-                      </div>
-                    )}
-
-                    {/* Navigation Arrows */}
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const carousel = document.getElementById(`carousel-${roomIndex}`);
-                        if (carousel) carousel.scrollBy({ left: -carousel.offsetWidth, behavior: 'smooth' });
-                      }}
-                      className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300"
-                      aria-label="Previous image"
-                    >
-                      <svg className="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                      </svg>
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const carousel = document.getElementById(`carousel-${roomIndex}`);
-                        if (carousel) carousel.scrollBy({ left: carousel.offsetWidth, behavior: 'smooth' });
-                      }}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300"
-                      aria-label="Next image"
-                    >
-                      <svg className="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-
-                    {/* Dot Indicators */}
-                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 bg-black/40 backdrop-blur-sm px-2.5 py-1.5 rounded-full">
-                      {room.images.map((_, idx) => (
-                        <button
-                          key={idx}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            const carousel = document.getElementById(`carousel-${roomIndex}`);
-                            if (carousel) carousel.scrollTo({ left: carousel.offsetWidth * idx, behavior: 'smooth' });
-                          }}
-                          className="w-1.5 h-1.5 rounded-full bg-white/60 hover:bg-white transition-colors"
-                          aria-label={`Go to image ${idx + 1}`}
-                        />
-                      ))}
-                    </div>
-
-                    {/* Swipe hint - visible on mobile */}
-                    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10 md:hidden">
-                      <div className="flex items-center gap-1.5 text-white/90 text-xs font-medium bg-black/30 px-3 py-1.5 rounded-full">
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
-                        </svg>
-                        <span>Swipe</span>
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-5">
-                    {/* Header */}
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-heading text-lg font-bold text-foreground">{room.title}</h3>
-                      <div className="flex items-center gap-1 text-muted-foreground">
-                        <Users className="w-4 h-4" />
-                        <span className="text-xs">{room.beds} {room.beds === 1 ? 'bed' : 'beds'}</span>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
-                      {room.description}
-                    </p>
-
-                    {/* Features */}
-                    <div className="flex flex-wrap gap-2 mb-5">
-                      {room.features.map((feature) => (
-                        <span
-                          key={feature}
-                          className="px-2.5 py-1 bg-secondary text-secondary-foreground text-xs rounded-md"
-                        >
-                          {feature}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Pricing */}
-                    <div className="flex items-end justify-between pt-4 border-t border-border mb-4">
-                      <div>
-                        <p className="text-muted-foreground line-through text-sm">{room.originalPrice}</p>
-                        <p className="font-heading text-2xl font-bold text-foreground">{room.price}</p>
-                      </div>
-                      <span className="px-2.5 py-1 bg-primary/10 text-primary text-xs font-medium rounded-md">
-                        Save 20%
-                      </span>
-                    </div>
-
-                    {/* Book Now Button */}
-                    <Button
-                      onClick={() => setShowEnrollDialog(true)}
-                      className={`w-full ${room.isPopular ? 'bg-primary hover:bg-primary/90' : 'bg-foreground hover:bg-foreground/90'} text-background font-semibold py-2.5`}
-                    >
-                      Book Now
-                    </Button>
-                  </div>
-                </div>
+                  room={room}
+                  onBookNow={() => setShowEnrollDialog(true)}
+                />
               ))}
             </div>
 
@@ -3292,30 +3160,28 @@ This is not a transactional relationship — it is a lifelong connection.`}
                       </div>
 
                       {/* Spots Left */}
-                      <div className="flex items-center gap-4 sm:gap-6 flex-wrap sm:flex-nowrap">
-                        <span className={`text-sm px-3 py-1.5 rounded-md whitespace-nowrap ${item.spotsLeft <= 3
-                          ? "bg-red-100 text-red-700"
-                          : "bg-secondary text-secondary-foreground"
-                          }`}>
-                          Only {item.spotsLeft} spots left
-                        </span>
+                      <span className={`text-sm px-3 py-1.5 rounded-md whitespace-nowrap ${item.spotsLeft <= 3
+                        ? "bg-red-100 text-red-700"
+                        : "bg-secondary text-secondary-foreground"
+                        }`}>
+                        Only {item.spotsLeft} spots left
+                      </span>
 
-                        {/* Early Bird */}
-                        <div className="text-center">
-                          <p className="font-heading font-bold text-foreground text-sm">Early Bird Price</p>
-                          <p className="text-primary text-sm font-medium">save {item.earlyBirdSaving}</p>
-                        </div>
-
-                        {/* Book Button */}
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="whitespace-nowrap"
-                          onClick={() => setShowEnrollDialog(true)}
-                        >
-                          Book Now
-                        </Button>
+                      {/* Early Bird */}
+                      <div className="text-center">
+                        <p className="font-heading font-bold text-foreground text-sm">Early Bird Price</p>
+                        <p className="text-primary text-sm font-medium">save {item.earlyBirdSaving}</p>
                       </div>
+
+                      {/* Book Button */}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="whitespace-nowrap"
+                        onClick={() => setShowEnrollDialog(true)}
+                      >
+                        Book Now
+                      </Button>
                     </div>
                   ))}
                 </div>
@@ -3422,9 +3288,9 @@ This is not a transactional relationship — it is a lifelong connection.`}
               <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="0.3" />
               <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" strokeWidth="0.3" />
               <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" strokeWidth="0.3" />
-              <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" strokeWidth="0.3" />
-              {/* Decorative dots */}
-              {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
+              <circle cx="50" cy="50" r="30" strokeDasharray="2 4" />
+              {/* Outer dots */}
+              {isMounted && [0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
                 <circle key={i} cx={50 + 40 * Math.cos(angle * Math.PI / 180)} cy={50 + 40 * Math.sin(angle * Math.PI / 180)} r="2" fill="currentColor" opacity="0.5" />
               ))}
             </svg>
@@ -3433,9 +3299,10 @@ This is not a transactional relationship — it is a lifelong connection.`}
             <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] text-primary/[0.02] animate-float-gentle" style={{ animationDelay: '4s' }} viewBox="0 0 100 100" fill="currentColor">
               <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="0.2" />
               <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="0.2" />
-              <circle cx="50" cy="50" r="32" fill="none" stroke="currentColor" strokeWidth="0.2" />
-              {/* Radiating lines */}
-              {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle, i) => (
+              <circle cx="50" cy="50" r="32" fill="none" stroke="currentColor" />
+              <circle cx="50" cy="50" r="15" />
+              {/* Radial lines */}
+              {isMounted && [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle, i) => (
                 <line key={i} x1="50" y1="50" x2={50 + 48 * Math.cos(angle * Math.PI / 180)} y2={50 + 48 * Math.sin(angle * Math.PI / 180)} stroke="currentColor" strokeWidth="0.15" />
               ))}
             </svg>
@@ -4504,7 +4371,7 @@ This is not a transactional relationship — it is a lifelong connection.`}
             <ChevronDown className="w-6 h-6 rotate-180" />
           </button>
         )}
-      </Layout>
+      </Layout >
     </>
   );
 }

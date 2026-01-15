@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "@/components/layout/Layout";
@@ -12,10 +13,41 @@ import {
 import heroImage from "@/assets/hero-yoga-bali.jpg";
 
 export default function ThankYou() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <ThankYouContent />
+    </Suspense>
+  );
+}
+
+function ThankYouContent() {
+  const searchParams = useSearchParams();
+  const type = searchParams.get('type') || 'enrollment';
+
+  const [isMounted, setIsMounted] = useState(false);
   const [showConfetti, setShowConfetti] = useState(true);
   const [animationStep, setAnimationStep] = useState(0);
 
+  const getMessage = () => {
+    switch (type) {
+      case 'enquiry':
+        return "We have received your enquiry. Our team will reach out to you within 24 hours with the information you need.";
+      case 'booking':
+        return "Your call has been scheduled. Our team will reach out to you at the selected time.";
+      case 'webinar':
+        return "You have successfully registered for the webinar. Check your email for the join link and details.";
+      case 'syllabus':
+        return "The syllabus guide is on its way to your inbox. Please check your email.";
+      case 'manual':
+        return "Your free manual is being sent to your email. We hope it helps your practice!";
+      case 'enrollment':
+      default:
+        return "We have received your enrollment request. Our team will reach out to you within 24 hours with next steps.";
+    }
+  };
+
   useEffect(() => {
+    setIsMounted(true);
     // Staggered animation
     const timers = [
       setTimeout(() => setAnimationStep(1), 300),
@@ -30,7 +62,7 @@ export default function ThankYou() {
   return (
     <Layout>
       {/* Confetti Animation */}
-      {showConfetti && (
+      {isMounted && showConfetti && (
         <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
           {[...Array(50)].map((_, i) => (
             <div
@@ -116,7 +148,7 @@ export default function ThankYou() {
             className={`text-primary-foreground/70 max-w-xl mx-auto transition-all duration-700 ${animationStep >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
           >
-            We have received your enrollment request. Our team will reach out to you within 24 hours with next steps.
+            {getMessage()}
           </p>
         </div>
       </section>
@@ -260,7 +292,7 @@ export default function ThankYou() {
                 Articles on yoga philosophy, practice tips, and spiritual growth
               </p>
               <Link
-                href="/blog"
+                href="/blogs"
                 className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
               >
                 Explore Blog <ArrowRight className="w-4 h-4" />

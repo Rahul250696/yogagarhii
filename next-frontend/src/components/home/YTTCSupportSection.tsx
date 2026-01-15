@@ -1,5 +1,6 @@
 "use client";
 import { useState, Suspense } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
   GraduationCap, RefreshCw, Users, BookOpen, Heart,
@@ -49,6 +50,7 @@ const postYTTCItems = [
 ];
 
 const YTTCSupportSection = () => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<'pre' | 'post'>('pre');
   const [showPreYTTCDialog, setShowPreYTTCDialog] = useState(false);
   const [showThankYouDialog, setShowThankYouDialog] = useState(false);
@@ -64,23 +66,28 @@ const YTTCSupportSection = () => {
     setIsSubmitting(true);
 
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           email: email,
           _subject: "New Pre-YTTC Guide Request",
-          source: "YTTC Support Section - Learn More Button",
-          form_type: "pre_yttc_guide"
-        })
+          _autoresponder: "Namaste! Thank you for requesting our Pre-YTTC preparation guide. It's being sent to your email right now. We hope it helps you prepare for your life-changing journey with YogaGarhi!"
+        }),
       });
 
-      setIsSubmitting(false);
-      setShowPreYTTCDialog(false);
-      setShowThankYouDialog(true);
-      setEmail('');
+      if (response.ok) {
+        setShowPreYTTCDialog(false);
+        setShowThankYouDialog(true);
+        setEmail("");
+      } else {
+        throw new Error('Failed to send request');
+      }
     } catch (error) {
       console.error(error);
+    } finally {
       setIsSubmitting(false);
     }
   };

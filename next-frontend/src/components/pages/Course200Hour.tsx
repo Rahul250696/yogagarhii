@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import Layout from "@/components/layout/Layout";
@@ -22,6 +23,7 @@ import {
   Cherry, Sprout, CircleDot, Sun, MessageSquare, Mail,
   Wifi, Droplets, Wind
 } from "lucide-react";
+import RoomCard from "./RoomCard";
 import heroImage from "@/assets/hero-yoga-bali.jpg";
 import activityAyurveda from "@/assets/activity-ayurveda.jpg";
 import activitySoundHealing from "@/assets/activity-sound-healing.jpg";
@@ -78,6 +80,13 @@ import privateBedroom2 from "@/assets/rooms/private-bedroom-2.jpg";
 import privateBedroom3 from "@/assets/rooms/private-bedroom-3.jpg";
 import privateBathroom from "@/assets/rooms/private-bathroom.jpg";
 import privateBalcony from "@/assets/rooms/private-balcony.jpg";
+
+// Newly uploaded Private Room images
+import privateNew1 from "@/assets/rooms/private-new-1.jpg";
+import privateNew2 from "@/assets/rooms/private-new-2.png";
+import privateNew3 from "@/assets/rooms/private-new-3.png";
+import privateNew4 from "@/assets/rooms/private-new-4.png";
+import privateNew5 from "@/assets/rooms/private-new-5.png";
 
 
 
@@ -383,7 +392,7 @@ const excursions = [
   {
     title: "Balinese Dance Performance",
     description: "Witness the ancient art of Balinese dance — a mesmerizing display of grace, storytelling, and spiritual devotion passed down through generations.",
-    image: apartCeremony,
+    image: apartKecakDance,
     icon: Star
   },
   {
@@ -489,6 +498,7 @@ const quizQuestions = [
 ];
 
 export default function Course200Hour() {
+  const router = useRouter();
   const { setShowBookingDialog: openBookingDialog } = useBooking();
   const { setShowEnrollDialog: openEnrollDialog } = useEnrollment();
   const [showCompactHeader, setShowCompactHeader] = useState(false);
@@ -673,6 +683,7 @@ export default function Course200Hour() {
   const isWebinarFormComplete = webinarForm.name && webinarForm.email && webinarForm.timezone && webinarForm.date && webinarForm.time;
 
   useEffect(() => {
+    setIsMounted(true);
     const handleScroll = () => {
       setShowCompactHeader(window.scrollY > 500);
     };
@@ -698,10 +709,35 @@ export default function Course200Hour() {
     setShowQuizThankYou(false);
   };
 
+  const [isMounted, setIsMounted] = useState(false);
+
+  /* Form Submission States */
+  const [isSubmittingManual, setIsSubmittingManual] = useState(false);
+  const [isSubmittingSyllabus, setIsSubmittingSyllabus] = useState(false);
+  const [isSubmittingWebinar, setIsSubmittingWebinar] = useState(false);
+  const [isSubmittingPreYTTC, setIsSubmittingPreYTTC] = useState(false);
   const [isSubmittingQuiz, setIsSubmittingQuiz] = useState(false);
   const [isSubmittingBooking, setIsSubmittingBooking] = useState(false);
   const [isSubmittingEnroll, setIsSubmittingEnroll] = useState(false);
   const [isSubmittingQuick, setIsSubmittingQuick] = useState(false);
+
+  const submitToFormSubmit = async (fields: Record<string, any>) => {
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(fields),
+    });
+
+    if (response.ok) {
+      if (fields._next) {
+        window.location.href = fields._next;
+      }
+    } else {
+      throw new Error('Failed to send form');
+    }
+  };
 
   const handleQuizSubmit = async () => {
     if (!email.trim()) {
@@ -717,20 +753,15 @@ export default function Course200Hour() {
     setIsSubmittingQuiz(true);
 
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          email: email,
-          quiz_answers: quizAnswers.join(", "),
-          _subject: "New Quiz Result: Yogic Energy",
-          source: "Course 200 Hour - Quiz Section",
-          form_type: "quiz_submission"
-        })
+      await submitToFormSubmit({
+        email: email,
+        quiz_answers: quizAnswers.join(", "),
+        _subject: "New Quiz Result: Yogic Energy",
+        _template: "table",
+        _captcha: "false",
+        _next: `${window.location.origin}/thank-you?type=enquiry`,
+        _autoresponder: "Namaste! Thank you for participating in our Yogic Energy Quiz. We have received your results and will reach out to you shortly to discuss your journey!"
       });
-      setShowQuizDialog(false);
-      setShowQuizThankYou(true);
-      // Don't reset quiz yet so they can see result if needed, or reset on close
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -746,23 +777,17 @@ export default function Course200Hour() {
       : "";
 
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          ...bookingForm,
-          appointment_date: bookingDate,
-          appointment_time: selectedTime,
-          timezone: selectedTimezone,
-          _subject: `New Call Booking: ${bookingForm.name}`,
-          source: "Course 200 Hour - Book a Call Section",
-          form_type: "booking_request"
-        })
+      await submitToFormSubmit({
+        ...bookingForm,
+        appointment_date: bookingDate,
+        appointment_time: selectedTime,
+        timezone: selectedTimezone,
+        _subject: `New Call Booking: ${bookingForm.name}`,
+        _template: "table",
+        _captcha: "false",
+        _next: `${window.location.origin}/thank-you?type=booking`,
+        _autoresponder: "Namaste! Your call with YogaGarhi has been scheduled. We look forward to connecting with you on the selected date and time to discuss your yoga journey. See you soon!"
       });
-      setShowBookingDialog(false);
-      setBookingForm({ name: '', countryCode: '+91', contact: '', email: '', course: '' });
-      // You might want a success message or dialog here. For now, reusing alert or assumption of success.
-      alert("Booking request sent successfully! We will contact you shortly.");
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -774,24 +799,14 @@ export default function Course200Hour() {
   const handleEnrollSubmit = async () => {
     setIsSubmittingEnroll(true);
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          ...enrollForm,
-          _subject: `New Enrollment: ${enrollForm.name}`,
-          source: "Course 200 Hour - Enrollment Popup",
-          form_type: "enrollment"
-        })
+      await submitToFormSubmit({
+        ...enrollForm,
+        _subject: `New Enrollment: ${enrollForm.name}`,
+        _template: "table",
+        _captcha: "false",
+        _next: `${window.location.origin}/thank-you?type=enrollment`,
+        _autoresponder: "Namaste! Thank you for applying to YogaGarhi. We have received your enrollment request. Our admissions team will review your application and contact you within 24 hours with the next steps."
       });
-      setShowEnrollDialog(false);
-      setEnrollForm({
-        name: '', email: '', countryCode: '+91', contact: '', courseName: '', courseDate: '',
-        accommodation: '', gender: '', country: '', source: '', message: ''
-      });
-      // Existing code showed a thank you message? No, it just closed. 
-      // We should probably show a thank you. But for now, let's stick to existing behavior + alert.
-      alert("Enrollment submitted successfully! Welcome to the journey.");
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -804,19 +819,14 @@ export default function Course200Hour() {
     e.preventDefault();
     setIsSubmittingQuick(true);
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          ...quickEnquiryForm,
-          _subject: `New Quick Enquiry: ${quickEnquiryForm.name}`,
-          source: "Course 200 Hour - Quick Enquiry Popup",
-          form_type: "quick_enquiry"
-        })
+      await submitToFormSubmit({
+        ...quickEnquiryForm,
+        _subject: `New Quick Enquiry: ${quickEnquiryForm.name}`,
+        _template: "table",
+        _captcha: "false",
+        _next: `${window.location.origin}/thank-you?type=enquiry`,
+        _autoresponder: "Namaste! Thank you for contacting YogaGarhi. We have received your quick enquiry and our team will get back to you within 24 hours."
       });
-      setShowQuickEnquiryDialog(false);
-      setQuickEnquiryForm({ name: '', email: '', message: '' });
-      alert("Enquiry sent! We will get back to you soon.");
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -825,29 +835,19 @@ export default function Course200Hour() {
     }
   };
 
-  const [isSubmittingManual, setIsSubmittingManual] = useState(false);
-  const [isSubmittingSyllabus, setIsSubmittingSyllabus] = useState(false);
-  const [isSubmittingWebinar, setIsSubmittingWebinar] = useState(false);
-  const [isSubmittingPreYTTC, setIsSubmittingPreYTTC] = useState(false);
-
   const handleManualSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmittingManual(true);
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          name: manualForm.name,
-          email: manualForm.email,
-          _subject: "New Free Manual Request",
-          source: "Course 200 Hour - Free Manual Button",
-          form_type: "manual_download"
-        })
+      await submitToFormSubmit({
+        name: manualForm.name,
+        email: manualForm.email,
+        _subject: "New Free Manual Request",
+        _template: "table",
+        _captcha: "false",
+        _next: `${window.location.origin}/thank-you?type=manual`,
+        _autoresponder: "Namaste! Thank you for your interest in our Free Yoga Manual. It is on its way to your inbox. We hope it supports your practice and journey. Enjoy!"
       });
-      setShowManualDialog(false);
-      setShowManualThankYou(true);
-      setManualForm({ name: '', email: '' });
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -865,20 +865,15 @@ export default function Course200Hour() {
 
     setIsSubmittingSyllabus(true);
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          email: syllabusEmail,
-          course: selectedSyllabusCourse,
-          _subject: `New Syllabus Request: ${selectedSyllabusCourse} Hour`,
-          source: "Course 200 Hour - Download Syllabus",
-          form_type: "syllabus_download"
-        })
+      await submitToFormSubmit({
+        email: syllabusEmail,
+        course: selectedSyllabusCourse,
+        _subject: `New Syllabus Request: ${selectedSyllabusCourse} Hour`,
+        _template: "table",
+        _captcha: "false",
+        _next: `${window.location.origin}/thank-you?type=syllabus`,
+        _autoresponder: "Namaste! Your requested syllabus guide is being sent to your email. We look forward to seeing you at our Yoga Teacher Training in Bali!"
       });
-      setShowSyllabusDialog(false);
-      setShowSyllabusThankYou(true);
-      setSyllabusEmail("");
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -891,19 +886,14 @@ export default function Course200Hour() {
     e.preventDefault();
     setIsSubmittingWebinar(true);
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          ...webinarForm,
-          _subject: `New Webinar Registration: ${webinarForm.name}`,
-          source: "Course 200 Hour - Webinar Section",
-          form_type: "webinar_registration"
-        })
+      await submitToFormSubmit({
+        ...webinarForm,
+        _subject: `New Webinar Registration: ${webinarForm.name}`,
+        _template: "table",
+        _captcha: "false",
+        _next: `${window.location.origin}/thank-you?type=webinar`,
+        _autoresponder: "Namaste! You have successfully registered for our Free Orientation Webinar. We will send you the join link and further details shortly. See you there!"
       });
-      setShowWebinarDialog(false);
-      setShowWebinarThankYou(true);
-      setWebinarForm({ name: '', email: '', timezone: '', date: '', time: '' });
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -916,19 +906,14 @@ export default function Course200Hour() {
     e.preventDefault();
     setIsSubmittingPreYTTC(true);
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          ...preYTTCForm,
-          _subject: "New Pre-YTTC Info Request",
-          source: "Course 200 Hour - Pre-YTTC Section",
-          form_type: "pre_yttc_info"
-        })
+      await submitToFormSubmit({
+        ...preYTTCForm,
+        _subject: "New Pre-YTTC Info Request",
+        _template: "table",
+        _captcha: "false",
+        _next: `${window.location.origin}/thank-you?type=enquiry`,
+        _autoresponder: "Namaste! Thank you for your interest in our Pre-YTTC preparation. We have received your request and will send you all the information shortly. Get ready for transformation!"
       });
-      setShowPreYTTCDialog(false);
-      setShowPreYTTCThankYou(true);
-      setPreYTTCForm({ name: '', email: '' });
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -1268,7 +1253,7 @@ export default function Course200Hour() {
               <circle cx="50" cy="50" r="18" />
               <circle cx="50" cy="50" r="9" />
               {/* Decorative petals */}
-              {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle, i) => (
+              {isMounted && [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle, i) => (
                 <ellipse key={i} cx={50 + 36 * Math.cos(angle * Math.PI / 180)} cy={50 + 36 * Math.sin(angle * Math.PI / 180)} rx="4" ry="8" transform={`rotate(${angle} ${50 + 36 * Math.cos(angle * Math.PI / 180)} ${50 + 36 * Math.sin(angle * Math.PI / 180)})`} />
               ))}
             </svg>
@@ -1758,8 +1743,9 @@ This is not a transactional relationship — it is a lifelong connection.`}
             <div className="flex items-center justify-center gap-2 mb-4">
               <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
               <svg className="w-10 h-10 text-primary" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="20" cy="20" r="8" />
-                {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
+                <circle cx="20" cy="20" r="9" />
+                {/* Sun rays */}
+                {isMounted && [0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
                   <line key={i} x1={20 + 11 * Math.cos(angle * Math.PI / 180)} y1={20 + 11 * Math.sin(angle * Math.PI / 180)} x2={20 + 16 * Math.cos(angle * Math.PI / 180)} y2={20 + 16 * Math.sin(angle * Math.PI / 180)} />
                 ))}
               </svg>
@@ -1818,9 +1804,9 @@ This is not a transactional relationship — it is a lifelong connection.`}
               <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
               <svg className="w-10 h-10 text-primary" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1">
                 <circle cx="20" cy="20" r="16" />
-                <circle cx="20" cy="20" r="10" />
-                <circle cx="20" cy="20" r="4" />
-                {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+                <circle cx="20" cy="20" r="6" strokeDasharray="2 2" />
+                {/* Orbital dots */}
+                {isMounted && [0, 60, 120, 180, 240, 300].map((angle, i) => (
                   <circle key={i} cx={20 + 10 * Math.cos(angle * Math.PI / 180)} cy={20 + 10 * Math.sin(angle * Math.PI / 180)} r="3" fill="currentColor" />
                 ))}
               </svg>
@@ -2559,7 +2545,8 @@ This is not a transactional relationship — it is a lifelong connection.`}
               <svg className="w-10 h-10 text-primary" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <circle cx="20" cy="20" r="16" />
                 <circle cx="20" cy="20" r="8" />
-                {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
+                {/* Petals */}
+                {isMounted && [0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
                   <ellipse key={i} cx={20 + 12 * Math.cos(angle * Math.PI / 180)} cy={20 + 12 * Math.sin(angle * Math.PI / 180)} rx="2" ry="4" transform={`rotate(${angle} ${20 + 12 * Math.cos(angle * Math.PI / 180)} ${20 + 12 * Math.sin(angle * Math.PI / 180)})`} />
                 ))}
               </svg>
@@ -2600,7 +2587,7 @@ This is not a transactional relationship — it is a lifelong connection.`}
         {/* ===== YOGA ALLIANCE CERTIFICATION ===== */}
         <section
           className="py-24 relative bg-cover bg-center bg-fixed"
-          style={{ backgroundImage: `url(${yogaAllianceBg})` }}
+          style={{ backgroundImage: `url(${apartYogaAllianceGraduates.src})` }}
         >
           {/* Dark Overlay */}
           <div className="absolute inset-0 bg-black/50" />
@@ -2960,6 +2947,10 @@ This is not a transactional relationship — it is a lifelong connection.`}
                   originalPrice: "$3,125",
                   price: "$2,499",
                   images: [
+                    privateNew2,
+                    privateNew3,
+                    privateNew4,
+                    privateNew1,
                     privateBedroom1,
                     privateBedroom2,
                     privateBedroom3,
@@ -2971,148 +2962,11 @@ This is not a transactional relationship — it is a lifelong connection.`}
                   isPopular: false,
                 },
               ].map((room, roomIndex) => (
-                <div
+                <RoomCard
                   key={roomIndex}
-                  className={`group bg-card rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-elevated ${room.isPopular ? 'border-primary shadow-lg' : 'border-border shadow-card'
-                    }`}
-                >
-                  {/* Image Carousel */}
-                  <div className="relative h-52 overflow-hidden group/carousel">
-                    <div
-                      id={`carousel-${roomIndex}`}
-                      className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide h-full scroll-smooth"
-                      style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                    >
-                      {room.images.map((img, idx) => (
-                        <div key={idx} className="flex-shrink-0 w-full h-full snap-start">
-                          <Image
-                            src={img}
-                            alt={`${room.title} ${idx + 1}`}
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Badge */}
-                    {room.badge && (
-                      <div className="absolute top-3 left-3 z-10">
-                        <span className={`px-3 py-1 text-xs font-semibold rounded-full ${room.isPopular
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-foreground/80 text-background'
-                          }`}>
-                          {room.badge}
-                        </span>
-                      </div>
-                    )}
-
-                    {/* Navigation Arrows */}
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const carousel = document.getElementById(`carousel-${roomIndex}`);
-                        if (carousel) carousel.scrollBy({ left: -carousel.offsetWidth, behavior: 'smooth' });
-                      }}
-                      className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300"
-                      aria-label="Previous image"
-                    >
-                      <svg className="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                      </svg>
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const carousel = document.getElementById(`carousel-${roomIndex}`);
-                        if (carousel) carousel.scrollBy({ left: carousel.offsetWidth, behavior: 'smooth' });
-                      }}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300"
-                      aria-label="Next image"
-                    >
-                      <svg className="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-
-                    {/* Dot Indicators */}
-                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 bg-black/40 backdrop-blur-sm px-2.5 py-1.5 rounded-full">
-                      {room.images.map((_, idx) => (
-                        <button
-                          key={idx}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            const carousel = document.getElementById(`carousel-${roomIndex}`);
-                            if (carousel) carousel.scrollTo({ left: carousel.offsetWidth * idx, behavior: 'smooth' });
-                          }}
-                          className="w-1.5 h-1.5 rounded-full bg-white/60 hover:bg-white transition-colors"
-                          aria-label={`Go to image ${idx + 1}`}
-                        />
-                      ))}
-                    </div>
-
-                    {/* Swipe hint - visible on mobile */}
-                    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10 md:hidden">
-                      <div className="flex items-center gap-1.5 text-white/90 text-xs font-medium bg-black/30 px-3 py-1.5 rounded-full">
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
-                        </svg>
-                        <span>Swipe</span>
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-5">
-                    {/* Header */}
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-heading text-lg font-bold text-foreground">{room.title}</h3>
-                      <div className="flex items-center gap-1 text-muted-foreground">
-                        <Users className="w-4 h-4" />
-                        <span className="text-xs">{room.beds} {room.beds === 1 ? 'bed' : 'beds'}</span>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
-                      {room.description}
-                    </p>
-
-                    {/* Features */}
-                    <div className="flex flex-wrap gap-2 mb-5">
-                      {room.features.map((feature) => (
-                        <span
-                          key={feature}
-                          className="px-2.5 py-1 bg-secondary text-secondary-foreground text-xs rounded-md"
-                        >
-                          {feature}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Pricing */}
-                    <div className="flex items-end justify-between pt-4 border-t border-border mb-4">
-                      <div>
-                        <p className="text-muted-foreground line-through text-sm">{room.originalPrice}</p>
-                        <p className="font-heading text-2xl font-bold text-foreground">{room.price}</p>
-                      </div>
-                      <span className="px-2.5 py-1 bg-primary/10 text-primary text-xs font-medium rounded-md">
-                        Save 20%
-                      </span>
-                    </div>
-
-                    {/* Book Now Button */}
-                    <Button
-                      onClick={() => setShowEnrollDialog(true)}
-                      className={`w-full ${room.isPopular ? 'bg-primary hover:bg-primary/90' : 'bg-foreground hover:bg-foreground/90'} text-background font-semibold py-2.5`}
-                    >
-                      Book Now
-                    </Button>
-                  </div>
-                </div>
+                  room={room}
+                  onBookNow={() => setShowEnrollDialog(true)}
+                />
               ))}
             </div>
 
@@ -3375,7 +3229,6 @@ This is not a transactional relationship — it is a lifelong connection.`}
                         <Button
                           variant="outline"
                           size="sm"
-                          className="whitespace-nowrap"
                           onClick={() => setShowEnrollDialog(true)}
                         >
                           Book Now
@@ -3487,9 +3340,9 @@ This is not a transactional relationship — it is a lifelong connection.`}
               <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="0.3" />
               <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" strokeWidth="0.3" />
               <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" strokeWidth="0.3" />
-              <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" strokeWidth="0.3" />
-              {/* Decorative dots */}
-              {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
+              <circle cx="50" cy="50" r="30" strokeDasharray="2 4" />
+              {/* Outer dots */}
+              {isMounted && [0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
                 <circle key={i} cx={50 + 40 * Math.cos(angle * Math.PI / 180)} cy={50 + 40 * Math.sin(angle * Math.PI / 180)} r="2" fill="currentColor" opacity="0.5" />
               ))}
             </svg>
@@ -3498,9 +3351,10 @@ This is not a transactional relationship — it is a lifelong connection.`}
             <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] text-primary/[0.02] animate-float-gentle" style={{ animationDelay: '4s' }} viewBox="0 0 100 100" fill="currentColor">
               <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="0.2" />
               <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="0.2" />
-              <circle cx="50" cy="50" r="32" fill="none" stroke="currentColor" strokeWidth="0.2" />
-              {/* Radiating lines */}
-              {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle, i) => (
+              <circle cx="50" cy="50" r="18" />
+              <circle cx="50" cy="50" r="9" />
+              {/* Radial lines */}
+              {isMounted && [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle, i) => (
                 <line key={i} x1="50" y1="50" x2={50 + 48 * Math.cos(angle * Math.PI / 180)} y2={50 + 48 * Math.sin(angle * Math.PI / 180)} stroke="currentColor" strokeWidth="0.15" />
               ))}
             </svg>
