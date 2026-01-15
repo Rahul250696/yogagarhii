@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useContext, ReactNode, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogContent,
@@ -58,6 +59,7 @@ export function EnrollmentProvider({ children }: { children: ReactNode }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -76,27 +78,25 @@ export function EnrollmentProvider({ children }: { children: ReactNode }) {
     e.preventDefault();
     setIsLoading(true);
 
-    // Send to formsubmit.co
     try {
-      const response = await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           ...formData,
           _subject: `New Enrollment Request from ${formData.name}`,
-          _template: "table",
-          _captcha: "false"
-        })
+          _autoresponder: "Namaste! Thank you for applying to YogaGarhi. We have received your enrollment request. Our admissions team will review your application and contact you within 24 hours with the next steps. We look forward to having you with us!"
+        }),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to submit enrollment");
+      if (response.ok) {
+        setIsSubmitted(true);
+        router.push('/thank-you?type=enrollment');
+      } else {
+        throw new Error('Failed to send enrollment');
       }
-
-      console.log("Enrollment submitted:", formData);
     } catch (error) {
       console.error("Error submitting enrollment:", error);
       toast({
@@ -105,30 +105,7 @@ export function EnrollmentProvider({ children }: { children: ReactNode }) {
         variant: "destructive"
       });
       setIsLoading(false);
-      return;
     }
-
-    setIsLoading(false);
-    setIsSubmitted(true);
-
-    toast({
-      title: "Enrollment Request Submitted!",
-      description: "We'll contact you within 24 hours with next steps.",
-    });
-
-    // Reset after 3 seconds and close
-    setTimeout(() => {
-      setShowEnrollDialog(false);
-      setIsSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        countryCode: "+1",
-        phone: "",
-        course: "200hr",
-        message: "",
-      });
-    }, 3000);
   };
 
   const handleChange = (field: string, value: string) => {

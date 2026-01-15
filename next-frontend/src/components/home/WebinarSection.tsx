@@ -1,11 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import Image from "next/image";
 import webinarBackground from "@/assets/webinar-background.jpg";
 
 const WebinarSection = () => {
+  const router = useRouter();
   const [showWebinarDialog, setShowWebinarDialog] = useState(false);
   const [showWebinarThankYou, setShowWebinarThankYou] = useState(false);
   const [webinarForm, setWebinarForm] = useState({
@@ -24,20 +26,24 @@ const WebinarSection = () => {
     setIsSubmitting(true);
 
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           ...webinarForm,
           _subject: `New Webinar Registration: ${webinarForm.name}`,
-          source: "Home Page - Webinar Section",
-          form_type: "webinar_registration"
-        })
+          _autoresponder: "Namaste! You have successfully registered for our Free Orientation Webinar. We will send you the join link and further details shortly. See you there!"
+        }),
       });
 
-      setShowWebinarDialog(false);
-      setShowWebinarThankYou(true);
-      setWebinarForm({ name: '', email: '', timezone: '', date: '', time: '' });
+      if (response.ok) {
+        setShowWebinarDialog(false);
+        setShowWebinarThankYou(true);
+      } else {
+        throw new Error('Failed to send registration');
+      }
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");

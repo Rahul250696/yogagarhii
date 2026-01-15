@@ -1,5 +1,6 @@
 "use client";
 import { useState, createContext, useContext, ReactNode } from "react";
+import { useRouter } from "next/navigation";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Check, Clock, ChevronDown, Calendar, Phone } from "lucide-react";
@@ -23,6 +24,7 @@ export function useBooking() {
 export function BookingProvider({ children }: { children: ReactNode }) {
   const [showBookingDialog, setShowBookingDialog] = useState(false);
   const [bookingSource, setBookingSource] = useState("Direct/Unknown");
+  const router = useRouter();
 
   const openBooking = (source: string = "Direct/Unknown") => {
     setBookingSource(source);
@@ -32,7 +34,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   return (
     <BookingContext.Provider value={{ showBookingDialog, setShowBookingDialog, openBooking }}>
       {children}
-      <BookingDialogContent source={bookingSource} />
+      <BookingDialogContent source={bookingSource} router={router} />
     </BookingContext.Provider>
   );
 }
@@ -50,7 +52,7 @@ const timezones = [
   { label: "Sydney (AEST)", value: "Australia/Sydney" },
 ];
 
-function BookingDialogContent({ source }: { source: string }) {
+function BookingDialogContent({ source, router }: { source: string, router: any }) {
   const { showBookingDialog, setShowBookingDialog } = useBooking();
 
   // Calendar state
@@ -83,33 +85,30 @@ function BookingDialogContent({ source }: { source: string }) {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
         },
         body: JSON.stringify({
           _subject: `New Booking Request: ${bookingForm.name}`,
-          _template: "table",
           form_type: "booking_request",
           booking_date: `${selectedDay} ${months[selectedMonth]} ${currentYear}`,
-          booking_time: selectedTime,
+          booking_time: selectedTime || "",
           timezone: selectedTimezone,
           ...bookingForm,
-        })
+          _autoresponder: "Namaste! Your call with YogaGarhi has been scheduled. We look forward to connecting with you on the selected date and time to discuss your yoga journey. See you soon!"
+        }),
       });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+      if (response.ok) {
+        router.push('/thank-you?type=booking');
+      } else {
+        throw new Error('Failed to send booking');
       }
-
-      setShowBookingDialog(false);
-      setShowThankYou(true);
     } catch (error) {
       console.error("Booking submission error:", error);
       alert("Something went wrong. Please try again or contact us directly on WhatsApp.");
-    } finally {
       setIsSubmitting(false);
     }
   };

@@ -2,7 +2,6 @@
 import { Button } from "@/components/ui/button";
 import { useQuickEnquiry } from "@/components/QuickEnquiryDialog";
 import { useBooking } from "@/components/BookingDialog";
-import heroImage from "@/assets/hero-yoga-bali.jpg";
 
 export default function Hero() {
   const { setShowQuickEnquiry } = useQuickEnquiry();
@@ -12,9 +11,9 @@ export default function Hero() {
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        style={{ backgroundImage: 'url(/hero-yoga-group.jpg)' }}
       >
-        <div className="absolute inset-0 bg-primary/60" />
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
       {/* Content */}

@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useContext, ReactNode, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogContent,
@@ -33,6 +34,7 @@ export function QuickEnquiryProvider({ children }: { children: ReactNode }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -44,56 +46,35 @@ export function QuickEnquiryProvider({ children }: { children: ReactNode }) {
     e.preventDefault();
     setIsLoading(true);
 
-    // Send to formsubmit.co
     try {
-      const response = await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           ...formData,
           _subject: `New Quick Enquiry from ${formData.name}`,
-          _template: "table",
-          _captcha: "false"
-        })
+          _autoresponder: "Namaste! Thank you for contacting YogaGarhi. We have received your enquiry and our team will get back to you within 24 hours to assist you further."
+        }),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to submit enquiry");
+      if (response.ok) {
+        setIsSubmitted(true);
+        router.push('/thank-you?type=enquiry');
+      } else {
+        throw new Error('Failed to send enquiry');
       }
-
-      console.log("Enquiry submitted successfully");
     } catch (error) {
-      console.error("Error submitting enquiry:", error);
+      console.error(error);
       toast({
-        title: "Something went wrong",
-        description: "Please try again later or contact us directly.",
-        variant: "destructive"
+        title: "Error",
+        description: "Something went wrong. Please try again or contact us directly.",
+        variant: "destructive",
       });
+    } finally {
       setIsLoading(false);
-      return;
     }
-
-    setIsLoading(false);
-    setIsSubmitted(true);
-
-    toast({
-      title: "Enquiry Submitted!",
-      description: "We'll get back to you within 24 hours.",
-    });
-
-    // Reset after 3 seconds and close
-    setTimeout(() => {
-      setShowQuickEnquiry(false);
-      setIsSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        message: "",
-      });
-    }, 3000);
   };
 
   const handleChange = (field: string, value: string) => {

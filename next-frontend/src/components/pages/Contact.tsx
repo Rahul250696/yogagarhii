@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,6 +10,7 @@ import heroImage from "@/assets/hero-yoga-bali.jpg";
 import Image from "next/image";
 
 export default function Contact() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,27 +23,28 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
-        method: "POST",
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
         },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
           message: formData.message,
           _subject: `New Contact Form Enquiry: ${formData.name}`,
-          source: "Contact Page - Quick Enquiry",
-          form_type: "contact_enquiry"
-        })
+          _autoresponder: "Namaste! Thank you for reaching out to YogaGarhi. We have received your message and will get back to you within 24 hours. Have a beautiful day!"
+        }),
       });
-      alert("Thank you! Your message has been sent successfully.");
-      setFormData({ name: "", email: "", message: "" });
+
+      if (response.ok) {
+        router.push('/thank-you?type=enquiry');
+      } else {
+        throw new Error('Failed to send enquiry');
+      }
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
-    } finally {
       setIsSubmitting(false);
     }
   };
