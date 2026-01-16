@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import About from "@/components/pages/About";
+import AboutAshram from "@/components/pages/AboutAshram";
 
 export const metadata: Metadata = {
     title: "About YogaGarhi - Our Story & Mission",
@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-    return <About />;
+    return <AboutAshram />;
 }

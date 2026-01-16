@@ -328,6 +328,15 @@ export default function About() {
               </div>
             ))}
           </div>
+
+          <div className="text-center mt-12">
+            <Button variant="outline" size="lg" asChild className="rounded-full">
+              <Link href="/teachers" className="flex items-center gap-2">
+                View All Teachers
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -378,6 +387,15 @@ export default function About() {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="text-center mt-12 mb-8">
+            <Button variant="outline" size="lg" asChild className="rounded-full">
+              <Link href="/testimonials" className="flex items-center gap-2">
+                Read More Stories
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
           </div>
 
           <div className="text-center mt-10">

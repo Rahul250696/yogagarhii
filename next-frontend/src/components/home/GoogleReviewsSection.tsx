@@ -7,52 +7,52 @@ import { Button } from "@/components/ui/button";
 // Google Reviews Data
 const reviews = [
   {
-    name: "Sarah Mitchell",
-    location: "United States",
-    avatar: "SM",
+    name: "Anshika Chauhan.",
+    location: "India",
+    avatar: "A",
     rating: 5,
-    date: "3 weeks ago",
-    text: "This training completely changed my life. The teachers are incredibly knowledgeable and the Prakriti-based approach helped me understand my own body in ways I never had before. The location in Bali added such a spiritual dimension to the experience. I came as a student and left as a transformed human being.",
+    date: "3 month ago",
+    text: "The teachers at YogaGarhi were truly exceptional deeply knowledgeable, passionate, and authentic in their approach. Each one carried unique wisdom, blending ancient philosophy with modern understanding, and guided us with patience, clarity, and genuine care. Their teaching, especially the Shiv Shakti Sadhana method, was transformative not only strengthening the body but also awakening a deeper connection with breath, energy, and spirit.",
   },
   {
-    name: "Emma Thompson",
-    location: "United Kingdom",
-    avatar: "ET",
-    rating: 5,
-    date: "1 month ago",
-    text: "I've done multiple yoga teacher trainings, but YogaGarhi is on another level. The depth of philosophy, the attention to each student, and the authentic teaching methodology sets them apart. The multi-style approach gave me confidence to teach different types of students.",
-  },
-  {
-    name: "Marco Rossi",
-    location: "Italy",
-    avatar: "MR",
+    name: "Viral Ashar",
+    location: "India",
+    avatar: "V",
     rating: 5,
     date: "2 months ago",
-    text: "Bellissimo! The food, the accommodation, the teachings - everything was perfect. I especially loved how they integrated Ayurveda with yoga. The small batch size meant I got personal attention from the teachers. Highly recommend!",
+    text: "I had the profound privilege of learning Ashtang Yoga under the guidance of Sachin Sir in the peaceful environment of Rishikesh. His impact on my yoga journey has been transformative.From the very beginning, Sir's teaching methodologies were perfectly structured, helping me not just memorize poses, but genuinely understand the whole concept of yoga at its core.",
   },
   {
-    name: "Yuki Tanaka",
-    location: "Japan",
-    avatar: "YT",
+    name: "Sanddep Ssandeep",
+    location: "India",
+    avatar: "S",
     rating: 5,
-    date: "1 month ago",
-    text: "The peaceful environment and the structured daily routine helped me go deep into my practice. The teachers are not just instructors but true yogis who live what they teach. The excursions to temples and rice fields were magical.",
+    date: "3 months ago",
+    text: "Such a wonderful Experience with YogaGarhi. If you are searching for a yoga teacher training that is not just a course but a complete transformation of your life,your soul I can’t recommend YogaGarhi enough.I am equally grateful to Sachin ji whose guidance in Pranayama, Meditation, Hatha, and Ashtanga Yoga brought me so much balance. Their patience and wisdom created the perfect space for discipline, growth, and inner stillness.Thank you so much Sachin ji. 🙏🏻",
   },
   {
-    name: "Anna Kowalski",
-    location: "Poland",
-    avatar: "AK",
+    name: "Anchal Dhiman",
+    location: "India",
+    avatar: "A",
     rating: 5,
-    date: "3 weeks ago",
-    text: "I was nervous about doing a 200-hour training but the supportive community made everything so easy. The curriculum covers everything from asana to philosophy to teaching methodology. Now I feel ready to share yoga with the world.",
+    date: "2 month ago",
+    text: "200-hour yoga training in Bali was truly a life-changing and soulful journey. The place was surrounded by nature, filled with peace and divine energy. The accommodation was cozy and clean, and the food was nourishing, sattvic, and full of love.The teachers were incredible — knowledgeable, kind, and deeply spiritual. Especially Teacher Sachin Ji , whose wisdom and presence inspired me to experience yoga beyond just the body as a path of awareness, balance, and devotion.",
   },
   {
-    name: "Carlos Rodriguez",
-    location: "Spain",
-    avatar: "CR",
+    name: "Deep Srivastava",
+    location: "India",
+    avatar: "D",
     rating: 5,
     date: "2 months ago",
-    text: "An unforgettable experience. The morning pranayama sessions with sunrise views, the authentic sattvic meals, and the deep philosophical discussions transformed not just my practice but my entire outlook on life. Gracias YogaGarhi!",
+    text: "I had an amazing experience at Yogagarhi! The teachers were incredibly knowledgeable, supportive, and truly dedicated to each student’s growth. What I loved the most was that our group was small — that’s the best part of our YTTC! We received very personal attention, and it really helped deepen my understanding and practice of yoga. The energy, the environment, and the community made it a truly transformative journey. Highly recommended to anyone looking for authentic yoga training in Bali! 🙏✨",
+  },
+  {
+    name: "Prerna Rai",
+    location: "India",
+    avatar: "P",
+    rating: 5,
+    date: "2 months ago",
+    text: "MY experience has been extremely transformative. So grateful to choose this schoo.THE LEAD TEACHER SACHIN JI IS THE BEST YOGA TEACHER !🙏I did my 200 hr ttc from him. He is super experienced and supportive , nothing seems impossible with his years of experience and learning from him gives you deep knowledge of anatomy and growth in the practice.Highly recommend training from THIS SCHOOL IN BALI. In my experience, It’s truly the best school to be trained from!",
   },
 ];
 
@@ -222,8 +222,8 @@ export default function GoogleReviewsSection() {
                   onClick={() => scrollToIndex(index)}
                   aria-label={`Go to review ${index + 1}`}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                      ? "bg-primary w-5"
-                      : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                    ? "bg-primary w-5"
+                    : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
                     }`}
                 />
               ))}
@@ -244,7 +244,7 @@ export default function GoogleReviewsSection() {
         {/* View All CTA */}
         <div className="text-center mt-8">
           <a
-            href="https://maps.app.goo.gl/qE7ouyMxUyLsRhNk6"
+            href="https://www.google.com/maps/place/Yoga+Teacher+Training+in+Bali+-+Yogagarhi/@-8.4645426,115.3278308,18z/data=!4m6!3m5!1s0x2dd219e70aa3e43d:0x281930517f104591!8m2!3d-8.4649127!4d115.3258379!16s%2Fg%2F11xywjhmnz?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D"
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-3 bg-white border-2 border-gray-200 hover:border-blue-500 rounded-full px-6 py-3 shadow-md hover:shadow-lg transition-all duration-300"
