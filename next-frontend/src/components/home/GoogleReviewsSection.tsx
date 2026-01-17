@@ -23,7 +23,7 @@ const reviews = [
     text: "I had the profound privilege of learning Ashtang Yoga under the guidance of Sachin Sir in the peaceful environment of Rishikesh. His impact on my yoga journey has been transformative.From the very beginning, Sir's teaching methodologies were perfectly structured, helping me not just memorize poses, but genuinely understand the whole concept of yoga at its core.",
   },
   {
-    name: "Sanddep Ssandeep",
+    name: "Sandeep Sandeep",
     location: "India",
     avatar: "S",
     rating: 5,

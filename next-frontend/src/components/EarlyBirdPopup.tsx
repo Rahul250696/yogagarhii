@@ -70,21 +70,21 @@ const EarlyBirdPopup = () => {
             <Sparkles className="absolute top-2 left-2 w-4 h-4 text-yellow-300 animate-pulse" />
             <Sparkles className="absolute top-2 right-2 w-4 h-4 text-yellow-300 animate-pulse" />
 
-            <h3 className="text-white font-heading text-3xl font-bold tracking-tight leading-tight">
-              EARLY
+            <h3 className="text-white font-heading text-xl font-bold tracking-tight leading-tight">
+              The First 5 Students
             </h3>
 
             {/* Bird Banner */}
             <div className="relative -mx-6 my-2">
               <div className="bg-primary py-2 px-4 transform -rotate-2">
-                <span className="text-primary-foreground font-heading text-2xl font-bold italic">
-                  BIRD
+                <span className="text-primary-foreground font-heading text-xl font-bold italic">
+                  Get a Discount
                 </span>
               </div>
             </div>
 
-            <p className="text-white font-heading text-xl font-semibold">
-              Offer
+            <p className="text-white font-heading text-lg font-semibold">
+              Every Month!
             </p>
 
             {/* Decorative line */}
