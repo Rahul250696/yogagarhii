@@ -8,7 +8,7 @@ import {
   ChevronRight, Play, X, Mail, Send, Check
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import SacredGeometryBackground from "@/components/3d/SacredGeometryBackground";
@@ -343,22 +343,36 @@ const YTTCSupportSection = () => {
                 })}
               </div>
 
-              {/* Bottom Highlight */}
-              <div className="mt-16 text-center">
-                <div className="inline-flex flex-wrap justify-center gap-4 text-sm">
-                  {[
-                    "Lifetime Course Repetition",
-                    "Assistant Teaching Opportunities",
-                    "Global Alumni Network"
-                  ].map((item, index) => (
-                    <span
-                      key={index}
-                      className="flex items-center gap-2 px-5 py-2.5 bg-secondary/50 rounded-full border border-border hover:border-primary/30 transition-colors"
-                    >
-                      <CheckCircle2 className="w-4 h-4 text-primary" />
-                      {item}
-                    </span>
-                  ))}
+              {/* Bottom Highlights - Important Support Pillars */}
+              <div className="mt-20">
+                <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                  {/* Lifetime Course Repetition */}
+                  <div className="group relative p-6 rounded-2xl bg-white dark:bg-card border border-primary/10 hover:border-primary/30 hover:shadow-xl transition-all duration-500 text-center">
+                    <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                      <RefreshCw className="w-6 h-6" />
+                    </div>
+                    <h5 className="font-heading font-bold text-foreground mb-2">Lifetime Free Course Repetation</h5>
+                    <p className="text-xs text-muted-foreground">Repeat same course forever at no extra tuition cost.</p>
+                  </div>
+
+                  {/* Assistant Teaching Opportunities */}
+                  <div className="group relative p-6 rounded-2xl bg-gradient-to-br from-primary/5 to-accent/5 border border-primary/20 hover:border-primary/40 hover:shadow-xl transition-all duration-500 text-center overflow-hidden">
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-primary/10 rounded-bl-full translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500" />
+                    <div className="mx-auto w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                      <GraduationCap className="w-6 h-6" />
+                    </div>
+                    <h5 className="font-heading font-bold text-foreground mb-2">Assistant Teaching Mentorship</h5>
+                    <p className="text-xs text-muted-foreground">Apply to become an assistant teacher in future batches.</p>
+                  </div>
+
+                  {/* Global Alumni Network */}
+                  <div className="group relative p-6 rounded-2xl bg-white dark:bg-card border border-primary/10 hover:border-primary/30 hover:shadow-xl transition-all duration-500 text-center">
+                    <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                      <Users className="w-6 h-6" />
+                    </div>
+                    <h5 className="font-heading font-bold text-foreground mb-2">Alumni Family</h5>
+                    <p className="text-xs text-muted-foreground">Stay connected with a global community of practitioners.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -442,9 +456,9 @@ const YTTCSupportSection = () => {
               <DialogTitle className="font-heading text-2xl font-bold text-foreground">
                 Get Pre-YTTC Details
               </DialogTitle>
-              <p className="text-muted-foreground text-sm">
+              <DialogDescription className="text-muted-foreground text-sm">
                 Enter your email to receive the complete Pre-YTTC preparation guide
-              </p>
+              </DialogDescription>
             </DialogHeader>
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-4">
@@ -515,12 +529,12 @@ const YTTCSupportSection = () => {
 
             {/* Message */}
             <div className="space-y-2">
-              <h3 className="font-heading text-2xl font-bold text-foreground">
+              <DialogTitle className="font-heading text-2xl font-bold text-foreground">
                 Thank You! 🙏
-              </h3>
-              <p className="text-muted-foreground">
+              </DialogTitle>
+              <DialogDescription className="text-muted-foreground">
                 Your Pre-YTTC preparation guide is on its way to your inbox.
-              </p>
+              </DialogDescription>
             </div>
 
             {/* Info Box */}

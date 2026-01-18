@@ -9,6 +9,7 @@ import founderImage from "@/assets/founder-image.png";
 import gallery1 from "@/assets/gallery/gallery-1.jpg";
 import gallery2 from "@/assets/gallery/gallery-2.jpg";
 import gallery3 from "@/assets/gallery/gallery-3.jpg";
+import { googleReviews } from "@/constants/googleReviews";
 
 const sections = [
   {
@@ -67,26 +68,6 @@ const teachers = [
   },
 ];
 
-const testimonials = [
-  {
-    name: "Sarah Mitchell",
-    country: "United States",
-    text: "YogaGarhi transformed my understanding of yoga completely. The teachers are exceptional.",
-    rating: 5,
-  },
-  {
-    name: "Marcus Weber",
-    country: "Germany",
-    text: "The authenticity here is unmatched. Every meditation session deepened my practice.",
-    rating: 5,
-  },
-  {
-    name: "Yuki Tanaka",
-    country: "Japan",
-    text: "I came seeking knowledge and found a family. The personalized attention exceeded expectations.",
-    rating: 5,
-  },
-];
 
 export default function About() {
   const { setShowEnrollDialog } = useEnrollment();
@@ -355,9 +336,9 @@ export default function About() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {testimonials.map((testimonial, index) => (
+            {googleReviews.slice(0, 3).map((review, index) => (
               <div
-                key={testimonial.name}
+                key={review.name}
                 className={`group rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-xl ${index === 1 ? 'ring-2 ring-primary/30' : 'border border-border/40'
                   }`}
               >
@@ -369,16 +350,16 @@ export default function About() {
                 <div className="bg-muted/30 p-6">
                   <Quote className="w-8 h-8 text-primary/20 mb-4" />
                   <p className="text-foreground/80 leading-relaxed mb-6 italic min-h-[80px]">
-                    "{testimonial.text}"
+                    "{review.text}"
                   </p>
                   <div className="pt-4 border-t border-border/40">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
-                        <p className="text-sm text-muted-foreground">{testimonial.country}</p>
+                        <h4 className="font-semibold text-foreground">{review.name}</h4>
+                        <p className="text-sm text-muted-foreground">{review.location}</p>
                       </div>
                       <div className="flex gap-0.5">
-                        {[...Array(testimonial.rating)].map((_, i) => (
+                        {[...Array(review.rating)].map((_, i) => (
                           <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
                         ))}
                       </div>
@@ -400,7 +381,7 @@ export default function About() {
 
           <div className="text-center mt-10">
             <a
-              href="https://www.google.com/maps"
+              href="https://www.google.com/maps/place/Yoga+Teacher+Training+in+Bali+-+Yogagarhi/@-8.4645426,115.3278308,18z/data=!4m6!3m5!1s0x2dd219e70aa3e43d:0x281930517f104591!8m2!3d-8.4649127!4d115.3258379!16s%2Fg%2F11xywjhmnz?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-primary font-medium hover:underline"

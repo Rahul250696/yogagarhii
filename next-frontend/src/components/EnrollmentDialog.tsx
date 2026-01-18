@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -147,7 +148,7 @@ export function EnrollmentProvider({ children }: { children: ReactNode }) {
           <DialogHeader>
             <DialogTitle className="text-center font-heading text-2xl text-primary flex items-center justify-center gap-2">
               {isSubmitted ? (
-                "Thank You!"
+                "Enrollment Successful!"
               ) : (
                 <>
                   <GraduationCap className="w-6 h-6" />
@@ -155,6 +156,11 @@ export function EnrollmentProvider({ children }: { children: ReactNode }) {
                 </>
               )}
             </DialogTitle>
+            {!isSubmitted && (
+              <DialogDescription className="text-center text-muted-foreground">
+                Please fill in the details below to start your enrollment process.
+              </DialogDescription>
+            )}
           </DialogHeader>
 
           {isSubmitted ? (
@@ -163,12 +169,12 @@ export function EnrollmentProvider({ children }: { children: ReactNode }) {
                 <CheckCircle className="w-12 h-12 text-green-600" />
               </div>
               <div className="text-center space-y-2">
-                <p className="font-medium text-foreground text-lg">
+                <DialogTitle className="font-medium text-foreground text-lg">
                   Welcome to the YogaGarhi family, {formData.name}!
-                </p>
-                <p className="text-muted-foreground">
+                </DialogTitle>
+                <DialogDescription className="text-muted-foreground">
                   We've received your enrollment request and will contact you within 24 hours.
-                </p>
+                </DialogDescription>
               </div>
               <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground w-full">
                 <p>📧 Confirmation sent to: <span className="font-medium text-foreground">{formData.email}</span></p>
@@ -276,17 +282,17 @@ export function EnrollmentProvider({ children }: { children: ReactNode }) {
                     required
                   >
                     <option value="">Choose...</option>
-                    <option value="Feb 1st - Feb 12th, 2026">Feb 1st - Feb 12th, 2026</option>
-                    <option value="Mar 1st - Mar 12th, 2026">Mar 1st - Mar 12th, 2026</option>
-                    <option value="Apr 1st - Apr 12th, 2026">Apr 1st - Apr 12th, 2026</option>
-                    <option value="May 1st - May 12th, 2026">May 1st - May 12th, 2026</option>
-                    <option value="Jun 1st - Jun 12th, 2026">Jun 1st - Jun 12th, 2026</option>
-                    <option value="Jul 1st - Jul 12th, 2026">Jul 1st - Jul 12th, 2026</option>
-                    <option value="Aug 1st - Aug 12th, 2026">Aug 1st - Aug 12th, 2026</option>
-                    <option value="Sep 1st - Sep 12th, 2026">Sep 1st - Sep 12th, 2026</option>
-                    <option value="Oct 1st - Oct 12th, 2026">Oct 1st - Oct 12th, 2026</option>
-                    <option value="Nov 1st - Nov 12th, 2026">Nov 1st - Nov 12th, 2026</option>
-                    <option value="Dec 1st - Dec 12th, 2026">Dec 1st - Dec 12th, 2026</option>
+                    <option value="February 2026">February 2026</option>
+                    <option value="March 2026">March 2026</option>
+                    <option value="April 2026">April 2026</option>
+                    <option value="May 2026">May 2026</option>
+                    <option value="June 2026">June 2026</option>
+                    <option value="July 2026">July 2026</option>
+                    <option value="August 2026">August 2026</option>
+                    <option value="September 2026">September 2026</option>
+                    <option value="October 2026">October 2026</option>
+                    <option value="November 2026">November 2026</option>
+                    <option value="December 2026">December 2026</option>
                   </select>
                   <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
                 </div>

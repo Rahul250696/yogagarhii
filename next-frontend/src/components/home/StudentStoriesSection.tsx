@@ -208,7 +208,7 @@ const StudentStoriesSection = () => {
             {/* CTA */}
             <div className="mt-8">
               <Button variant="outline" className="group" asChild>
-                <Link href="/gallery">
+                <Link href="/testimonials">
                   View All Stories
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Link>

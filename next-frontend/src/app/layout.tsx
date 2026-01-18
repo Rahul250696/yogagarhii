@@ -100,12 +100,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="theme-color" content="#0f766e" />
       </head>
-      <body className={`${cormorant.variable} ${lato.variable} font-body bg-background text-foreground antialiased`}>
+      <body className={`${cormorant.variable} ${lato.variable} font-body bg-background text-foreground antialiased scroll-smooth`} suppressHydrationWarning>
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-T9PKFR8P"

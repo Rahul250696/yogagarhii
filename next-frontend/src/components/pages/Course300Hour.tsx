@@ -5,7 +5,7 @@ import Image from "next/image";
 import Layout from "@/components/layout/Layout";
 import SEO, { generateCourseSchema } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Input } from "@/components/ui/input";
@@ -28,6 +28,11 @@ import activityAyurveda from "@/assets/activity-ayurveda.jpg";
 import activitySoundHealing from "@/assets/activity-sound-healing.jpg";
 import activityWaterfall from "@/assets/activity-waterfall.jpg";
 import webinarBackground from "@/assets/webinar-background.jpg";
+import insta1 from "@/assets/instagram/insta-1.webp";
+import insta2 from "@/assets/instagram/insta-2.jpg";
+import insta3 from "@/assets/instagram/insta-3.webp";
+import insta4 from "@/assets/instagram/insta-4.webp";
+import insta5 from "@/assets/instagram/insta-5.jpg";
 import yogaAllianceBg from "@/assets/yoga-alliance-bg.jpg";
 import yaRyt200 from "@/assets/ya-ryt-200.png";
 import yaRys100 from "@/assets/ya-rys-100.png";
@@ -35,6 +40,7 @@ import yaRys200 from "@/assets/ya-rys-200.jpg";
 import yaAllCertifications from "@/assets/ya-all-certifications.jpg";
 import WhyFeatureItem from "@/components/home/WhyFeatureItem";
 import StudentStoriesSection from "@/components/home/StudentStoriesSection";
+import { googleReviews } from "@/constants/googleReviews";
 import apartKecakDance from "@/assets/apart/kecak-dance.jpg";
 import apartYogaAllianceGraduates from "@/assets/apart/yoga-alliance-graduates.jpg";
 import apartCeremony from "@/assets/apart/ceremony.jpg";
@@ -347,7 +353,7 @@ const whatYouWillReceive = [
 // Workshops
 const workshops = [
   {
-    title: "Ayurveda Fundamentals",
+    title: "Ayurveda Workshop & Ayurveda Cooking Workshop",
     description: "Understand your unique constitution (Prakriti) and learn how to balance your doshas through diet, lifestyle, and yogic practices for optimal health.",
     image: workshopAyurveda
   },
@@ -1288,11 +1294,11 @@ export default function Course300Hour() {
                     <DialogTitle className="font-heading text-2xl text-center">
                       Download Your Free Manual
                     </DialogTitle>
+                    <DialogDescription className="text-center text-muted-foreground">
+                      Enter your email to receive the complete 300-hour YTTC study manual.
+                    </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-4 pt-4">
-                    <p className="text-center text-muted-foreground">
-                      Enter your email to receive the complete 300-hour YTTC study manual.
-                    </p>
                     <input
                       type="email"
                       placeholder="Your email address"
@@ -1345,12 +1351,12 @@ export default function Course300Hour() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-heading text-2xl font-bold text-primary mb-2">
+                      <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
                         Thank You! 🙏
-                      </h3>
-                      <p className="text-muted-foreground">
+                      </DialogTitle>
+                      <DialogDescription className="text-muted-foreground">
                         Your free 300-hour study manual is on its way to <span className="font-medium text-foreground">{manualEmail}</span>
-                      </p>
+                      </DialogDescription>
                     </div>
                     <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground">
                       <p>Please check your inbox (and spam folder) within the next 24 hours.</p>
@@ -1566,10 +1572,10 @@ This is not a transactional relationship — it is a lifelong connection.`}
           {/* Content - Scrollable on mobile */}
           <div className="relative z-10 min-h-screen md:min-h-0 flex items-center py-20">
             <div className="container mx-auto px-4 max-w-4xl">
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-white mb-6">
+              <h2 className="font-heading text-4xl md:text-6xl font-bold text-center text-white mb-8 tracking-tight">
                 Why One Style Does Not Fit All
               </h2>
-              <p className="font-heading text-xl text-center text-primary-foreground/90 mb-8 italic">
+              <p className="font-heading text-xl md:text-3xl text-center text-primary-foreground/90 mb-12 italic">
                 Why We Teach Authentic Multi-Style & Prakriti-Based Yoga
               </p>
 
@@ -1607,19 +1613,17 @@ This is not a transactional relationship — it is a lifelong connection.`}
                           ? "Discover Your Yogic Energy"
                           : "Your Insight Awaits"}
                       </DialogTitle>
+                      <DialogDescription className="text-center text-muted-foreground text-sm">
+                        {quizStep < quizQuestions.length
+                          ? `Question ${quizStep + 1} of ${quizQuestions.length}: ${quizQuestions[quizStep].question}`
+                          : "Thank you for sharing. Enter your email to receive your personalized insight."
+                        }
+                      </DialogDescription>
                     </DialogHeader>
 
                     <div className="pt-4">
                       {quizStep < quizQuestions.length ? (
                         <div className="space-y-6">
-                          <div className="text-center mb-2">
-                            <span className="text-sm text-muted-foreground">
-                              Question {quizStep + 1} of {quizQuestions.length}
-                            </span>
-                          </div>
-                          <p className="text-center font-medium text-lg">
-                            {quizQuestions[quizStep].question}
-                          </p>
                           <div className="space-y-3">
                             {quizQuestions[quizStep].options.map((option, i) => (
                               <button
@@ -1679,9 +1683,9 @@ This is not a transactional relationship — it is a lifelong connection.`}
                         </svg>
                       </div>
                       <div>
-                        <h3 className="font-heading text-2xl font-bold text-primary mb-2">
+                        <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
                           Thank You! 🙏
-                        </h3>
+                        </DialogTitle>
                         <p className="text-muted-foreground">
                           Your personalized yogic energy insight is on its way to <span className="font-medium text-foreground">{email}</span>
                         </p>
@@ -2051,11 +2055,11 @@ This is not a transactional relationship — it is a lifelong connection.`}
                     <DialogTitle className="font-heading text-2xl text-center">
                       Download Syllabus
                     </DialogTitle>
+                    <DialogDescription className="text-center text-muted-foreground text-sm">
+                      Select your course and enter email to receive the detailed syllabus.
+                    </DialogDescription>
                   </DialogHeader>
                   <form onSubmit={handleSyllabusSubmit} className="space-y-4 pt-4">
-                    <p className="text-center text-muted-foreground text-sm">
-                      Select your course and enter email to receive the detailed syllabus.
-                    </p>
                     <select
                       value={selectedSyllabusCourse}
                       onChange={(e) => setSelectedSyllabusCourse(e.target.value)}
@@ -2106,12 +2110,12 @@ This is not a transactional relationship — it is a lifelong connection.`}
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-heading text-2xl font-bold text-primary mb-2">
+                      <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
                         Thank You! 🙏
-                      </h3>
-                      <p className="text-muted-foreground">
+                      </DialogTitle>
+                      <DialogDescription className="text-muted-foreground">
                         Your {selectedSyllabusCourse}-hour YTTC syllabus is on its way to <span className="font-medium text-foreground">{syllabusEmail}</span>
-                      </p>
+                      </DialogDescription>
                     </div>
                     <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground">
                       <p>Please check your inbox (and spam folder) within the next 24 hours.</p>
@@ -2165,11 +2169,11 @@ This is not a transactional relationship — it is a lifelong connection.`}
                   <DialogTitle className="font-heading text-2xl text-center">
                     Register for Free Webinar
                   </DialogTitle>
+                  <DialogDescription className="text-center text-muted-foreground text-sm">
+                    Fill in your details to join our live orientation session
+                  </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleWebinarSubmit} className="space-y-4 pt-4">
-                  <p className="text-center text-muted-foreground text-sm">
-                    Fill in your details to join our live orientation session
-                  </p>
 
                   {/* Name */}
                   <div>
@@ -2311,12 +2315,12 @@ This is not a transactional relationship — it is a lifelong connection.`}
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-heading text-2xl font-bold text-primary mb-2">
+                    <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
                       You're Registered! 🎉
-                    </h3>
-                    <p className="text-muted-foreground">
+                    </DialogTitle>
+                    <DialogDescription className="text-muted-foreground">
                       Thank you, <span className="font-medium text-foreground">{webinarForm.name}</span>! Your webinar registration is confirmed.
-                    </p>
+                    </DialogDescription>
                   </div>
                   <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground space-y-2">
                     <p>📧 Confirmation sent to: <span className="font-medium text-foreground">{webinarForm.email}</span></p>
@@ -2342,11 +2346,11 @@ This is not a transactional relationship — it is a lifelong connection.`}
                   <DialogTitle className="font-heading text-2xl text-center">
                     Get Pre-YTTC Details
                   </DialogTitle>
+                  <DialogDescription className="text-center text-muted-foreground text-sm">
+                    Learn about our world-first Pre-YTTC preparation program
+                  </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handlePreYTTCSubmit} className="space-y-4 pt-4">
-                  <p className="text-center text-muted-foreground text-sm">
-                    Learn about our world-first Pre-YTTC preparation program
-                  </p>
 
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1 block">
@@ -2402,12 +2406,12 @@ This is not a transactional relationship — it is a lifelong connection.`}
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-heading text-2xl font-bold text-primary mb-2">
+                    <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
                       Details on the Way! 🎓
-                    </h3>
-                    <p className="text-muted-foreground">
+                    </DialogTitle>
+                    <DialogDescription className="text-muted-foreground">
                       Thank you, <span className="font-medium text-foreground">{preYTTCForm.name}</span>! Your Pre-YTTC program details will be sent to your email.
-                    </p>
+                    </DialogDescription>
                   </div>
                   <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground">
                     📧 Sent to: <span className="font-medium text-foreground">{preYTTCForm.email}</span>
@@ -2432,11 +2436,11 @@ This is not a transactional relationship — it is a lifelong connection.`}
                   <DialogTitle className="font-heading text-2xl text-center">
                     Get Free Study Manual
                   </DialogTitle>
+                  <DialogDescription className="text-center text-muted-foreground text-sm">
+                    Enter your details to receive our comprehensive yoga training manual
+                  </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleManualSubmit} className="space-y-4 pt-4">
-                  <p className="text-center text-muted-foreground text-sm">
-                    Enter your details to receive our comprehensive yoga training manual
-                  </p>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1 block">
                       Full Name <span className="text-destructive">*</span>
@@ -2486,12 +2490,12 @@ This is not a transactional relationship — it is a lifelong connection.`}
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-heading text-2xl font-bold text-primary mb-2">
+                    <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
                       Manual on the Way! 📚
-                    </h3>
-                    <p className="text-muted-foreground">
+                    </DialogTitle>
+                    <DialogDescription className="text-muted-foreground">
                       Thank you! The study manual has been sent to <span className="font-medium text-foreground">{manualForm.email}</span>
-                    </p>
+                    </DialogDescription>
                   </div>
                   <Button
                     onClick={() => setShowManualThankYou(false)}
@@ -2799,6 +2803,39 @@ This is not a transactional relationship — it is a lifelong connection.`}
                   </p>
                 </div>
               ))}
+            </div>
+
+            {/* Bottom Highlights - Important Support Pillars */}
+            <div className="mt-20">
+              <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                {/* Lifetime Course Repetition */}
+                <div className="group relative p-6 rounded-2xl bg-white dark:bg-card border border-primary/10 hover:border-primary/30 hover:shadow-xl transition-all duration-500 text-center">
+                  <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                    <RefreshCw className="w-6 h-6" />
+                  </div>
+                  <h5 className="font-heading font-bold text-foreground mb-2">Lifetime Free Course Repetation</h5>
+                  <p className="text-xs text-muted-foreground">Repeat same course forever at no extra tuition cost.</p>
+                </div>
+
+                {/* Assistant Teaching Opportunities */}
+                <div className="group relative p-6 rounded-2xl bg-gradient-to-br from-primary/5 to-accent/5 border border-primary/20 hover:border-primary/40 hover:shadow-xl transition-all duration-500 text-center overflow-hidden">
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-primary/10 rounded-bl-full translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500" />
+                  <div className="mx-auto w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                    <GraduationCap className="w-6 h-6" />
+                  </div>
+                  <h5 className="font-heading font-bold text-foreground mb-2">Assistant Teaching Mentorship</h5>
+                  <p className="text-xs text-muted-foreground">Apply to become an assistant teacher in future batches.</p>
+                </div>
+
+                {/* Global Alumni Network */}
+                <div className="group relative p-6 rounded-2xl bg-white dark:bg-card border border-primary/10 hover:border-primary/30 hover:shadow-xl transition-all duration-500 text-center">
+                  <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                    <Users className="w-6 h-6" />
+                  </div>
+                  <h5 className="font-heading font-bold text-foreground mb-2">Alumni Family</h5>
+                  <p className="text-xs text-muted-foreground">Stay connected with a global community of practitioners.</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -3364,56 +3401,7 @@ This is not a transactional relationship — it is a lifelong connection.`}
 
             {/* Reviews Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {[
-                {
-                  name: "Priya Sharma",
-                  location: "Mumbai, India",
-                  avatar: "PS",
-                  rating: 5,
-                  date: "2 weeks ago",
-                  text: "The 200-hour YTTC at YogaGarhi was truly life-changing. The teachers bring such authenticity to traditional yoga practices. The Shiv-Shakti method is unique and helped me understand yoga at a deeper level. Highly recommend for anyone serious about yoga."
-                },
-                {
-                  name: "Emma Thompson",
-                  location: "London, UK",
-                  avatar: "ET",
-                  rating: 5,
-                  date: "1 month ago",
-                  text: "I researched many schools before choosing YogaGarhi, and I am so glad I did. The small group size meant personalized attention from teachers. The location in Bali is stunning. I left feeling confident to teach and with friends for life."
-                },
-                {
-                  name: "Michael Chen",
-                  location: "Sydney, Australia",
-                  avatar: "MC",
-                  rating: 5,
-                  date: "3 weeks ago",
-                  text: "The Pre-YTTC preparation was incredibly helpful. By the time the actual training started, I felt ready and confident. The daily schedule is intensive but balanced. The sattvic food was delicious and kept my energy high throughout."
-                },
-                {
-                  name: "Sarah Williams",
-                  location: "California, USA",
-                  avatar: "SW",
-                  rating: 5,
-                  date: "1 month ago",
-                  text: "YogaGarhi exceeded all my expectations. The philosophy classes with deep discussions on yoga sutras were my favorite. The teachers live and breathe yoga. This is not a commercial training - it is a genuine spiritual experience."
-                },
-                {
-                  name: "Anika Mueller",
-                  location: "Berlin, Germany",
-                  avatar: "AM",
-                  rating: 5,
-                  date: "2 months ago",
-                  text: "What sets YogaGarhi apart is their multi-style approach. Learning Hatha, Vinyasa, Ashtanga, and Iyengar gave me a complete foundation. The 35+ sequencing book I received is something I use daily in my teaching practice now."
-                },
-                {
-                  name: "James O'Brien",
-                  location: "Dublin, Ireland",
-                  avatar: "JO",
-                  rating: 5,
-                  date: "6 weeks ago",
-                  text: "The accommodation was comfortable and the food was amazing. But more importantly, the teaching methodology is exceptional. Every teacher brought something unique. The pranayama and meditation sessions at sunrise were magical."
-                },
-              ].map((review, index) => (
+              {googleReviews.map((review, index) => (
                 <ReviewCard key={index} review={review} />
               ))}
             </div>
@@ -3421,7 +3409,7 @@ This is not a transactional relationship — it is a lifelong connection.`}
             {/* View All Reviews Link */}
             <div className="text-center mt-10">
               <a
-                href="https://maps.app.goo.gl/qE7ouyMxUyLsRhNk6"
+                href="https://www.google.com/maps/place/Yoga+Teacher+Training+in+Bali+-+Yogagarhi/@-8.4645426,115.3278308,18z/data=!4m6!3m5!1s0x2dd219e70aa3e43d:0x281930517f104591!8m2!3d-8.4649127!4d115.3258379!16s%2Fg%2F11xywjhmnz?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors"
@@ -3601,11 +3589,11 @@ This is not a transactional relationship — it is a lifelong connection.`}
                       <DialogContent className="sm:max-w-md">
                         <DialogHeader>
                           <DialogTitle className="font-heading text-xl">Complete Your Booking</DialogTitle>
-                          <p className="text-sm text-muted-foreground mt-2">
+                          <DialogDescription className="text-sm text-muted-foreground mt-2">
                             {selectedDay && selectedTime && (
                               <>Scheduled for {selectedDay} {["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][selectedMonth]} 2026 at {selectedTime}</>
                             )}
-                          </p>
+                          </DialogDescription>
                         </DialogHeader>
 
                         <div className="space-y-4 mt-4">
@@ -4013,15 +4001,15 @@ This is not a transactional relationship — it is a lifelong connection.`}
             {/* Instagram Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4 max-w-6xl mx-auto mb-12">
               {[
-                { img: activityAyurveda, likes: "234", type: "image" },
-                { img: activitySoundHealing, likes: "189", type: "image" },
-                { img: heroImage, likes: "412", type: "reel" },
-                { img: activityWaterfall, likes: "156", type: "image" },
-                { img: webinarBackground, likes: "298", type: "reel" },
+                { img: insta1, likes: "16", type: "image", url: "https://www.instagram.com/p/DQndCYAkrtF/" },
+                { img: insta2, likes: "81", type: "reel", url: "https://www.instagram.com/reel/DP1YgMtCc5z/" },
+                { img: insta3, likes: "37", type: "image", url: "https://www.instagram.com/p/DO-sSZACYSg/" },
+                { img: insta4, likes: "35", type: "image", url: "https://www.instagram.com/p/DO25IFjCTbB/" },
+                { img: insta5, likes: "92", type: "reel", url: "https://www.instagram.com/reel/DPl0yZCCVa6/" },
               ].map((post, index) => (
                 <a
                   key={index}
-                  href="https://www.instagram.com/yogagarhi"
+                  href={post.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative aspect-square rounded-xl overflow-hidden bg-muted"
@@ -4078,9 +4066,9 @@ This is not a transactional relationship — it is a lifelong connection.`}
           <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle className="font-heading text-2xl">Enroll Now</DialogTitle>
-              <p className="text-sm text-muted-foreground">
+              <DialogDescription className="text-sm text-muted-foreground">
                 Fill in your details to begin your yoga journey
-              </p>
+              </DialogDescription>
             </DialogHeader>
 
             <div className="space-y-4 mt-4">
@@ -4323,9 +4311,9 @@ This is not a transactional relationship — it is a lifelong connection.`}
           <DialogContent className="sm:max-w-lg">
             <DialogHeader>
               <DialogTitle className="font-heading text-2xl">Quick Enquiry</DialogTitle>
-              <p className="text-sm text-muted-foreground">
+              <DialogDescription className="text-sm text-muted-foreground">
                 Connect with us and begin your journey of transformation
-              </p>
+              </DialogDescription>
             </DialogHeader>
 
             <form onSubmit={handleQuickEnquirySubmit} className="space-y-4 mt-4">

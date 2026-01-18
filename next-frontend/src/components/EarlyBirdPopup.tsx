@@ -1,10 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import { X, Sparkles } from "lucide-react";
+import { useQuickEnquiry } from "./QuickEnquiryDialog";
 
 const EarlyBirdPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
+  const { setShowQuickEnquiry } = useQuickEnquiry();
 
   // Check sessionStorage only in the browser after mount
   useEffect(() => {
@@ -34,9 +36,7 @@ const EarlyBirdPopup = () => {
     }
   };
 
-  const handleContactClick = () => {
-    window.open('https://wa.me/917895350563?text=Hi!%20I%20am%20interested%20in%20the%20Early%20Bird%20Offer%20for%20YTTC.', '_blank');
-  };
+  // Removed handleContactClick as we are using Link component now
 
   if (isDismissed) return null;
 
@@ -97,7 +97,10 @@ const EarlyBirdPopup = () => {
 
           {/* CTA Button */}
           <button
-            onClick={handleContactClick}
+            onClick={() => {
+              setShowQuickEnquiry(true);
+              setIsVisible(false);
+            }}
             className="w-full bg-amber-700 hover:bg-amber-800 text-white py-3 px-6 font-bold text-sm tracking-wide uppercase transition-colors flex items-center justify-center gap-2 group"
           >
             <span>Contact Us</span>

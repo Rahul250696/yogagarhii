@@ -7,113 +7,7 @@ import ReadyToBeginSection from "@/components/home/ReadyToBeginSection";
 import StudentStoriesSection from "@/components/home/StudentStoriesSection";
 import heroImage from "@/assets/hero-yoga-bali.jpg";
 import Image from "next/image";
-
-const testimonials = [
-  {
-    name: "Sarah Mitchell",
-    country: "United States",
-    course: "200 Hour YTTC",
-    text: "YogaGarhi transformed my understanding of yoga completely. The teachers are exceptional, and the ashram environment allowed me to fully immerse myself in the practice. I came seeking a certification but left with a complete life transformation.",
-    rating: 5,
-    featured: true,
-  },
-  {
-    name: "Marcus Weber",
-    country: "Germany",
-    course: "300 Hour YTTC",
-    text: "The authenticity here is unmatched. Every meditation session deepened my practice. The combination of traditional teaching and modern understanding made complex concepts accessible.",
-    rating: 5,
-    featured: false,
-  },
-  {
-    name: "Yuki Tanaka",
-    country: "Japan",
-    course: "200 Hour YTTC",
-    text: "I came seeking knowledge and found a family. The personalized attention exceeded expectations. Yogacharya Sachin's teaching style is both traditional and approachable.",
-    rating: 5,
-    featured: false,
-  },
-  {
-    name: "Emma Rodriguez",
-    country: "Spain",
-    course: "100 Hour YTTC",
-    text: "Even the 100-hour program was incredibly comprehensive. I learned more in those weeks than I had in years of casual practice. The morning rituals and evening aartis created a rhythm that I still follow.",
-    rating: 5,
-    featured: false,
-  },
-  {
-    name: "Michael Chen",
-    country: "Canada",
-    course: "200 Hour YTTC",
-    text: "The philosophy classes were my favorite. Acharya Deepak has a gift for making ancient texts relevant to modern life. I've returned twice now and plan to do the advanced program.",
-    rating: 5,
-    featured: false,
-  },
-  {
-    name: "Anna Petrov",
-    country: "Russia",
-    course: "300 Hour YTTC",
-    text: "After completing my 300-hour here, I feel confident to teach advanced practices. The anatomy training with Dr. Priya was exceptional - she truly bridges science and spirituality.",
-    rating: 5,
-    featured: false,
-  },
-  {
-    name: "James Wilson",
-    country: "Australia",
-    course: "200 Hour YTTC",
-    text: "The location is magical - waking up to the Ganges and the Himalayan foothills every morning was healing in itself. Combined with excellent teaching, this was the best investment I've made.",
-    rating: 5,
-    featured: false,
-  },
-  {
-    name: "Priyanka Sharma",
-    country: "India",
-    course: "100 Hour YTTC",
-    text: "As an Indian, I had practiced yoga casually all my life. Here I discovered the depth I was missing. The traditional approach to pranayama opened new dimensions in my practice.",
-    rating: 5,
-    featured: false,
-  },
-  {
-    name: "Sophie Laurent",
-    country: "France",
-    course: "200 Hour YTTC",
-    text: "The blend of physical practice and philosophical depth was exactly what I needed. The teachers created a safe space for deep inner work. I left feeling transformed inside and out.",
-    rating: 5,
-    featured: false,
-  },
-  {
-    name: "Carlos Mendez",
-    country: "Mexico",
-    course: "300 Hour YTTC",
-    text: "After years of teaching, I came here to deepen my practice. The advanced training exceeded all expectations. The sequencing knowledge alone was worth the entire journey.",
-    rating: 5,
-    featured: false,
-  },
-  {
-    name: "Lisa van der Berg",
-    country: "Netherlands",
-    course: "200 Hour YTTC",
-    text: "I was nervous coming alone, but the community embraced me from day one. The friendships I made and the knowledge gained have shaped my entire approach to life and teaching.",
-    rating: 5,
-    featured: false,
-  },
-  {
-    name: "David Kim",
-    country: "South Korea",
-    course: "100 Hour YTTC",
-    text: "The 100-hour program was the perfect introduction. I appreciated how they made complex yogic concepts accessible without losing the traditional essence. Already planning my return for the 200-hour.",
-    rating: 5,
-    featured: false,
-  },
-  {
-    name: "Elena Rossi",
-    country: "Italy",
-    course: "200 Hour YTTC",
-    text: "The attention to alignment and anatomy was exceptional. I feel so much more confident in my body awareness now. The teachers truly care about each student's progress and well-being.",
-    rating: 5,
-    featured: false,
-  },
-];
+import { googleReviews } from "@/constants/googleReviews";
 
 export default function AboutTestimonials() {
   const { setShowEnrollDialog } = useEnrollment();
@@ -187,18 +81,18 @@ export default function AboutTestimonials() {
                   ))}
                 </div>
                 <p className="text-xl md:text-2xl text-foreground/90 italic leading-relaxed mb-8">
-                  "{testimonials[0].text}"
+                  "{googleReviews[0].text}"
                 </p>
                 <div className="flex items-center justify-between flex-wrap gap-4">
                   <div>
-                    <h4 className="font-semibold text-lg text-foreground">{testimonials[0].name}</h4>
+                    <h4 className="font-semibold text-lg text-foreground">{googleReviews[0].name}</h4>
                     <div className="flex items-center gap-2 text-muted-foreground text-sm">
                       <MapPin className="w-4 h-4" />
-                      {testimonials[0].country}
+                      {googleReviews[0].location}
                     </div>
                   </div>
                   <div className="bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-medium">
-                    {testimonials[0].course}
+                    Google Review
                   </div>
                 </div>
               </div>
@@ -222,9 +116,9 @@ export default function AboutTestimonials() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {testimonials.slice(1).map((testimonial, index) => (
+            {googleReviews.slice(1).map((review, index) => (
               <div
-                key={testimonial.name}
+                key={review.name}
                 className={`rounded-3xl overflow-hidden transition-all hover:shadow-xl ${index === 0 ? 'ring-2 ring-primary/20' : 'border border-border/40'
                   }`}
               >
@@ -236,25 +130,25 @@ export default function AboutTestimonials() {
                 <div className="bg-muted/30 p-6">
                   <Quote className="w-8 h-8 text-primary/20 mb-4" />
                   <p className="text-foreground/80 leading-relaxed mb-6 italic min-h-[100px]">
-                    "{testimonial.text}"
+                    "{review.text}"
                   </p>
                   <div className="pt-4 border-t border-border/40">
                     <div className="flex items-center justify-between mb-3">
                       <div>
-                        <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
+                        <h4 className="font-semibold text-foreground">{review.name}</h4>
                         <div className="flex items-center gap-1 text-sm text-muted-foreground">
                           <MapPin className="w-3 h-3" />
-                          {testimonial.country}
+                          {review.location}
                         </div>
                       </div>
                       <div className="flex gap-0.5">
-                        {[...Array(testimonial.rating)].map((_, i) => (
+                        {[...Array(review.rating)].map((_, i) => (
                           <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
                         ))}
                       </div>
                     </div>
                     <div className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-medium">
-                      {testimonial.course}
+                      {review.date}
                     </div>
                   </div>
                 </div>
@@ -264,7 +158,7 @@ export default function AboutTestimonials() {
 
           <div className="text-center mt-12">
             <a
-              href="https://www.google.com/maps"
+              href="https://www.google.com/maps/place/Yoga+Teacher+Training+in+Bali+-+Yogagarhi/@-8.4645426,115.3278308,18z/data=!4m6!3m5!1s0x2dd219e70aa3e43d:0x281930517f104591!8m2!3d-8.4649127!4d115.3258379!16s%2Fg%2F11xywjhmnz?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-primary font-medium hover:underline"

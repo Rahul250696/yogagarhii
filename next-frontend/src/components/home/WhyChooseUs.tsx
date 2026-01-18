@@ -9,9 +9,9 @@ const features = [
     highlight: "Signature"
   },
   {
-    title: "Multi-Style Mastery",
-    desc: "Vinyasa, Hatha, Ashtanga, and Iyengar taught as complete, integrated systems.",
-    highlight: "4 Styles"
+    title: "Multi-Style & Ayurveda",
+    desc: "Vinyasa, Hatha, Ashtanga, and Iyengar taught with a strong foundation in Ayurveda.",
+    highlight: "Integrated"
   },
   {
     title: "Pre-TTC Mentorship",
@@ -169,24 +169,24 @@ export default function WhyChooseUs() {
           <div className="grid md:grid-cols-2 gap-4">
             {/* Free Course Repeat */}
             <div
-              className={`group relative p-6 rounded-2xl bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border border-primary/10 hover:border-primary/30 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              className={`group relative p-6 rounded-2xl bg-white border border-primary/10 hover:border-primary/30 hover:shadow-xl transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
               style={{ transitionDelay: '800ms' }}
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
-                  <div className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3">
+                  <div className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3 font-heading uppercase tracking-wider">
                     Forever
                   </div>
                   <h3 className="font-heading text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                     Free Course Repeat
                   </h3>
                   <p className="text-muted-foreground text-sm">
-                    Revisit any training whenever it runs, at absolutely no extra cost.
+                    Revisit any training whenever it runs, at absolutely no extra cost. Keep your practice fresh forever.
                   </p>
                 </div>
                 <div className="flex-shrink-0">
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <div className="w-14 h-14 rounded-full bg-primary/5 flex items-center justify-center group-hover:bg-primary/20 transition-all duration-500 transform group-hover:rotate-12 shadow-inner">
                     <svg className="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                       <path d="M4 12a8 8 0 1 0 16 0 8 8 0 0 0-16 0Z" />
                       <path d="M12 8v4l2 2" />
@@ -198,25 +198,28 @@ export default function WhyChooseUs() {
 
             {/* Assistant Teacher Opportunity */}
             <div
-              className={`group relative p-6 rounded-2xl bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border border-primary/10 hover:border-primary/30 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              className={`group relative p-6 rounded-2xl bg-accent/5 border border-accent/20 hover:border-accent/40 hover:shadow-xl transition-all duration-500 overflow-hidden ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
               style={{ transitionDelay: '900ms' }}
             >
-              <div className="flex items-start justify-between gap-4">
+              {/* Decorative accent element */}
+              <div className="absolute -top-10 -right-10 w-32 h-32 bg-accent/10 rounded-full blur-2xl group-hover:bg-accent/20 transition-all duration-700" />
+
+              <div className="flex items-start justify-between gap-4 relative z-10">
                 <div className="flex-1">
-                  <div className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3">
+                  <div className="inline-block px-3 py-1 rounded-full bg-accent text-white text-xs font-semibold mb-3 font-heading uppercase tracking-wider">
                     Growth
                   </div>
-                  <h3 className="font-heading text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    Assistant Teacher Opportunity
+                  <h3 className="font-heading text-xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors">
+                    Teacher Opportunity
                   </h3>
                   <p className="text-muted-foreground text-sm">
-                    Get the chance to become an assistant teacher in future batches and grow your teaching experience.
+                    Get the chance to become an assistant teacher in future batches and grow your authentic teaching experience.
                   </p>
                 </div>
                 <div className="flex-shrink-0">
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                    <svg className="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all duration-500 transform group-hover:scale-110 shadow-lg group-hover:shadow-accent/40">
+                    <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                       <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                       <circle cx="9" cy="7" r="4" />
                       <path d="M23 21v-2a4 4 0 0 0-3-3.87" />

@@ -117,6 +117,9 @@ const config: Config = {
                     "0%, 100%": { transform: "translateY(0)" },
                     "50%": { transform: "translateY(-6px)" },
                 },
+                "shimmer": {
+                    "100%": { transform: "translateX(100%)" },
+                },
             },
             animation: {
                 "accordion-down": "accordion-down 0.2s ease-out",
@@ -130,6 +133,7 @@ const config: Config = {
                 "float-slow": "float-slow 8s ease-in-out infinite",
                 "float-gentle": "float-gentle 10s ease-in-out infinite",
                 "float-ultra-smooth": "float-ultra-smooth 8s cubic-bezier(0.45, 0, 0.55, 1) infinite",
+                "shimmer": "shimmer 2s infinite",
             },
         },
     },

@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Flame, Droplets, Wind, Sparkles, ArrowRight, Check } from "lucide-react";
 
 // Dosha types with their characteristics
@@ -129,12 +129,12 @@ const MandalaPattern = ({ className }: { className?: string }) => (
 );
 
 export default function WhyOneStyleSection() {
+  const router = useRouter();
   const [showQuizDialog, setShowQuizDialog] = useState(false);
   const [quizStep, setQuizStep] = useState(0);
   const [quizAnswers, setQuizAnswers] = useState<string[]>([]);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
-  const [showQuizThankYou, setShowQuizThankYou] = useState(false);
   const [hoveredDosha, setHoveredDosha] = useState<string | null>(null);
 
   const resetQuiz = () => {
@@ -174,16 +174,29 @@ export default function WhyOneStyleSection() {
     const dominantDosha = getDominantDosha();
 
     try {
-      await fetch("https://formsubmit.co/ajax/yogagarhi@gmail.com", {
+      const response = await fetch("/api/send-email", {
         method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: email,
-          _subject: `New Prakriti Quiz Result: ${dominantDosha.toUpperCase()}`,
+          _subject: `Prakriti Quiz Result: ${dominantDosha.toUpperCase()}`,
+          _autoresponder: `Namaste,
+
+Thank you for discovering your Prakriti (yogic constitution) with YogaGarhi!
+
+Your dominant Dosha is: ${dominantDosha.toUpperCase()}
+
+This unique constitution is the blueprint of your nature, and understanding it is the first step toward a balanced yoga practice. We are preparing a detailed analysis of your results and tips on how to align your yoga practice with your energy.
+
+Our lead teachers will review your answers and reach out to you within 24 hours with more insights on how our Multi-Style training can specifically support your ${dominantDosha.toUpperCase()} nature.
+
+Until then, stay conscious and breathe deep.
+
+With respect,
+YogaGarhi – Bali`,
           source: "WhyOneStyle Section - Quiz",
           form_type: "prakriti_quiz",
           dominant_dosha: dominantDosha,
-          quiz_answers: quizAnswers.join(", "),
           q1_morning_feel: quizAnswers[0],
           q2_stress_pattern: quizAnswers[1],
           q3_energy_rhythm: quizAnswers[2],
@@ -193,8 +206,12 @@ export default function WhyOneStyleSection() {
         })
       });
 
-      setShowQuizDialog(false);
-      setShowQuizThankYou(true);
+      if (response.ok) {
+        setShowQuizDialog(false);
+        router.push(`/thank-you?type=quiz&name=${dominantDosha}`);
+      } else {
+        throw new Error('Failed to send quiz results');
+      }
     } catch (error) {
       console.error(error);
       setEmailError("Something went wrong. Please try again.");
@@ -371,6 +388,11 @@ export default function WhyOneStyleSection() {
                     ? "Discover Your Yogic Energy"
                     : "Your Insight Awaits"}
                 </DialogTitle>
+                <DialogDescription className="text-center text-muted-foreground text-sm mt-1">
+                  {quizStep < quizQuestions.length
+                    ? `Step ${quizStep + 1} of ${quizQuestions.length}: Understand your unique constitution.`
+                    : "Enter your details to receive your personalized analysis."}
+                </DialogDescription>
               </DialogHeader>
 
               <div className="pt-4">
@@ -465,48 +487,6 @@ export default function WhyOneStyleSection() {
             </DialogContent>
           </Dialog>
 
-          {/* Quiz Thank You Dialog */}
-          <Dialog open={showQuizThankYou} onOpenChange={(open) => {
-            setShowQuizThankYou(open);
-            if (!open) resetQuiz();
-          }}>
-            <DialogContent className="sm:max-w-md text-center border-primary/20">
-              <div className="py-6 space-y-6">
-                {/* Animated success icon */}
-                <div className="relative mx-auto w-24 h-24">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-green-400/20 to-emerald-400/20 animate-ping" />
-                  <div className="relative w-full h-full rounded-full bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 flex items-center justify-center">
-                    <Check className="w-12 h-12 text-green-600 dark:text-green-400" />
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="font-heading text-2xl font-bold text-foreground mb-2">
-                    Namaste! 🙏
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Your personalized yogic energy insight is being prepared for{" "}
-                    <span className="font-medium text-foreground">{email}</span>
-                  </p>
-                </div>
-
-                <div className="bg-secondary/50 rounded-xl p-4 text-sm text-muted-foreground">
-                  <p>Check your inbox (and spam folder) within 24 hours for your detailed Prakriti analysis.</p>
-                </div>
-
-                <Button
-                  onClick={() => {
-                    setShowQuizThankYou(false);
-                    resetQuiz();
-                  }}
-                  variant="outline"
-                  className="w-full"
-                >
-                  Close
-                </Button>
-              </div>
-            </DialogContent>
-          </Dialog>
         </div>
       </div>
 
