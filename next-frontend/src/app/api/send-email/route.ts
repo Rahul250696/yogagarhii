@@ -74,8 +74,8 @@ export async function POST(request: Request) {
     const userMailOptions = email ? {
       from: `"YogaGarhi" <${process.env.SMTP_USER}>`,
       to: email,
-      subject: 'We Have Received Your Request YogaGarhi Bali',
-      text: `Namaste,
+      subject: _subject ? `Confirmation: ${_subject}` : 'We Have Received Your Request YogaGarhi Bali',
+      text: _autoresponder || `Namaste,
 
 Thank you for reaching out to YogaGarhi.
 
@@ -90,7 +90,16 @@ We look forward to connecting with you.
 With respect and sincerity,
 YogaGarhi Team – Bali
 Authentic Yoga • Rooted in Tradition • Lived with Awareness`,
-      html: `
+      html: _autoresponder ? `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; padding: 20px;">
+          <h2 style="color: #6366f1;">Namaste</h2>
+          <div style="white-space: pre-wrap; line-height: 1.6; color: #333;">${_autoresponder}</div>
+          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; font-size: 14px; color: #666;">
+            <strong>YogaGarhi Team - Bali</strong><br>
+            Authentic Yoga &bull; Rooted in Tradition
+          </div>
+        </div>
+      ` : `
         <!DOCTYPE html>
         <html>
           <head>

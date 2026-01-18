@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import Image from "next/image";
 import webinarBackground from "@/assets/webinar-background.jpg";
 
@@ -84,11 +84,11 @@ const WebinarSection = () => {
               <DialogTitle className="font-heading text-2xl text-center">
                 Register for Free Webinar
               </DialogTitle>
+              <DialogDescription className="text-center text-muted-foreground text-sm">
+                Fill in your details to join our live orientation session
+              </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4 pt-4">
-              <p className="text-center text-muted-foreground text-sm">
-                Fill in your details to join our live orientation session
-              </p>
 
               {/* Name */}
               <div>
@@ -230,12 +230,12 @@ const WebinarSection = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="font-heading text-2xl font-bold text-primary mb-2">
+                <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
                   You're Registered! 🎉
-                </h3>
-                <p className="text-muted-foreground">
+                </DialogTitle>
+                <DialogDescription className="text-muted-foreground">
                   Thank you, <span className="font-medium text-foreground">{webinarForm.name}</span>! Your webinar registration is confirmed.
-                </p>
+                </DialogDescription>
               </div>
               <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground space-y-2">
                 <p>📧 Confirmation sent to: <span className="font-medium text-foreground">{webinarForm.email}</span></p>

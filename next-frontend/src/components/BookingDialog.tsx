@@ -1,7 +1,7 @@
 "use client";
 import { useState, createContext, useContext, ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Check, Clock, ChevronDown, Calendar, Phone } from "lucide-react";
 
@@ -148,11 +148,12 @@ function BookingDialogContent({ source, router }: { source: string, router: any 
               <Calendar className="w-6 h-6 text-primary" />
               {step === 'calendar' ? 'Book a Call with YogaGarhi' : 'Complete Your Booking'}
             </DialogTitle>
-            {step === 'form' && selectedDay && selectedTime && (
-              <p className="text-sm text-muted-foreground mt-2">
-                Scheduled for {selectedDay} {months[selectedMonth]} {currentYear} at {selectedTime}
-              </p>
-            )}
+            <DialogDescription className={`text-sm text-muted-foreground mt-2 ${step === 'calendar' ? 'sr-only' : ''}`}>
+              {step === 'calendar'
+                ? 'Select a date and time for your call with us.'
+                : `Scheduled for ${selectedDay} ${months[selectedMonth]} ${currentYear} at ${selectedTime}`
+              }
+            </DialogDescription>
           </DialogHeader>
 
           {step === 'calendar' ? (
@@ -409,12 +410,12 @@ function BookingDialogContent({ source, router }: { source: string, router: any 
               <Check className="w-10 h-10 text-green-600" />
             </div>
             <div>
-              <h3 className="font-heading text-2xl font-bold text-primary mb-2">
+              <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
                 Call Booked! 🎉
-              </h3>
-              <p className="text-muted-foreground">
+              </DialogTitle>
+              <DialogDescription className="text-muted-foreground">
                 Thank you, <span className="font-medium text-foreground">{bookingForm.name}</span>! Your call has been scheduled.
-              </p>
+              </DialogDescription>
             </div>
             <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground space-y-2">
               <p>📅 <span className="font-medium text-foreground">{selectedDay} {months[selectedMonth]} {currentYear}</span> at <span className="font-medium text-foreground">{selectedTime}</span></p>
