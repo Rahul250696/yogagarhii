@@ -113,7 +113,7 @@ Our team will reach out to you shortly to confirm your session. We look forward 
                         className="relative group flex flex-col items-center"
                         aria-label="Open Master Class Registration"
                     >
-                        <div className="absolute bottom-full mb-2 bg-primary text-white px-2.5 py-1 rounded-full shadow-lg text-[9px] font-black whitespace-nowrap md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">
+                        <div className="absolute bottom-full mb-2 bg-primary text-white px-2.5 py-1 rounded-full shadow-lg text-[9px] font-black whitespace-nowrap hidden md:block md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">
                             Free 1-to-1 YTTC Clarity Masterclass ✨
                         </div>
 
