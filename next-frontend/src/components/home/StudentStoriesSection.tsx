@@ -7,11 +7,11 @@ import Image from "next/image";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const videoTestimonials = [
-  { id: "OGmWr_aC4WA", name: "Sarah M.", country: "USA", quote: "Life-changing experience" },
-  { id: "2pLe6NHa5WU", name: "Priya K.", country: "India", quote: "Found my true calling" },
-  { id: "30jjvcqHEwA", name: "Emma L.", country: "UK", quote: "Beyond expectations" },
-  { id: "J2LT9xn4RBE", name: "Maria S.", country: "Spain", quote: "Transformed my practice" },
-  { id: "OGmWr_aC4WA", name: "Anna T.", country: "Germany", quote: "Deeply spiritual journey" },
+  { id: "OGmWr_aC4WA", name: "Fernanda", country: "Australia", quote: "Life-changing experience" },
+  { id: "2pLe6NHa5WU", name: "Gana", country: "India", quote: "Found my true calling" },
+  { id: "30jjvcqHEwA", name: "Joss", country: "France", quote: "Beyond expectations" },
+  { id: "J2LT9xn4RBE", name: "Aarzu", country: "Germany", quote: "Transformed my practice" },
+  { id: "ta-5jHBCpKY", name: "Aania", country: "Italy", quote: "Deeply spiritual journey" },
 ];
 
 // Reusable Video Player Component

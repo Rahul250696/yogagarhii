@@ -45,6 +45,7 @@ import apartCeremony from "@/assets/apart/ceremony.jpg";
 import apartGroupClass from "@/assets/apart/group-class.jpg";
 import apartChildPose from "@/assets/apart/child-pose.jpg";
 import apartWaterTemple from "@/assets/apart/water-temple.jpg";
+import apartRiceFieldTrek from "@/assets/apart/rice-field-trek.jpg";
 import apartPoolVilla from "@/assets/apart/pool-villa.jpg";
 import apartMountainPose from "@/assets/apart/mountain-pose.jpg";
 import apartWarriorSequence from "@/assets/apart/warrior-sequence.jpg";
@@ -59,6 +60,15 @@ import apartMeditationPractice from "@/assets/apart/meditation-practice.jpg";
 import apartYogaLifestyle from "@/assets/apart/yoga-lifestyle.jpg";
 import anatomyPhysiologyImage from "@/assets/syllabus/anatomy-physiology.jpg";
 import meditationMantraImage from "@/assets/syllabus/meditation-mantra.jpg";
+
+// Workshop Images
+import workshopAyurveda from "@/assets/workshops/workshop-ayurveda.png";
+import workshopArmBalance from "@/assets/workshops/workshop-arm-balance.jpg";
+import workshopHandstand from "@/assets/workshops/workshop-handstand.jpg";
+import workshopBalinese from "@/assets/workshops/workshop-balinese.png";
+import workshopSoundHealing from "@/assets/workshops/workshop-sound-healing.jpg";
+import workshopSoundHealingUpdate from "@/assets/workshops/workshop-sound-healing-update.png";
+import workshopBhakti from "@/assets/workshops/workshop-bhakti.jpg";
 
 // Triple Sharing room images
 import tripleBalcony from "@/assets/rooms/triple-balcony.jpg";
@@ -354,21 +364,22 @@ const whatYouWillReceive = [
 ];
 
 // Workshops - using user photos
+// Workshops - using user photos
 const workshops = [
   {
     title: "Ayurveda Fundamentals",
     description: "Understand your unique constitution (Prakriti) and learn how to balance your doshas through diet, lifestyle, and yogic practices for optimal health.",
-    image: apartSeatedTalk
+    image: workshopAyurveda
   },
   {
     title: "Arm Balance Mastery",
     description: "Build the strength, technique and confidence needed to master arm balances like Crow, Side Crow, and Flying Pigeon with proper alignment.",
-    image: apartMountainPose
+    image: workshopArmBalance
   },
   {
     title: "Handstand Workshop",
     description: "Overcome fear and find your center through progressive drills, wall work, and partner exercises to achieve a confident freestanding handstand.",
-    image: apartGroupClass
+    image: workshopHandstand
   },
   {
     title: "Yin Yoga Deep Stretch",
@@ -378,12 +389,12 @@ const workshops = [
   {
     title: "Sound Healing Session",
     description: "Experience the transformative power of Tibetan singing bowls, gongs, and mantras. Vibration therapy for deep relaxation and inner calm.",
-    image: apartHammock
+    image: workshopSoundHealingUpdate
   },
   {
     title: "Bhakti Yoga & Kirtan",
     description: "Open your heart through devotional practice. Learn sacred chants, mantras, and kirtan to connect with the spiritual essence of yoga.",
-    image: apartCeremony
+    image: workshopBhakti
   },
 ];
 
@@ -398,7 +409,7 @@ const excursions = [
   {
     title: "Rice Field Trek",
     description: "Walk through Ubud's iconic terraced rice paddies. Experience the harmony of nature, traditional farming, and the peaceful rhythm of rural Bali.",
-    image: apartPoolVilla,
+    image: apartRiceFieldTrek,
     icon: Leaf
   },
   {
@@ -437,7 +448,7 @@ const foodMenu = [
 
 // Food Philosophy Points
 const foodPhilosophy = [
-  { icon: Leaf, title: "100% Plant-Based", description: "Pure vegetarian & vegan cuisine" },
+  { icon: Leaf, title: "Nutrition & Healthy Food", description: "Pure vegetarian & vegan cuisine" },
   { icon: Heart, title: "Sattvic Principles", description: "Food that promotes clarity & peace" },
   { icon: Apple, title: "Locally Sourced", description: "Fresh ingredients from Bali farms" },
   { icon: Sparkles, title: "Ayurvedic Balance", description: "Meals designed for your dosha" },
@@ -458,14 +469,17 @@ const dietaryOptions = [
 
 // Upcoming Dates
 const upcomingDates = [
-  { date: "1 Dec - 24 Dec 2025", spotsLeft: 3, earlyBirdSaving: "$200" },
-  { date: "5 Jan - 29 Jan 2026", spotsLeft: 5, earlyBirdSaving: "$200" },
-  { date: "1 Feb - 22 Feb 2026", spotsLeft: 8, earlyBirdSaving: "$200" },
-  { date: "1 Mar - 22 Mar 2026", spotsLeft: 8, earlyBirdSaving: "$200" },
-  { date: "2 Apr - 23 Apr 2026", spotsLeft: 8, earlyBirdSaving: "$200" },
-  { date: "2 May - 23 May 2026", spotsLeft: 7, earlyBirdSaving: "$200" },
-  { date: "2 Aug - 23 Aug 2026", spotsLeft: 8, earlyBirdSaving: "$200" },
-  { date: "2 Sept - 23 Sept 2026", spotsLeft: 7, earlyBirdSaving: "$200" },
+  { date: "1 Feb - 24 Feb 2026", spotsLeft: 8, earlyBirdSaving: "$200" },
+  { date: "1 Mar - 24 Mar 2026", spotsLeft: 8, earlyBirdSaving: "$200" },
+  { date: "1 Apr - 24 Apr 2026", spotsLeft: 8, earlyBirdSaving: "$200" },
+  { date: "1 May - 24 May 2026", spotsLeft: 7, earlyBirdSaving: "$200" },
+  { date: "1 Jun - 24 Jun 2026", spotsLeft: 8, earlyBirdSaving: "$200" },
+  { date: "1 Jul - 24 Jul 2026", spotsLeft: 8, earlyBirdSaving: "$200" },
+  { date: "1 Aug - 24 Aug 2026", spotsLeft: 8, earlyBirdSaving: "$200" },
+  { date: "1 Sept - 24 Sept 2026", spotsLeft: 7, earlyBirdSaving: "$200" },
+  { date: "1 Oct - 24 Oct 2026", spotsLeft: 8, earlyBirdSaving: "$200" },
+  { date: "1 Nov - 24 Nov 2026", spotsLeft: 8, earlyBirdSaving: "$200" },
+  { date: "1 Dec - 24 Dec 2026", spotsLeft: 6, earlyBirdSaving: "$200" },
 ];
 
 
@@ -588,10 +602,12 @@ export default function Course200Hour() {
     // If opening, scroll to the trigger after a brief delay for content to render
     if (open) {
       setTimeout(() => {
-        foodTriggerRef.current?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+        if (foodTriggerRef.current) {
+          const yOffset = -100;
+          const element = foodTriggerRef.current;
+          const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
       }, 100);
     }
   };

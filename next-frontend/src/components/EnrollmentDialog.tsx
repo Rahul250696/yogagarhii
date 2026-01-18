@@ -64,9 +64,14 @@ export function EnrollmentProvider({ children }: { children: ReactNode }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    countryCode: "+1",
+    countryCode: "+91",
     phone: "",
+    country: "",
     course: "200hr",
+    courseDate: "",
+    accommodation: "",
+    gender: "",
+    referralSource: "",
     message: "",
   });
 
@@ -119,15 +124,20 @@ export function EnrollmentProvider({ children }: { children: ReactNode }) {
       setFormData({
         name: "",
         email: "",
-        countryCode: "+1",
+        countryCode: "+91",
         phone: "",
+        country: "",
         course: "200hr",
+        courseDate: "",
+        accommodation: "",
+        gender: "",
+        referralSource: "",
         message: "",
       });
     }
   };
 
-  const isFormValid = formData.name.trim() && formData.email.trim() && formData.phone.trim();
+  const isFormValid = formData.name.trim() && formData.email.trim() && formData.phone.trim() && formData.country && formData.course && formData.courseDate && formData.accommodation && formData.gender && formData.referralSource;
 
   return (
     <EnrollmentContext.Provider value={{ showEnrollDialog, setShowEnrollDialog, navigateToEnrollment }}>
@@ -220,21 +230,130 @@ export function EnrollmentProvider({ children }: { children: ReactNode }) {
                 </div>
               </div>
 
+              {/* Country */}
+              <div className="space-y-2">
+                <Label htmlFor="enroll-country">Country <span className="text-destructive">*</span></Label>
+                <Input
+                  id="enroll-country"
+                  placeholder="Enter your country"
+                  value={formData.country}
+                  onChange={(e) => handleChange("country", e.target.value)}
+                  required
+                />
+              </div>
+
               {/* Course Selection */}
               <div className="space-y-2">
-                <Label htmlFor="enroll-course">Select Course</Label>
+                <Label htmlFor="enroll-course">Course Name <span className="text-destructive">*</span></Label>
                 <div className="relative">
                   <select
                     id="enroll-course"
                     value={formData.course}
                     onChange={(e) => handleChange("course", e.target.value)}
                     className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring appearance-none cursor-pointer"
+                    required
                   >
+                    <option value="">Choose Your Yoga Course</option>
                     {courses.map((course) => (
                       <option key={course.value} value={course.value}>
                         {course.label}
                       </option>
                     ))}
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Course Date */}
+              <div className="space-y-2">
+                <Label htmlFor="enroll-course-date">Course Date <span className="text-destructive">*</span></Label>
+                <div className="relative">
+                  <select
+                    id="enroll-course-date"
+                    value={formData.courseDate}
+                    onChange={(e) => handleChange("courseDate", e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring appearance-none cursor-pointer"
+                    required
+                  >
+                    <option value="">Choose...</option>
+                    <option value="Feb 1st - Feb 12th, 2026">Feb 1st - Feb 12th, 2026</option>
+                    <option value="Mar 1st - Mar 12th, 2026">Mar 1st - Mar 12th, 2026</option>
+                    <option value="Apr 1st - Apr 12th, 2026">Apr 1st - Apr 12th, 2026</option>
+                    <option value="May 1st - May 12th, 2026">May 1st - May 12th, 2026</option>
+                    <option value="Jun 1st - Jun 12th, 2026">Jun 1st - Jun 12th, 2026</option>
+                    <option value="Jul 1st - Jul 12th, 2026">Jul 1st - Jul 12th, 2026</option>
+                    <option value="Aug 1st - Aug 12th, 2026">Aug 1st - Aug 12th, 2026</option>
+                    <option value="Sep 1st - Sep 12th, 2026">Sep 1st - Sep 12th, 2026</option>
+                    <option value="Oct 1st - Oct 12th, 2026">Oct 1st - Oct 12th, 2026</option>
+                    <option value="Nov 1st - Nov 12th, 2026">Nov 1st - Nov 12th, 2026</option>
+                    <option value="Dec 1st - Dec 12th, 2026">Dec 1st - Dec 12th, 2026</option>
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Accommodation */}
+              <div className="space-y-2">
+                <Label htmlFor="enroll-accommodation">Accommodation <span className="text-destructive">*</span></Label>
+                <div className="relative">
+                  <select
+                    id="enroll-accommodation"
+                    value={formData.accommodation}
+                    onChange={(e) => handleChange("accommodation", e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring appearance-none cursor-pointer"
+                    required
+                  >
+                    <option value="">Select Accommodation</option>
+                    <option value="Triple Sharing">Triple Sharing</option>
+                    <option value="Double Sharing">Double Sharing</option>
+                    <option value="Private Room">Private Room</option>
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Gender */}
+              <div className="space-y-2">
+                <Label htmlFor="enroll-gender">Gender <span className="text-destructive">*</span></Label>
+                <div className="relative">
+                  <select
+                    id="enroll-gender"
+                    value={formData.gender}
+                    onChange={(e) => handleChange("gender", e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring appearance-none cursor-pointer"
+                    required
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Referral Source */}
+              <div className="space-y-2">
+                <Label htmlFor="enroll-referral">From where you get to know about us? <span className="text-destructive">*</span></Label>
+                <div className="relative">
+                  <select
+                    id="enroll-referral"
+                    value={formData.referralSource}
+                    onChange={(e) => handleChange("referralSource", e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring appearance-none cursor-pointer"
+                    required
+                  >
+                    <option value="">Select...</option>
+                    <option value="Google Search">Google Search</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="YouTube">YouTube</option>
+                    <option value="Friend/Family Referral">Friend/Family Referral</option>
+                    <option value="Travel Blog/Website">Travel Blog/Website</option>
+                    <option value="TripAdvisor">TripAdvisor</option>
+                    <option value="Yoga Alliance">Yoga Alliance</option>
+                    <option value="Other">Other</option>
                   </select>
                   <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
                 </div>

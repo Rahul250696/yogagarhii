@@ -37,6 +37,18 @@ import WhyFeatureItem from "@/components/home/WhyFeatureItem";
 import StudentStoriesSection from "@/components/home/StudentStoriesSection";
 import apartKecakDance from "@/assets/apart/kecak-dance.jpg";
 import apartYogaAllianceGraduates from "@/assets/apart/yoga-alliance-graduates.jpg";
+import apartCeremony from "@/assets/apart/ceremony.jpg";
+import apartRiceFieldTrek from "@/assets/apart/rice-field-trek.jpg";
+
+// Workshop Images
+import workshopAyurveda from "@/assets/workshops/workshop-ayurveda.png";
+import workshopArmBalance from "@/assets/workshops/workshop-arm-balance.jpg";
+import workshopHandstand from "@/assets/workshops/workshop-handstand.jpg";
+import workshopBalinese from "@/assets/workshops/workshop-balinese.png";
+import workshopSoundHealing from "@/assets/workshops/workshop-sound-healing.jpg";
+import workshopSoundHealingUpdate from "@/assets/workshops/workshop-sound-healing-update.png";
+import apartChildPose from "@/assets/apart/child-pose.jpg";
+import workshopBhakti from "@/assets/workshops/workshop-bhakti.jpg";
 
 // Triple Sharing room images
 import tripleBalcony from "@/assets/rooms/triple-balcony.jpg";
@@ -337,32 +349,32 @@ const workshops = [
   {
     title: "Ayurveda Fundamentals",
     description: "Understand your unique constitution (Prakriti) and learn how to balance your doshas through diet, lifestyle, and yogic practices for optimal health.",
-    image: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&h=400&fit=crop"
+    image: workshopAyurveda
   },
   {
     title: "Arm Balance Mastery",
     description: "Build the strength, technique and confidence needed to master arm balances like Crow, Side Crow, and Flying Pigeon with proper alignment.",
-    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=400&fit=crop"
+    image: workshopArmBalance
   },
   {
     title: "Handstand Workshop",
     description: "Overcome fear and find your center through progressive drills, wall work, and partner exercises to achieve a confident freestanding handstand.",
-    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=400&fit=crop"
+    image: workshopHandstand
   },
   {
     title: "Yin Yoga Deep Stretch",
     description: "Access deeper connective tissue layers through long-held passive poses. Release tension, increase flexibility, and cultivate inner stillness.",
-    image: "https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=600&h=400&fit=crop"
+    image: apartChildPose
   },
   {
     title: "Sound Healing Session",
     description: "Experience the transformative power of Tibetan singing bowls, gongs, and mantras. Vibration therapy for deep relaxation and inner calm.",
-    image: "https://images.unsplash.com/photo-1591291621164-2c6367723315?w=600&h=400&fit=crop"
+    image: workshopSoundHealingUpdate
   },
   {
     title: "Bhakti Yoga & Kirtan",
     description: "Open your heart through devotional practice. Learn sacred chants, mantras, and kirtan to connect with the spiritual essence of yoga.",
-    image: "https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?w=600&h=400&fit=crop"
+    image: workshopBhakti
   },
 ];
 
@@ -377,7 +389,7 @@ const excursions = [
   {
     title: "Rice Field Trek",
     description: "Walk through Ubud's iconic terraced rice paddies. Experience the harmony of nature, traditional farming, and the peaceful rhythm of rural Bali.",
-    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&h=600&fit=crop",
+    image: apartRiceFieldTrek,
     icon: Leaf
   },
   {
@@ -416,7 +428,7 @@ const foodMenu = [
 
 // Food Philosophy Points
 const foodPhilosophy = [
-  { icon: Leaf, title: "100% Plant-Based", description: "Pure vegetarian & vegan cuisine" },
+  { icon: Leaf, title: "Nutrition & Healthy Food", description: "Pure vegetarian & vegan cuisine" },
   { icon: Heart, title: "Sattvic Principles", description: "Food that promotes clarity & peace" },
   { icon: Apple, title: "Locally Sourced", description: "Fresh ingredients from Bali farms" },
   { icon: Sparkles, title: "Ayurvedic Balance", description: "Meals designed for your dosha" },
@@ -437,14 +449,17 @@ const dietaryOptions = [
 
 // Upcoming Dates
 const upcomingDates = [
-  { date: "1 Dec - 12 Dec 2025", spotsLeft: 4, earlyBirdSaving: "$150" },
-  { date: "5 Jan - 16 Jan 2026", spotsLeft: 6, earlyBirdSaving: "$150" },
   { date: "1 Feb - 12 Feb 2026", spotsLeft: 8, earlyBirdSaving: "$150" },
   { date: "1 Mar - 12 Mar 2026", spotsLeft: 8, earlyBirdSaving: "$150" },
-  { date: "2 Apr - 13 Apr 2026", spotsLeft: 8, earlyBirdSaving: "$150" },
-  { date: "2 May - 13 May 2026", spotsLeft: 7, earlyBirdSaving: "$150" },
-  { date: "2 Aug - 13 Aug 2026", spotsLeft: 8, earlyBirdSaving: "$150" },
-  { date: "2 Sept - 13 Sept 2026", spotsLeft: 7, earlyBirdSaving: "$150" },
+  { date: "1 Apr - 12 Apr 2026", spotsLeft: 8, earlyBirdSaving: "$150" },
+  { date: "1 May - 12 May 2026", spotsLeft: 7, earlyBirdSaving: "$150" },
+  { date: "1 Jun - 12 Jun 2026", spotsLeft: 8, earlyBirdSaving: "$150" },
+  { date: "1 Jul - 12 Jul 2026", spotsLeft: 8, earlyBirdSaving: "$150" },
+  { date: "1 Aug - 12 Aug 2026", spotsLeft: 8, earlyBirdSaving: "$150" },
+  { date: "1 Sept - 12 Sept 2026", spotsLeft: 7, earlyBirdSaving: "$150" },
+  { date: "1 Oct - 12 Oct 2026", spotsLeft: 8, earlyBirdSaving: "$150" },
+  { date: "1 Nov - 12 Nov 2026", spotsLeft: 8, earlyBirdSaving: "$150" },
+  { date: "1 Dec - 12 Dec 2026", spotsLeft: 6, earlyBirdSaving: "$150" },
 ];
 
 
@@ -566,10 +581,12 @@ export default function Course100Hour() {
     // If opening, scroll to the trigger after a brief delay for content to render
     if (open) {
       setTimeout(() => {
-        foodTriggerRef.current?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+        if (foodTriggerRef.current) {
+          const yOffset = -100;
+          const element = foodTriggerRef.current;
+          const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
       }, 100);
     }
   };
