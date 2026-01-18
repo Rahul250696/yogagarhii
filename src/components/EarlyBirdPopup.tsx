@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { X, Sparkles } from "lucide-react";
+import { useQuickEnquiry } from "./QuickEnquiryDialog";
 
 const EarlyBirdPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -7,6 +8,7 @@ const EarlyBirdPopup = () => {
     // Check if user dismissed it in this session
     return sessionStorage.getItem('earlyBirdDismissed') === 'true';
   });
+  const { setShowQuickEnquiry } = useQuickEnquiry();
 
   useEffect(() => {
     // If already dismissed, don't show
@@ -26,17 +28,14 @@ const EarlyBirdPopup = () => {
     sessionStorage.setItem('earlyBirdDismissed', 'true');
   };
 
-  const handleContactClick = () => {
-    window.open('https://wa.me/917895350563?text=Hi!%20I%20am%20interested%20in%20the%20Early%20Bird%20Offer%20for%20YTTC.', '_blank');
-  };
+  // Removed handleContactClick as we are using Link component now
 
   if (isDismissed) return null;
 
   return (
     <div
-      className={`fixed left-0 top-1/2 -translate-y-1/2 z-[55] transition-transform duration-500 ease-out ${
-        isVisible ? 'translate-x-0' : '-translate-x-full'
-      }`}
+      className={`fixed left-0 top-1/2 -translate-y-1/2 z-[55] transition-transform duration-500 ease-out ${isVisible ? 'translate-x-0' : '-translate-x-full'
+        }`}
     >
       <div className="relative">
         {/* Close Button */}
@@ -62,11 +61,11 @@ const EarlyBirdPopup = () => {
             {/* Sparkle decorations */}
             <Sparkles className="absolute top-2 left-2 w-4 h-4 text-yellow-300 animate-pulse" />
             <Sparkles className="absolute top-2 right-2 w-4 h-4 text-yellow-300 animate-pulse" />
-            
+
             <h3 className="text-white font-heading text-3xl font-bold tracking-tight leading-tight">
               EARLY
             </h3>
-            
+
             {/* Bird Banner */}
             <div className="relative -mx-6 my-2">
               <div className="bg-primary py-2 px-4 transform -rotate-2">
@@ -75,11 +74,11 @@ const EarlyBirdPopup = () => {
                 </span>
               </div>
             </div>
-            
+
             <p className="text-white font-heading text-xl font-semibold">
               Offer
             </p>
-            
+
             {/* Decorative line */}
             <div className="flex items-center justify-center gap-2 mt-2">
               <span className="w-6 h-0.5 bg-white/40" />
@@ -90,7 +89,10 @@ const EarlyBirdPopup = () => {
 
           {/* CTA Button */}
           <button
-            onClick={handleContactClick}
+            onClick={() => {
+              setShowQuickEnquiry(true);
+              setIsVisible(false);
+            }}
             className="w-full bg-amber-700 hover:bg-amber-800 text-white py-3 px-6 font-bold text-sm tracking-wide uppercase transition-colors flex items-center justify-center gap-2 group"
           >
             <span>Contact Us</span>

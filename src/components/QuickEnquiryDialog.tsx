@@ -86,9 +86,9 @@ export function QuickEnquiryProvider({ children }: { children: ReactNode }) {
     <QuickEnquiryContext.Provider value={{ showQuickEnquiry, setShowQuickEnquiry }}>
       {children}
       <Dialog open={showQuickEnquiry} onOpenChange={handleOpenChange}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="text-center font-heading text-2xl text-primary">
+        <DialogContent className="sm:max-w-md bg-[#FDFBF7] border-none shadow-2xl rounded-3xl">
+          <DialogHeader className="pt-4">
+            <DialogTitle className="text-center font-heading text-4xl text-[#2D7A70] tracking-tight">
               {isSubmitted ? "Thank You!" : "Quick Enquiry"}
             </DialogTitle>
           </DialogHeader>
@@ -104,19 +104,20 @@ export function QuickEnquiryProvider({ children }: { children: ReactNode }) {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Full Name *</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="name" className="text-[#1A4D45] font-semibold text-sm">Full Name *</Label>
                 <Input
                   id="name"
                   placeholder="Enter your name"
                   value={formData.name}
                   onChange={(e) => handleChange("name", e.target.value)}
                   required
+                  className="bg-white/80 border-teal-100 focus:border-[#87BCB4] focus:ring-[#87BCB4] rounded-xl h-12"
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email">Email *</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="email" className="text-[#1A4D45] font-semibold text-sm">Email *</Label>
                 <Input
                   id="email"
                   type="email"
@@ -124,30 +125,32 @@ export function QuickEnquiryProvider({ children }: { children: ReactNode }) {
                   value={formData.email}
                   onChange={(e) => handleChange("email", e.target.value)}
                   required
+                  className="bg-white/80 border-teal-100 focus:border-[#87BCB4] focus:ring-[#87BCB4] rounded-xl h-12"
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="message" className="text-[#1A4D45] font-semibold text-sm">Message</Label>
                 <Textarea
                   id="message"
                   placeholder="Any questions or specific requirements..."
                   value={formData.message}
                   onChange={(e) => handleChange("message", e.target.value)}
-                  rows={3}
+                  rows={4}
+                  className="bg-white/80 border-teal-100 focus:border-[#87BCB4] focus:ring-[#87BCB4] rounded-xl resize-none"
                 />
               </div>
 
               <Button
                 type="submit"
-                className="w-full"
+                className="w-full bg-[#87BCB4] hover:bg-[#76ADA5] text-white rounded-xl h-14 text-lg font-bold transition-all duration-300 shadow-md hover:shadow-lg mt-2"
                 disabled={isLoading || !formData.name || !formData.email}
               >
                 {isLoading ? (
                   "Submitting..."
                 ) : (
                   <>
-                    <Send className="w-4 h-4 mr-2" />
+                    <Send className="w-5 h-5 mr-2" />
                     Submit Enquiry
                   </>
                 )}
