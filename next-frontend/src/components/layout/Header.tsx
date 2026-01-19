@@ -93,27 +93,19 @@ export default function Header() {
   const pathname = usePathname();
   const { setShowEnrollDialog } = useEnrollment();
 
-  // Check if announcement was dismissed for this page in this session
+  // Check if announcement was dismissed in this session
   useEffect(() => {
     // Only access sessionStorage in the browser
     if (typeof window !== 'undefined') {
-      const dismissedPaths = JSON.parse(sessionStorage.getItem('announcementDismissed') || '[]');
-      if (dismissedPaths.includes(pathname)) {
-        setAnnouncementDismissed(true);
-      } else {
-        setAnnouncementDismissed(false);
-      }
+      const isDismissed = sessionStorage.getItem('announcementDismissedGlobal') === 'true';
+      setAnnouncementDismissed(isDismissed);
     }
-  }, [pathname]);
+  }, []);
 
   const dismissAnnouncement = () => {
     // Only access sessionStorage in the browser
     if (typeof window !== 'undefined') {
-      const dismissedPaths = JSON.parse(sessionStorage.getItem('announcementDismissed') || '[]');
-      if (!dismissedPaths.includes(pathname)) {
-        dismissedPaths.push(pathname);
-        sessionStorage.setItem('announcementDismissed', JSON.stringify(dismissedPaths));
-      }
+      sessionStorage.setItem('announcementDismissedGlobal', 'true');
     }
     setAnnouncementDismissed(true);
     setShowAnnouncement(false);
@@ -124,16 +116,17 @@ export default function Header() {
       const isScrolled = window.scrollY > 100;
       setScrolled(window.scrollY > 20);
 
-      // Show announcement when scrolling down (if not dismissed)
-      if (isScrolled && !announcementDismissed) {
+      // Show announcement when scrolling down (if not dismissed and on home page)
+      const isHome = pathname === '/';
+      if (isHome && isScrolled && !announcementDismissed) {
         setShowAnnouncement(true);
-      } else if (!isScrolled) {
+      } else if (!isScrolled || !isHome) {
         setShowAnnouncement(false);
       }
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [announcementDismissed]);
+  }, [announcementDismissed, pathname]);
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -150,7 +143,7 @@ export default function Header() {
     <>
       {/* Announcement Bar - Slides in from top on scroll */}
       <div
-        className={`fixed top-0 left-0 right-0 bg-primary text-primary-foreground py-2.5 px-4 z-[60] transition-transform duration-500 ease-out ${showAnnouncement ? 'translate-y-0' : '-translate-y-full'
+        className={`fixed top-0 left-0 right-0 bg-primary text-primary-foreground py-2.5 px-4 z-[60] transition-transform duration-500 ease-out ${showAnnouncement && pathname === '/' ? 'translate-y-0' : '-translate-y-full'
           }`}
       >
         <div className="container mx-auto flex items-center justify-center gap-2 text-xs sm:text-sm pr-8">
