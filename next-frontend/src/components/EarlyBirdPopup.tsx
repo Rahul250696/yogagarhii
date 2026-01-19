@@ -42,8 +42,8 @@ const EarlyBirdPopup = () => {
 
   return (
     <div
-      className={`fixed left-0 top-1/2 -translate-y-1/2 z-[55] transition-transform duration-500 ease-out ${isVisible ? 'translate-x-0' : '-translate-x-full'
-        }`}
+      className={`fixed left-0 top-1/2 -translate-y-1/2 z-40 transition-transform duration-500 ease-out ${isVisible ? 'translate-x-0' : '-translate-x-full'
+        } scale-[0.8] sm:scale-100 origin-left`}
     >
       <div className="relative">
         {/* Close Button */}

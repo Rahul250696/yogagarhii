@@ -83,6 +83,7 @@ import privateNew2 from "@/assets/rooms/private-new-2.png";
 import privateNew3 from "@/assets/rooms/private-new-3.png";
 import privateNew4 from "@/assets/rooms/private-new-4.png";
 import privateNew5 from "@/assets/rooms/private-new-5.png";
+import sattvicBreakfast from "@/assets/food/sattvic-breakfast.jpg";
 
 // Custom scroll-aware header component
 
@@ -414,7 +415,7 @@ const foodMenu = [
     time: "7:00 AM",
     icon: Coffee,
     items: ["Fresh tropical fruits", "Homemade granola with coconut yogurt", "Herbal teas & fresh juices", "Balinese rice porridge"],
-    image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&h=400&fit=crop"
+    image: sattvicBreakfast
   },
   {
     meal: "Lunch",
@@ -576,7 +577,7 @@ export default function Course100Hour() {
   ];
   const [selectedTimezone, setSelectedTimezone] = useState('UTC +05:30 New Delhi, Mumbai');
   const [showTimezoneDropdown, setShowTimezoneDropdown] = useState(false);
-  const [isFoodSectionOpen, setIsFoodSectionOpen] = useState(false);
+  const [isFoodSectionOpen, setIsFoodSectionOpen] = useState(true);
   const [isAccommodationOpen, setIsAccommodationOpen] = useState(true);
   const foodTriggerRef = useRef<HTMLDivElement>(null);
 
