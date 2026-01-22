@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Send, CheckCircle } from "lucide-react";
+import { countryCodes } from "@/constants/formOptions";
 
 interface QuickEnquiryContextType {
   showQuickEnquiry: boolean;
@@ -40,6 +41,8 @@ export function QuickEnquiryProvider({ children }: { children: ReactNode }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    countryCode: "+91",
+    phone: "",
     message: "",
   });
 
@@ -89,6 +92,8 @@ export function QuickEnquiryProvider({ children }: { children: ReactNode }) {
       setFormData({
         name: "",
         email: "",
+        countryCode: "+91",
+        phone: "",
         message: "",
       });
     }
@@ -148,6 +153,32 @@ export function QuickEnquiryProvider({ children }: { children: ReactNode }) {
               </div>
 
               <div className="space-y-1.5">
+                <Label htmlFor="phone" className="text-[#1A4D45] font-semibold text-sm">Contact / WhatsApp *</Label>
+                <div className="flex gap-2">
+                  <select
+                    value={formData.countryCode}
+                    onChange={(e) => handleChange("countryCode", e.target.value)}
+                    className="w-24 px-2 py-3 rounded-xl border border-teal-100 bg-white/80 text-foreground focus:outline-none focus:ring-2 focus:ring-[#87BCB4] text-sm"
+                  >
+                    {countryCodes.map((country) => (
+                      <option key={`${country.country}-${country.code}`} value={country.code}>
+                        {country.flag} {country.code}
+                      </option>
+                    ))}
+                  </select>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="Phone number"
+                    value={formData.phone}
+                    onChange={(e) => handleChange("phone", e.target.value)}
+                    required
+                    className="bg-white/80 border-teal-100 focus:border-[#87BCB4] focus:ring-[#87BCB4] rounded-xl h-12 flex-1"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
                 <Label htmlFor="message" className="text-[#1A4D45] font-semibold text-sm">Message</Label>
                 <Textarea
                   id="message"
@@ -162,7 +193,7 @@ export function QuickEnquiryProvider({ children }: { children: ReactNode }) {
               <Button
                 type="submit"
                 className="w-full bg-[#87BCB4] hover:bg-[#76ADA5] text-white rounded-xl h-14 text-lg font-bold transition-all duration-300 shadow-md hover:shadow-lg mt-2"
-                disabled={isLoading || !formData.name || !formData.email}
+                disabled={isLoading || !formData.name || !formData.email || !formData.phone}
               >
                 {isLoading ? (
                   "Submitting..."

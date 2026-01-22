@@ -9,6 +9,7 @@ import WhyChooseUs from "@/components/home/WhyChooseUs";
 import FAQSection from "@/components/home/FAQSection";
 import WebinarSection from "@/components/home/WebinarSection";
 import HomeGallerySection from "@/components/home/HomeGallerySection";
+import HomeVideoGallerySection from "@/components/home/HomeVideoGallerySection";
 import StudentStoriesSection from "@/components/home/StudentStoriesSection";
 import ReadyToBeginSection from "@/components/home/ReadyToBeginSection";
 
@@ -16,15 +17,16 @@ const Index = () => {
   return (
     <>
       <Hero />
-      <YTTCSupportSection />
       <WelcomeSection />
       <CoursesSection />
+      <YTTCSupportSection />
       <FounderSection />
       <WhyOneStyleSection />
       <GoogleReviewsSection />
       <WhyChooseUs />
       <WebinarSection />
       <HomeGallerySection />
+      <HomeVideoGallerySection />
       <StudentStoriesSection />
       <ReadyToBeginSection />
       <FAQSection />

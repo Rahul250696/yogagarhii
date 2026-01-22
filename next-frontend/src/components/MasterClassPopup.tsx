@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { X, Sparkles, User, Mail, ArrowRight, Loader2, CheckCircle2, Globe } from "lucide-react";
+import { timezones } from "@/constants/formOptions";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -234,36 +235,9 @@ Our team will reach out to you shortly to confirm your session. We look forward 
                                                 required
                                             >
                                                 <option value="" disabled>Select Timezone</option>
-                                                <optgroup label="Americas">
-                                                    <option value="HST">Hawaii (HST, GMT-10)</option>
-                                                    <option value="AKST">Alaska (AKST, GMT-9)</option>
-                                                    <option value="PST">Pacific (PST/PDT, GMT-8)</option>
-                                                    <option value="MST">Mountain (MST/MDT, GMT-7)</option>
-                                                    <option value="CST">Central (CST/CDT, GMT-6)</option>
-                                                    <option value="EST">Eastern (EST/EDT, GMT-5)</option>
-                                                    <option value="AST">Atlantic (AST, GMT-4)</option>
-                                                    <option value="BRT">Brazil (BRT, GMT-3)</option>
-                                                    <option value="ART">Argentina (ART, GMT-3)</option>
-                                                </optgroup>
-                                                <optgroup label="Europe & Africa">
-                                                    <option value="GMT">London/UTC (GMT, GMT+0)</option>
-                                                    <option value="CET">Paris/Berlin (CET, GMT+1)</option>
-                                                    <option value="EET">Eastern Europe (EET, GMT+2)</option>
-                                                    <option value="MSK">Moscow (MSK, GMT+3)</option>
-                                                    <option value="VAT">South Africa (VAT, GMT+2)</option>
-                                                    <option value="GST">Dubai (GST, GMT+4)</option>
-                                                </optgroup>
-                                                <optgroup label="Asia & Oceania">
-                                                    <option value="PKT">Pakistan (PKT, GMT+5)</option>
-                                                    <option value="IST">India (IST, GMT+5:30)</option>
-                                                    <option value="ICT">Thailand/Vietnam (ICT, GMT+7)</option>
-                                                    <option value="WITA">Bali/Indonesia (WITA, GMT+8)</option>
-                                                    <option value="SGT">Singapore (SGT, GMT+8)</option>
-                                                    <option value="CST-Asia">China (CST, GMT+8)</option>
-                                                    <option value="JST">Japan/Korea (JST, GMT+9)</option>
-                                                    <option value="AEST">Sydney/Melbourne (AEST, GMT+10)</option>
-                                                    <option value="NZDT">New Zealand (NZDT, GMT+13)</option>
-                                                </optgroup>
+                                                {timezones.map((tz) => (
+                                                    <option key={tz.value} value={tz.value}>{tz.label}</option>
+                                                ))}
                                             </select>
                                         </div>
                                     </div>

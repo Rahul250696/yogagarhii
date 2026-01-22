@@ -81,7 +81,7 @@ export default function WelcomeSection() {
             <div className="relative pt-[56.25%] rounded-xl overflow-hidden shadow-2xl border border-primary/10">
               <iframe
                 className="absolute inset-0 w-full h-full"
-                src={`https://www.youtube.com/embed/${youtubeVideoId}`}
+                src={`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&mute=1`}
                 title="Yoga Teacher Training In Bali | Awaken Your Teacher Within"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen

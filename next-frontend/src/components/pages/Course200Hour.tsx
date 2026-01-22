@@ -23,6 +23,7 @@ import {
   Cherry, Sprout, CircleDot, Sun, MessageSquare, Mail,
   Wifi, Droplets, Wind
 } from "lucide-react";
+import { timezones } from "@/constants/formOptions";
 import RoomCard from "./RoomCard";
 import heroImage from "@/assets/hero-yoga-bali.jpg";
 import activityAyurveda from "@/assets/activity-ayurveda.jpg";
@@ -658,41 +659,6 @@ export default function Course200Hour() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const timezones = [
-    { value: 'UTC -12:00 Baker Island', label: 'UTC -12:00 Baker Island' },
-    { value: 'UTC -11:00 Pago Pago', label: 'UTC -11:00 Pago Pago' },
-    { value: 'UTC -10:00 Honolulu', label: 'UTC -10:00 Honolulu' },
-    { value: 'UTC -09:00 Anchorage', label: 'UTC -09:00 Anchorage' },
-    { value: 'UTC -08:00 Los Angeles, Vancouver', label: 'UTC -08:00 Los Angeles, Vancouver' },
-    { value: 'UTC -07:00 Denver, Phoenix', label: 'UTC -07:00 Denver, Phoenix' },
-    { value: 'UTC -06:00 Chicago, Mexico City', label: 'UTC -06:00 Chicago, Mexico City' },
-    { value: 'UTC -05:00 New York, Toronto', label: 'UTC -05:00 New York, Toronto' },
-    { value: 'UTC -04:00 Santiago, Caracas', label: 'UTC -04:00 Santiago, Caracas' },
-    { value: 'UTC -03:00 São Paulo, Buenos Aires', label: 'UTC -03:00 São Paulo, Buenos Aires' },
-    { value: 'UTC -02:00 Mid-Atlantic', label: 'UTC -02:00 Mid-Atlantic' },
-    { value: 'UTC -01:00 Azores, Cape Verde', label: 'UTC -01:00 Azores, Cape Verde' },
-    { value: 'UTC +00:00 London, Dublin, Lisbon', label: 'UTC +00:00 London, Dublin, Lisbon' },
-    { value: 'UTC +01:00 Paris, Berlin, Rome', label: 'UTC +01:00 Paris, Berlin, Rome' },
-    { value: 'UTC +02:00 Cairo, Johannesburg', label: 'UTC +02:00 Cairo, Johannesburg' },
-    { value: 'UTC +03:00 Moscow, Nairobi, Riyadh', label: 'UTC +03:00 Moscow, Nairobi, Riyadh' },
-    { value: 'UTC +03:30 Tehran', label: 'UTC +03:30 Tehran' },
-    { value: 'UTC +04:00 Dubai, Baku', label: 'UTC +04:00 Dubai, Baku' },
-    { value: 'UTC +04:30 Kabul', label: 'UTC +04:30 Kabul' },
-    { value: 'UTC +05:00 Karachi, Tashkent', label: 'UTC +05:00 Karachi, Tashkent' },
-    { value: 'UTC +05:30 New Delhi, Mumbai', label: 'UTC +05:30 New Delhi, Mumbai' },
-    { value: 'UTC +05:45 Kathmandu', label: 'UTC +05:45 Kathmandu' },
-    { value: 'UTC +06:00 Dhaka, Almaty', label: 'UTC +06:00 Dhaka, Almaty' },
-    { value: 'UTC +06:30 Yangon', label: 'UTC +06:30 Yangon' },
-    { value: 'UTC +07:00 Bangkok, Jakarta, Hanoi', label: 'UTC +07:00 Bangkok, Jakarta, Hanoi' },
-    { value: 'UTC +08:00 Singapore, Hong Kong, Beijing', label: 'UTC +08:00 Singapore, Hong Kong, Beijing' },
-    { value: 'UTC +09:00 Tokyo, Seoul', label: 'UTC +09:00 Tokyo, Seoul' },
-    { value: 'UTC +09:30 Adelaide, Darwin', label: 'UTC +09:30 Adelaide, Darwin' },
-    { value: 'UTC +10:00 Sydney, Melbourne', label: 'UTC +10:00 Sydney, Melbourne' },
-    { value: 'UTC +11:00 Solomon Islands', label: 'UTC +11:00 Solomon Islands' },
-    { value: 'UTC +12:00 Auckland, Fiji', label: 'UTC +12:00 Auckland, Fiji' },
-    { value: 'UTC +13:00 Tonga, Samoa', label: 'UTC +13:00 Tonga, Samoa' },
-    { value: 'UTC +14:00 Line Islands', label: 'UTC +14:00 Line Islands' },
-  ];
 
   const isBookingFormComplete = bookingForm.name && bookingForm.contact && bookingForm.email && bookingForm.course;
 
@@ -1139,7 +1105,7 @@ export default function Course200Hour() {
                 <div className="relative w-full mb-8 lg:hidden">
                   <div className="aspect-video rounded-lg overflow-hidden shadow-card bg-muted">
                     <iframe
-                      src="https://www.youtube.com/embed/U1r2mQRmWXM?rel=0"
+                      src="https://www.youtube.com/embed/U1r2mQRmWXM?rel=0&autoplay=1&mute=1"
                       title="YogaGarhi 200 Hour Yoga Teacher Training"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -1191,7 +1157,7 @@ export default function Course200Hour() {
               <div className="relative w-full order-2 lg:order-1 hidden lg:block">
                 <div className="aspect-video rounded-lg overflow-hidden shadow-card bg-muted">
                   <iframe
-                    src="https://www.youtube.com/embed/U1r2mQRmWXM?rel=0"
+                    src="https://www.youtube.com/embed/U1r2mQRmWXM?rel=0&autoplay=1&mute=1"
                     title="YogaGarhi 200 Hour Yoga Teacher Training"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
