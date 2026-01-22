@@ -2,57 +2,90 @@ import { Metadata } from "next";
 import Course200Hour from "@/components/pages/Course200Hour";
 import { courseData } from "@/constants/courses";
 
-type Props = {
-    params: Promise<{ slug: string }>;
-    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
-
-export async function generateMetadata(): Promise<Metadata> {
+/* =========================
+   SEO METADATA
+========================= */
+export function generateMetadata(): Metadata {
     const course = courseData["200-hour"];
-    const title = `${course.title} ${course.subtitle} | YogaGarhi Bali`;
-    const description = course.welcomeText.substring(0, 160) + "...";
+
+    const title =
+        "200 Hour Yoga Teacher Training in Bali | RYT 200 Yoga TTC – YogaGarhi";
+
+    const description =
+        "Join YogaGarhi’s 200 Hour Yoga Teacher Training in Bali. A residential RYT 200 Yoga Alliance certified course offering authentic yogic education, asana, pranayama, meditation, philosophy, and teaching methodology in Bali.";
+
+    const url =
+        "https://www.yogagarhi.com/200-hour-yoga-teacher-training-in-bali/";
 
     return {
-        title: title,
-        description: description,
+        title,
+        description,
+        keywords: [
+            "200 hour yoga teacher training in bali",
+            "200 hour yoga TTC bali",
+            "ryt 200 yoga teacher training bali",
+            "yoga alliance 200 hour bali",
+            "yoga teacher training bali"
+        ],
         alternates: {
-            canonical: "/courses/200-hour",
+            canonical: url,
+        },
+        robots: {
+            index: true,
+            follow: true,
         },
         openGraph: {
-            title: title,
-            description: description,
-            url: "/courses/200-hour",
+            title,
+            description,
+            url,
             type: "website",
             images: [
                 {
-                    url: "/og-image.jpg",
+                    url: "https://www.yogagarhi.com/og-image.jpg",
                     width: 1200,
                     height: 630,
                     alt: title,
-                }
+                },
             ],
         },
         twitter: {
             card: "summary_large_image",
-            title: title,
-            description: description,
+            title,
+            description,
         },
     };
 }
 
+/* =========================
+   PAGE
+========================= */
 export default function Page() {
     const course = courseData["200-hour"];
+    const pageUrl =
+        "https://www.yogagarhi.com/200-hour-yoga-teacher-training-in-bali/";
 
+    /* =========================
+       COURSE SCHEMA
+    ========================= */
     const courseSchema = {
         "@context": "https://schema.org",
         "@type": "Course",
-        "name": `${course.title} ${course.subtitle}`,
+        "name": "200 Hour Yoga Teacher Training in Bali",
         "description": course.welcomeText,
+        "inLanguage": "en",
+        "educationalCredentialAwarded":
+            "RYT 200 Yoga Alliance Certification",
         "provider": {
             "@type": "Organization",
             "name": "YogaGarhi",
-            "url": "https://yogagarhi.com"
+            "url": "https://www.yogagarhi.com"
         },
+        "audience": {
+            "@type": "Audience",
+            "audienceType": "Beginner to intermediate yoga practitioners"
+        },
+        "coursePrerequisites":
+            "Basic yoga practice recommended but not mandatory",
         "hasCourseInstance": {
             "@type": "CourseInstance",
             "courseMode": "onsite",
@@ -73,11 +106,13 @@ export default function Page() {
             "price": course.price.replace("$", ""),
             "priceCurrency": "USD",
             "availability": "https://schema.org/InStock",
-            "url": "https://yogagarhi.com/courses/200-hour"
-        },
-        "educationalCredentialAwarded": "RYT-200 Yoga Alliance Certification"
+            "url": pageUrl
+        }
     };
 
+    /* =========================
+       BREADCRUMB SCHEMA
+    ========================= */
     const breadcrumbSchema = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -86,33 +121,41 @@ export default function Page() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Home",
-                "item": "https://yogagarhi.com"
+                "item": "https://www.yogagarhi.com"
             },
             {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Courses",
-                "item": "https://yogagarhi.com/courses/200-hour"
+                "name": "Yoga Teacher Training in Bali",
+                "item": "https://www.yogagarhi.com/courses"
             },
             {
                 "@type": "ListItem",
                 "position": 3,
-                "name": "200 Hour Course",
-                "item": "https://yogagarhi.com/courses/200-hour"
+                "name": "200 Hour Yoga Teacher Training in Bali",
+                "item": pageUrl
             }
         ]
     };
 
     return (
         <>
+            {/* Course Schema */}
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(courseSchema),
+                }}
             />
+
+            {/* Breadcrumb Schema */}
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(breadcrumbSchema),
+                }}
             />
+
             <Course200Hour />
         </>
     );

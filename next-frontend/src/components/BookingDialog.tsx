@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Check, Clock, ChevronDown, Calendar, Phone } from "lucide-react";
+import { countryCodes, timezones } from "@/constants/formOptions";
 
 interface BookingContextType {
   showBookingDialog: boolean;
@@ -39,18 +40,6 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   );
 }
 
-const timezones = [
-  { label: "Pacific Time (PT)", value: "America/Los_Angeles" },
-  { label: "Mountain Time (MT)", value: "America/Denver" },
-  { label: "Central Time (CT)", value: "America/Chicago" },
-  { label: "Eastern Time (ET)", value: "America/New_York" },
-  { label: "London (GMT)", value: "Europe/London" },
-  { label: "Central European (CET)", value: "Europe/Paris" },
-  { label: "India (IST)", value: "Asia/Kolkata" },
-  { label: "Singapore (SGT)", value: "Asia/Singapore" },
-  { label: "Bali (WITA)", value: "Asia/Makassar" },
-  { label: "Sydney (AEST)", value: "Australia/Sydney" },
-];
 
 function BookingDialogContent({ source, router }: { source: string, router: any }) {
   const { showBookingDialog, setShowBookingDialog } = useBooking();
@@ -59,7 +48,7 @@ function BookingDialogContent({ source, router }: { source: string, router: any 
   const [selectedMonth, setSelectedMonth] = useState(0);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [selectedTimezone, setSelectedTimezone] = useState("Asia/Makassar");
+  const [selectedTimezone, setSelectedTimezone] = useState("UTC +05:30 New Delhi, Mumbai");
   const [showTimezoneDropdown, setShowTimezoneDropdown] = useState(false);
 
   // Form state
@@ -68,7 +57,7 @@ function BookingDialogContent({ source, router }: { source: string, router: any 
   const [bookingForm, setBookingForm] = useState({
     name: '',
     email: '',
-    countryCode: '+1',
+    countryCode: '+91',
     phone: '',
     message: ''
   });
@@ -342,16 +331,11 @@ function BookingDialogContent({ source, router }: { source: string, router: any 
                     onChange={(e) => setBookingForm(prev => ({ ...prev, countryCode: e.target.value }))}
                     className="w-24 px-2 py-3 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
                   >
-                    <option value="+1">🇺🇸 +1</option>
-                    <option value="+44">🇬🇧 +44</option>
-                    <option value="+91">🇮🇳 +91</option>
-                    <option value="+61">🇦🇺 +61</option>
-                    <option value="+49">🇩🇪 +49</option>
-                    <option value="+33">🇫🇷 +33</option>
-                    <option value="+62">🇮🇩 +62</option>
-                    <option value="+65">🇸🇬 +65</option>
-                    <option value="+81">🇯🇵 +81</option>
-                    <option value="+86">🇨🇳 +86</option>
+                    {countryCodes.map((country) => (
+                      <option key={`${country.country}-${country.code}`} value={country.code}>
+                        {country.flag} {country.code}
+                      </option>
+                    ))}
                   </select>
                   <input
                     type="tel"

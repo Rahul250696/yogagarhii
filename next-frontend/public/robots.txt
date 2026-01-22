@@ -1,27 +1,12 @@
 # Robots.txt for YogaGarhi
-# https://yogagarhi.com
-
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
+# https://www.yogagarhi.com
 
 User-agent: *
 Allow: /
-Crawl-delay: 2
+
+# Block internal / technical paths
+Disallow: /api/
+Disallow: /_next/
 
 # Sitemap
-Sitemap: https://yogagarhi.com/sitemap.xml
-
-# Disallow admin/private paths
-Disallow: /api/
-Disallow: /_*
+Sitemap: https://www.yogagarhi.com/sitemap.xml

@@ -175,6 +175,8 @@ const MandalaBackground = () => (
   </svg>
 );
 
+import HomeVideoGallerySection from "@/components/home/HomeVideoGallerySection";
+
 export default function Gallery() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { setShowEnrollDialog } = useEnrollment();
@@ -189,145 +191,150 @@ export default function Gallery() {
 
   return (
     <>
-      {/* Mandala Gallery Section */}
-      <section className="py-16 md:py-24 bg-background relative overflow-hidden min-h-screen">
-        {/* Header */}
-        <div className="container mx-auto px-4 text-center mb-12">
-          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
-            Our Gallery
-          </h1>
-          <p className="text-xl text-muted-foreground">
-            Glimpses of life at YogaGarhi
-          </p>
-        </div>
+      <div className="pt-20"> {/* Add padding top for fixed header if needed, but standard Layout handles mainly. Here just wrapping content */}
+        {/* Mandala Gallery Section */}
+        <section className="py-16 md:py-24 bg-background relative overflow-hidden min-h-screen">
+          {/* Header */}
+          <div className="container mx-auto px-4 text-center mb-12">
+            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
+              Our Gallery
+            </h1>
+            <p className="text-xl text-muted-foreground">
+              Glimpses of life at YogaGarhi
+            </p>
+          </div>
 
-        {/* Central Mandala with Rotating Images */}
-        <div className="container mx-auto px-4">
-          <div className="relative flex items-center justify-center">
-            {/* The rotating mandala container */}
-            <div className="relative w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] md:w-[700px] md:h-[700px] lg:w-[900px] lg:h-[900px]">
-              {/* Background mandala - rotating slowly */}
-              <div className="absolute inset-0 animate-spin-slow">
-                <MandalaBackground />
-              </div>
+          {/* Central Mandala with Rotating Images */}
+          <div className="container mx-auto px-4">
+            <div className="relative flex items-center justify-center">
+              {/* The rotating mandala container */}
+              <div className="relative w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] md:w-[700px] md:h-[700px] lg:w-[900px] lg:h-[900px]">
+                {/* Background mandala - rotating slowly */}
+                <div className="absolute inset-0 animate-spin-slow">
+                  <MandalaBackground />
+                </div>
 
-              {/* Images arranged in a circle - rotating around center */}
-              <div className="absolute inset-0 animate-spin-slow" style={{ animationDirection: 'reverse' }}>
-                {galleryImages.map((image, index) => {
-                  const angle = (index * (360 / galleryImages.length)) - 90; // Evenly spaced, start from top
-                  const radius = 42; // percentage from center
-                  const x = 50 + radius * Math.cos((angle * Math.PI) / 180);
-                  const y = 50 + radius * Math.sin((angle * Math.PI) / 180);
+                {/* Images arranged in a circle - rotating around center */}
+                <div className="absolute inset-0 animate-spin-slow" style={{ animationDirection: 'reverse' }}>
+                  {galleryImages.map((image, index) => {
+                    const angle = (index * (360 / galleryImages.length)) - 90; // Evenly spaced, start from top
+                    const radius = 42; // percentage from center
+                    const x = 50 + radius * Math.cos((angle * Math.PI) / 180);
+                    const y = 50 + radius * Math.sin((angle * Math.PI) / 180);
 
-                  return (
-                    <div
-                      key={index}
-                      className="absolute w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 -translate-x-1/2 -translate-y-1/2"
-                      style={{
-                        left: `${x}%`,
-                        top: `${y}%`,
-                      }}
-                    >
-                      {/* Counter-rotate to keep images upright */}
-                      <div className="w-full h-full animate-spin-slow">
-                        <div className="w-full h-full rounded-full overflow-hidden border-4 border-primary/30 shadow-lg hover:border-primary hover:scale-110 transition-all duration-300 group relative">
-                          <Image
-                            src={image.src}
-                            alt={image.alt}
-                            fill
-                            className="object-cover"
-                          />
-                          {/* Hover overlay */}
-                          <div className="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-full z-10">
-                            <span className="text-primary-foreground text-xs md:text-sm font-medium text-center px-2">
-                              {image.alt}
-                            </span>
+                    return (
+                      <div
+                        key={index}
+                        className="absolute w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 -translate-x-1/2 -translate-y-1/2"
+                        style={{
+                          left: `${x}%`,
+                          top: `${y}%`,
+                        }}
+                      >
+                        {/* Counter-rotate to keep images upright */}
+                        <div className="w-full h-full animate-spin-slow">
+                          <div className="w-full h-full rounded-full overflow-hidden border-4 border-primary/30 shadow-lg hover:border-primary hover:scale-110 transition-all duration-300 group relative">
+                            <Image
+                              src={image.src}
+                              alt={image.alt}
+                              fill
+                              className="object-cover"
+                            />
+                            {/* Hover overlay */}
+                            <div className="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-full z-10">
+                              <span className="text-primary-foreground text-xs md:text-sm font-medium text-center px-2">
+                                {image.alt}
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
+                    );
+                  })}
+                </div>
+
+                {/* Center static photo carousel */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                  <div className="relative">
+                    {/* Main circular image */}
+                    <div className="w-44 h-44 sm:w-60 sm:h-60 md:w-80 md:h-80 lg:w-[420px] lg:h-[420px] rounded-full overflow-hidden border-4 border-primary/40 shadow-2xl relative">
+                      <Image
+                        src={galleryImages[currentIndex].src}
+                        alt={galleryImages[currentIndex].alt}
+                        fill
+                        className="object-cover transition-opacity duration-500"
+                      />
                     </div>
-                  );
-                })}
-              </div>
 
-              {/* Center static photo carousel */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                <div className="relative">
-                  {/* Main circular image */}
-                  <div className="w-44 h-44 sm:w-60 sm:h-60 md:w-80 md:h-80 lg:w-[420px] lg:h-[420px] rounded-full overflow-hidden border-4 border-primary/40 shadow-2xl relative">
-                    <Image
-                      src={galleryImages[currentIndex].src}
-                      alt={galleryImages[currentIndex].alt}
-                      fill
-                      className="object-cover transition-opacity duration-500"
-                    />
-                  </div>
+                    {/* Navigation buttons */}
+                    <button
+                      onClick={goToPrevious}
+                      className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-background/90 border border-primary/30 shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+                    </button>
 
-                  {/* Navigation buttons */}
-                  <button
-                    onClick={goToPrevious}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-background/90 border border-primary/30 shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
-                    aria-label="Previous image"
-                  >
-                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
-                  </button>
+                    <button
+                      onClick={goToNext}
+                      className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-background/90 border border-primary/30 shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+                    </button>
 
-                  <button
-                    onClick={goToNext}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-background/90 border border-primary/30 shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
-                    aria-label="Next image"
-                  >
-                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
-                  </button>
+                    {/* Image label */}
+                    <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                      <span className="text-sm md:text-base font-medium text-foreground/80 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full border border-primary/20">
+                        {galleryImages[currentIndex].alt}
+                      </span>
+                    </div>
 
-                  {/* Image label */}
-                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                    <span className="text-sm md:text-base font-medium text-foreground/80 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full border border-primary/20">
-                      {galleryImages[currentIndex].alt}
-                    </span>
-                  </div>
-
-                  {/* Pagination dots */}
-                  <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
-                    {galleryImages.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentIndex(index)}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
+                    {/* Pagination dots */}
+                    <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
+                      {galleryImages.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentIndex(index)}
+                          className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
                             ? 'bg-primary w-4'
                             : 'bg-primary/30 hover:bg-primary/50'
-                          }`}
-                        aria-label={`Go to image ${index + 1}`}
-                      />
-                    ))}
+                            }`}
+                          aria-label={`Go to image ${index + 1}`}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* Description below */}
+            <div className="text-center mt-20 md:mt-24">
+              <p className="font-heading text-xl md:text-2xl text-foreground/80 leading-relaxed mb-4">
+                Where practice meets purpose.
+              </p>
+              <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto mb-8">
+                Every moment at Yogagarhi is a step toward inner awakening. From sunrise practice to community meals, we cherish each experience on this transformative journey.
+              </p>
+
+              <Button
+                onClick={() => setShowEnrollDialog(true)}
+                className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-3 rounded-full transition-all group"
+              >
+                Enroll Now
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </div>
           </div>
+        </section>
 
-          {/* Description below */}
-          <div className="text-center mt-20 md:mt-24">
-            <p className="font-heading text-xl md:text-2xl text-foreground/80 leading-relaxed mb-4">
-              Where practice meets purpose.
-            </p>
-            <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto mb-8">
-              Every moment at Yogagarhi is a step toward inner awakening. From sunrise practice to community meals, we cherish each experience on this transformative journey.
-            </p>
+        {/* Video Gallery Section */}
+        <HomeVideoGallerySection />
 
-            <Button
-              onClick={() => setShowEnrollDialog(true)}
-              className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-3 rounded-full transition-all group"
-            >
-              Enroll Now
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Ready to Begin Section */}
-      <ReadyToBeginSection />
+        {/* Ready to Begin Section */}
+        <ReadyToBeginSection />
+      </div>
     </>
   );
 }

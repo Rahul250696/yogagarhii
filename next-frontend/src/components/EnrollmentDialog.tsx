@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle, GraduationCap, ChevronDown } from "lucide-react";
+import { countryCodes } from "@/constants/formOptions";
 
 interface EnrollmentContextType {
   showEnrollDialog: boolean;
@@ -37,23 +38,6 @@ const courses = [
   { value: "300hr", label: "300-Hour YTTC" },
 ];
 
-const countryCodes = [
-  { code: "+1", flag: "🇺🇸", country: "USA" },
-  { code: "+44", flag: "🇬🇧", country: "UK" },
-  { code: "+91", flag: "🇮🇳", country: "India" },
-  { code: "+61", flag: "🇦🇺", country: "Australia" },
-  { code: "+49", flag: "🇩🇪", country: "Germany" },
-  { code: "+33", flag: "🇫🇷", country: "France" },
-  { code: "+62", flag: "🇮🇩", country: "Indonesia" },
-  { code: "+65", flag: "🇸🇬", country: "Singapore" },
-  { code: "+81", flag: "🇯🇵", country: "Japan" },
-  { code: "+86", flag: "🇨🇳", country: "China" },
-  { code: "+971", flag: "🇦🇪", country: "UAE" },
-  { code: "+966", flag: "🇸🇦", country: "Saudi Arabia" },
-  { code: "+7", flag: "🇷🇺", country: "Russia" },
-  { code: "+55", flag: "🇧🇷", country: "Brazil" },
-  { code: "+52", flag: "🇲🇽", country: "Mexico" },
-];
 
 export function EnrollmentProvider({ children }: { children: ReactNode }) {
   const [showEnrollDialog, setShowEnrollDialog] = useState(false);
@@ -219,7 +203,7 @@ export function EnrollmentProvider({ children }: { children: ReactNode }) {
                     className="w-28 px-2 py-2 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm"
                   >
                     {countryCodes.map((country) => (
-                      <option key={country.code} value={country.code}>
+                      <option key={`${country.code}-${country.country}`} value={country.code}>
                         {country.flag} {country.code}
                       </option>
                     ))}
