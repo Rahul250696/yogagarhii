@@ -2,6 +2,9 @@ import { Metadata } from "next";
 import Course100Hour from "@/components/pages/Course100Hour";
 import { courseData } from "@/constants/courses";
 
+/* =========================
+   SEO METADATA
+========================= */
 export function generateMetadata(): Metadata {
     const course = courseData["100-hour"];
 
@@ -10,6 +13,9 @@ export function generateMetadata(): Metadata {
 
     const description =
         "Can we do 100 hour yoga teacher training in Bali? Yes. Join YogaGarhi’s beginner-friendly residential 100 Hour Yoga TTC designed for short stays, deep yogic practice, and authentic learning in Bali.";
+
+    const url =
+        "https://www.yogagarhi.com/100-hour-yoga-teacher-training-in-bali/";
 
     return {
         title,
@@ -22,21 +28,16 @@ export function generateMetadata(): Metadata {
             "yoga certification bali"
         ],
         alternates: {
-            canonical:
-                "https://www.yogagarhi.com/100-hour-yoga-teacher-training-in-bali/",
+            canonical: url,
         },
         robots: {
             index: true,
             follow: true,
-            maxSnippet: -1,
-            maxImagePreview: "large",
-            maxVideoPreview: -1,
         },
         openGraph: {
             title,
             description,
-            url:
-                "https://www.yogagarhi.com/100-hour-yoga-teacher-training-in-bali/",
+            url,
             type: "website",
             images: [
                 {
@@ -55,9 +56,17 @@ export function generateMetadata(): Metadata {
     };
 }
 
+/* =========================
+   PAGE
+========================= */
 export default function Page() {
     const course = courseData["100-hour"];
+    const pageUrl =
+        "https://www.yogagarhi.com/100-hour-yoga-teacher-training-in-bali/";
 
+    /* =========================
+       COURSE SCHEMA
+    ========================= */
     const courseSchema = {
         "@context": "https://schema.org",
         "@type": "Course",
@@ -96,11 +105,13 @@ export default function Page() {
             "price": course.price.replace("$", ""),
             "priceCurrency": "USD",
             "availability": "https://schema.org/InStock",
-            "url":
-                "https://www.yogagarhi.com/100-hour-yoga-teacher-training-in-bali/"
+            "url": pageUrl
         }
     };
 
+    /* =========================
+       BREADCRUMB SCHEMA
+    ========================= */
     const breadcrumbSchema = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -114,15 +125,14 @@ export default function Page() {
             {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Yoga Teacher Training Courses",
+                "name": "Yoga Teacher Training in Bali",
                 "item": "https://www.yogagarhi.com/courses"
             },
             {
                 "@type": "ListItem",
                 "position": 3,
                 "name": "100 Hour Yoga Teacher Training in Bali",
-                "item":
-                    "https://www.yogagarhi.com/100-hour-yoga-teacher-training-in-bali/"
+                "item": pageUrl
             }
         ]
     };
@@ -145,6 +155,7 @@ export default function Page() {
                 }}
             />
 
+            {/* Page Content */}
             <Course100Hour />
         </>
     );

@@ -2,7 +2,10 @@ import { Metadata } from "next";
 import Course200Hour from "@/components/pages/Course200Hour";
 import { courseData } from "@/constants/courses";
 
-export async function generateMetadata(): Promise<Metadata> {
+/* =========================
+   SEO METADATA
+========================= */
+export function generateMetadata(): Metadata {
     const course = courseData["200-hour"];
 
     const title =
@@ -30,9 +33,6 @@ export async function generateMetadata(): Promise<Metadata> {
         robots: {
             index: true,
             follow: true,
-            maxSnippet: -1,
-            maxImagePreview: "large",
-            maxVideoPreview: -1,
         },
         openGraph: {
             title,
@@ -56,9 +56,17 @@ export async function generateMetadata(): Promise<Metadata> {
     };
 }
 
+/* =========================
+   PAGE
+========================= */
 export default function Page() {
     const course = courseData["200-hour"];
+    const pageUrl =
+        "https://www.yogagarhi.com/200-hour-yoga-teacher-training-in-bali/";
 
+    /* =========================
+       COURSE SCHEMA
+    ========================= */
     const courseSchema = {
         "@context": "https://schema.org",
         "@type": "Course",
@@ -98,11 +106,13 @@ export default function Page() {
             "price": course.price.replace("$", ""),
             "priceCurrency": "USD",
             "availability": "https://schema.org/InStock",
-            "url":
-                "https://www.yogagarhi.com/200-hour-yoga-teacher-training-in-bali/"
+            "url": pageUrl
         }
     };
 
+    /* =========================
+       BREADCRUMB SCHEMA
+    ========================= */
     const breadcrumbSchema = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -116,15 +126,14 @@ export default function Page() {
             {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Yoga Teacher Training Courses",
+                "name": "Yoga Teacher Training in Bali",
                 "item": "https://www.yogagarhi.com/courses"
             },
             {
                 "@type": "ListItem",
                 "position": 3,
                 "name": "200 Hour Yoga Teacher Training in Bali",
-                "item":
-                    "https://www.yogagarhi.com/200-hour-yoga-teacher-training-in-bali/"
+                "item": pageUrl
             }
         ]
     };
