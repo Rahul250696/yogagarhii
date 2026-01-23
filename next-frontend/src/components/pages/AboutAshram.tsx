@@ -13,6 +13,9 @@ import gallery3 from "@/assets/gallery/gallery-3.jpg";
 import gallery4 from "@/assets/gallery/gallery-4.jpg";
 import gallery5 from "@/assets/gallery/gallery-5.jpg";
 import founderImage from "@/assets/founder-image.png";
+import aboutYoga1 from "@/assets/about-yoga-1.jpg";
+import aboutYoga2 from "@/assets/about-yoga-2.jpg";
+import aboutYoga3 from "@/assets/about-yoga-3.jpg";
 
 const whyChooseUs = [
   { title: "The Unique Shivshakti Method", desc: "Our Signature Approach converts yogic theory into practical wisdom.", highlight: "Signature" },
@@ -270,15 +273,15 @@ export default function AboutAshram() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
                 <div className="h-48 rounded-2xl overflow-hidden relative">
-                  <Image src={gallery1} alt="YogaGarhi Practice" fill className="object-cover" />
+                  <Image src={aboutYoga1} alt="YogaGarhi Practice" fill className="object-cover" />
                 </div>
                 <div className="h-32 rounded-2xl overflow-hidden relative">
-                  <Image src={gallery2} alt="YogaGarhi Environment" fill className="object-cover" />
+                  <Image src={aboutYoga2} alt="YogaGarhi Environment" fill className="object-cover" />
                 </div>
               </div>
               <div className="pt-8">
                 <div className="h-64 rounded-2xl overflow-hidden relative">
-                  <Image src={gallery3} alt="YogaGarhi Ashram" fill className="object-cover" />
+                  <Image src={aboutYoga3} alt="YogaGarhi Ashram" fill className="object-cover" />
                 </div>
               </div>
             </div>
