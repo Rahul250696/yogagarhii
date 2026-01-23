@@ -25,9 +25,16 @@ import {
 import { timezones } from "@/constants/formOptions";
 import RoomCard from "./RoomCard";
 import heroImage from "@/assets/hero-yoga-bali.jpg";
+import preYttcOnline from "@/assets/pre-yttc-online.jpg";
 import activityAyurveda from "@/assets/activity-ayurveda.jpg";
+import transformYou from "@/assets/transform-you.jpg";
 import activitySoundHealing from "@/assets/activity-sound-healing.jpg";
 import activityWaterfall from "@/assets/activity-waterfall.jpg";
+import lifetimeReattendance from "@/assets/lifetime-reattendance.jpg";
+import smallGroupWork from "@/assets/small-group-work.jpg";
+import yogaSequences from "@/assets/yoga-sequences.png";
+import himalayanLineage from "@/assets/himalayan-lineage.jpg";
+import livingPhilosophy from "@/assets/living-philosophy.jpg";
 import webinarBackground from "@/assets/webinar-background.jpg";
 import insta1 from "@/assets/instagram/insta-1.webp";
 import insta2 from "@/assets/instagram/insta-2.jpg";
@@ -36,6 +43,7 @@ import insta4 from "@/assets/instagram/insta-4.webp";
 import insta5 from "@/assets/instagram/insta-5.jpg";
 import yogaAllianceBg from "@/assets/yoga-alliance-bg.jpg";
 import yaRyt200 from "@/assets/ya-ryt-200.png";
+import healthyMeals from "@/assets/healthy-meals.jpg";
 import yaRys100 from "@/assets/ya-rys-100.png";
 import yaRys200 from "@/assets/ya-rys-200.jpg";
 import yaAllCertifications from "@/assets/ya-all-certifications.jpg";
@@ -46,6 +54,21 @@ import apartKecakDance from "@/assets/apart/kecak-dance.jpg";
 import apartYogaAllianceGraduates from "@/assets/apart/yoga-alliance-graduates.jpg";
 import apartCeremony from "@/assets/apart/ceremony.jpg";
 import apartRiceFieldTrek from "@/assets/apart/rice-field-trek.jpg";
+import postSupport1 from "@/assets/post-support-1.jpg";
+import postSupport2 from "@/assets/post-support-2.jpg";
+import postSupport3 from "@/assets/post-support-3.jpg";
+import postSupport4 from "@/assets/post-support-4.jpg";
+import syllabus1 from "@/assets/syllabus/syllabus-1.jpg";
+import syllabus2 from "@/assets/syllabus/syllabus-2.png";
+import syllabus3 from "@/assets/syllabus/syllabus-3.jpg";
+import syllabus4 from "@/assets/syllabus/syllabus-4.png";
+import syllabus5 from "@/assets/syllabus/syllabus-5.png";
+import syllabus6 from "@/assets/syllabus/syllabus-6.png";
+import syllabus7 from "@/assets/syllabus/syllabus-7.png";
+import syllabus8 from "@/assets/syllabus/syllabus-8.jpg";
+import syllabus9 from "@/assets/syllabus/syllabus-9.jpg";
+import syllabus10 from "@/assets/syllabus/syllabus-10.jpg";
+import syllabusMudras from "@/assets/syllabus/syllabus-mudras.png";
 
 // Workshop Images
 import workshopAyurveda from "@/assets/workshops/workshop-ayurveda.png";
@@ -327,10 +350,10 @@ const whatYouWillReceive = [
     image: "https://images.unsplash.com/photo-1518611507436-f9221403cca2?w=400&h=500&fit=crop"
   },
   {
-    title: "Ayurvedic Meals",
+    title: "Healthy Meals",
     description: "Enjoy sattvic and healthy meals supporting your practice.",
     icon: Heart,
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=500&fit=crop"
+    image: healthyMeals
   },
   {
     title: "Meditation Practice",
@@ -1379,7 +1402,7 @@ export default function Course100Hour() {
 • Feel confident & clear
 
 So when training begins, you don't panic. You arrive grounded. You don't jump into transformation — you are gently prepared for it.`}
-                imageUrl={heroImage}
+                imageUrl={preYttcOnline}
                 imageAlt="Pre-YTTC Preparation"
                 isReversed={false}
               />
@@ -1397,7 +1420,7 @@ So when training begins, you don't panic. You arrive grounded. You don't jump in
 • How you relate to others
 
 This is where real change happens.`}
-                imageUrl={activityAyurveda}
+                imageUrl={transformYou}
                 imageAlt="Yoga Transformation"
                 isReversed={true}
               />
@@ -1416,7 +1439,7 @@ Instead of ignoring this need, Yogagarhi embraced it. Once you complete your YTT
 • Build confidence and refine skills
 
 Because yoga is not a one-time achievement. It is a lifelong refinement.`}
-                imageUrl={activitySoundHealing}
+                imageUrl={lifetimeReattendance}
                 imageAlt="Lifetime Learning"
                 isReversed={false}
               />
@@ -1436,7 +1459,7 @@ Because yoga is not a one-time achievement. It is a lifelong refinement.`}
 • Understand how to read and work with different bodies
 
 At Yogagarhi, teaching is personalized, precise, and practical — you are a person on a journey, not a number.`}
-                imageUrl={activityWaterfall}
+                imageUrl={smallGroupWork}
                 imageAlt="Small Group Training"
                 isReversed={true}
               />
@@ -1459,7 +1482,7 @@ Key Benefits:
 • Designed to refine over time as your understanding deepens
 
 These sequences are not random flows — they are practical, purposeful, and built to give maximum benefit.`}
-                imageUrl={heroImage}
+                imageUrl={yogaSequences}
                 imageAlt="Yoga Sequences"
                 isReversed={false}
               />
@@ -1477,7 +1500,7 @@ These sequences are not random flows — they are practical, purposeful, and bui
 • Raja Yoga – discipline of body and mind
 
 These paths are not taught as theory. They are experienced through daily life, reflection, and practice.`}
-                imageUrl={activityAyurveda}
+                imageUrl={himalayanLineage}
                 imageAlt="Himalayan Tradition"
                 isReversed={true}
               />
@@ -1490,7 +1513,7 @@ These paths are not taught as theory. They are experienced through daily life, r
                 expanded={`This is one of Yogagarhi's core strengths: students don't just transform how they practice, they transform how they live.
 
 Philosophy is not memorized for an exam — it is applied, reflected upon, and integrated into daily decisions, relationships, and self-understanding.`}
-                imageUrl={activitySoundHealing}
+                imageUrl={livingPhilosophy}
                 imageAlt="Living Philosophy"
                 isReversed={false}
               />
@@ -1913,83 +1936,83 @@ This is not a transactional relationship — it is a lifelong connection.`}
                   {
                     title: "Ashtanga Yoga Postures",
                     content: "Complete Ashtanga yoga primary series sequence. Week-by-week progression through Sun Salutation A & B, Standing sequence, Seated sequence, and Mysore style practice.",
-                    image: "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=400&h=400&fit=crop"
+                    image: syllabus1
                   },
                   {
                     title: "Hatha & Vinyasa Flow",
                     content: "Pawanmuktasana series, Surya Namaskar variations, Standing and seated postures, Backbends, Forward folds, Inversions, and complete sequencing methodology.",
-                    image: "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?w=400&h=400&fit=crop"
+                    image: syllabus2
                   },
                   {
                     title: "Yoga Philosophy",
                     content: "Introduction to yoga sutras of Patanjali, Eight limbs of Ashtanga Yoga, Nadis, Chakras, Pancha-Vayus, Panchakoshas, Triguna, and inspiring stories of great yogis.",
-                    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=400&fit=crop"
+                    image: syllabus3
                   },
                   {
                     title: "Pranayama & Breathing",
                     content: "Complete breathing techniques including Ujjayi, Bhastrika, Kapalbhati, Nadi-Sodhana, Bhramari, Surya-Bhedi, Chandra-Bhedi, Sheetali, and Sheetkari.",
-                    image: "https://images.unsplash.com/photo-1474418397713-7ede21d49118?w=400&h=400&fit=crop"
+                    image: syllabus4
                   },
                   {
                     title: "Anatomy & Physiology",
                     content: "Body movement planes, joint protection, anatomy of ankle, knee, spine, shoulder, breathing mechanism, physiology of muscles, and nervous system.",
-                    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop"
+                    image: syllabus5
                   },
                   {
                     title: "Teaching Methodology",
                     content: "Class sequencing, adjustments, working with different levels, voice usage, mental preparation, demonstration principles, and step-by-step class planning.",
-                    image: "https://images.unsplash.com/photo-1588286840104-8957b019727f?w=400&h=400&fit=crop"
+                    image: syllabus6
                   },
                   {
                     title: "Meditation & Mantra",
                     content: "Multiple meditation techniques, mantra chanting, Trataka, Osho Dynamic meditation, Nada Brahma, Antar Mouna, and silence practices for inner stillness.",
-                    image: "https://images.unsplash.com/photo-1545389336-cf090694435e?w=400&h=400&fit=crop"
+                    image: syllabus7
                   },
                   {
                     title: "Iyengar Yoga",
                     content: "Precision-focused yoga emphasizing correct body alignment using props like blocks, straps, and blankets to help practitioners achieve optimal posture and prevent injuries.",
-                    image: "https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=400&h=400&fit=crop"
+                    image: syllabus8
                   },
                   {
                     title: "Alignment Principles",
                     content: "Foundation of safe practice through understanding joint stacking, muscle engagement patterns, and body mechanics to protect and strengthen the physical body.",
-                    image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=400&fit=crop"
+                    image: syllabus9
                   },
                   {
                     title: "Bandhas (Energy Locks)",
                     content: "Master the three primary bandhas - Mula, Uddiyana, and Jalandhara. These internal locks regulate prana flow, strengthen the core, and deepen meditation practice.",
-                    image: "https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?w=400&h=400&fit=crop"
+                    image: syllabus10
                   },
                   {
                     title: "Mudras (Yogic Gestures)",
                     content: "Sacred hand and body gestures that channel energy, enhance concentration, and connect with specific states of consciousness. Essential for pranayama and meditation.",
-                    image: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=400&h=400&fit=crop"
+                    image: syllabusMudras
                   },
                 ].map((item, index) => (
                   <div
                     key={index}
                     className="flex-shrink-0 snap-start first:ml-4 last:mr-4"
                   >
-                    {/* Card with circular image attached */}
-                    <div className="flex flex-col items-center h-full">
+                    {/* Circular design */}
+                    <div className="flex flex-col items-center w-72 group">
                       {/* Circular Image */}
-                      <div className="relative z-10 mb-[-70px]">
-                        <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-background shadow-lg">
+                      <div className="relative mb-6">
+                        <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-secondary shadow-lg group-hover:shadow-xl group-hover:border-primary/30 transition-all duration-300">
                           <Image
                             src={item.image}
                             alt={item.title}
                             fill
-                            className="object-cover"
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
                           />
                         </div>
                       </div>
 
-                      {/* Square Card - fixed height for consistency */}
-                      <div className="w-72 h-60 bg-card rounded-xl border border-border p-6 pt-20 shadow-sm hover:shadow-md transition-shadow flex flex-col">
-                        <h3 className="font-heading text-lg font-semibold text-foreground text-center mb-3">
+                      {/* Text Content */}
+                      <div className="text-center px-4">
+                        <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
                           {item.title}
                         </h3>
-                        <p className="text-sm text-muted-foreground text-center leading-relaxed flex-1">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
                           {item.content}
                         </p>
                       </div>
@@ -2723,22 +2746,22 @@ This is not a transactional relationship — it is a lifelong connection.`}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
               {[
                 {
-                  image: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=400&h=400&fit=crop",
+                  image: postSupport1,
                   title: "Bi-annual Upgrade Programs",
                   description: "Programs to deepen your experience of the practices and upgrade your teaching skills"
                 },
                 {
-                  image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=400&fit=crop",
+                  image: postSupport2,
                   title: "Extensive Alumni Support",
                   description: "A dedicated alumni platform for queries, clarifications, and continuous learning"
                 },
                 {
-                  image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=400&fit=crop",
+                  image: postSupport3,
                   title: "Community Connection",
                   description: "Integration into a vibrant and supportive global community of YogaGarhi alumni"
                 },
                 {
-                  image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=400&fit=crop",
+                  image: postSupport4,
                   title: "Teaching Resources",
                   description: "Access to a repository of articles, videos, and teaching materials"
                 }
