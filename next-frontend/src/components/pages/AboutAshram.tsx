@@ -12,6 +12,7 @@ import gallery2 from "@/assets/gallery/gallery-2.jpg";
 import gallery3 from "@/assets/gallery/gallery-3.jpg";
 import gallery4 from "@/assets/gallery/gallery-4.jpg";
 import gallery5 from "@/assets/gallery/gallery-5.jpg";
+import seatedMeditation from "@/assets/gallery/seated-meditation.jpg";
 import founderImage from "@/assets/founder-image.png";
 import aboutYoga1 from "@/assets/about-yoga-1.jpg";
 import aboutYoga2 from "@/assets/about-yoga-2.jpg";
@@ -467,7 +468,7 @@ export default function AboutAshram() {
               <Image src={gallery4} alt="Experience 3" fill className="object-cover hover:scale-105 transition-transform duration-500" />
             </div>
             <div className="aspect-square rounded-2xl overflow-hidden relative">
-              <Image src={gallery5} alt="Experience 4" fill className="object-cover hover:scale-105 transition-transform duration-500" />
+              <Image src={seatedMeditation} alt="Experience 4" fill className="object-cover hover:scale-105 transition-transform duration-500" />
             </div>
           </div>
 
