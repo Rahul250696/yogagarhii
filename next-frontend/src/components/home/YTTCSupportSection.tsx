@@ -12,6 +12,11 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import SacredGeometryBackground from "@/components/3d/SacredGeometryBackground";
+import preYttcOnline from "@/assets/pre-yttc-online.png";
+import postSupport1 from "@/assets/post-support-1.jpg";
+import postSupport2 from "@/assets/post-support-2.jpg";
+import postSupport3 from "@/assets/post-support-3.jpg";
+import postSupport4 from "@/assets/post-support-4.jpg";
 
 // Pre-YTTC Support Items
 const preYTTCItems = [
@@ -24,25 +29,25 @@ const preYTTCItems = [
 // Post-YTTC Support Items
 const postYTTCItems = [
   {
-    image: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=400&h=400&fit=crop",
+    image: postSupport1,
     icon: RefreshCw,
     title: "Bi-annual Upgrade Programs",
     description: "Programs to deepen your experience of the practices and upgrade your teaching skills"
   },
   {
-    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=400&fit=crop",
+    image: postSupport2,
     icon: Users,
     title: "Extensive Alumni Support",
     description: "A dedicated alumni platform for queries, clarifications, and continuous learning"
   },
   {
-    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=400&fit=crop",
+    image: postSupport3,
     icon: Heart,
     title: "Community Connection",
     description: "Integration into a vibrant and supportive global community of YogaGarhi alumni"
   },
   {
-    image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=400&fit=crop",
+    image: postSupport4,
     icon: BookOpen,
     title: "Teaching Resources",
     description: "Access to a repository of articles, videos, and teaching materials"
@@ -73,8 +78,8 @@ const YTTCSupportSection = () => {
         },
         body: JSON.stringify({
           email: email,
-          _subject: "New Pre-YTTC Guide Request",
-          _autoresponder: "Namaste! Thank you for requesting our Pre-YTTC preparation guide. It's being sent to your email right now. We hope it helps you prepare for your life-changing journey with YogaGarhi!"
+          _subject: "New \"Before You Join\" Guide Request",
+          _autoresponder: "Namaste! Thank you for requesting our \"Before You Join\" preparation guide. It's being sent to your email right now. We hope it helps you prepare for your life-changing journey with YogaGarhi!"
         }),
       });
 
@@ -119,10 +124,10 @@ const YTTCSupportSection = () => {
             Complete Journey Support
           </div>
           <h2 className="font-heading text-3xl md:text-5xl font-bold text-foreground mb-4">
-            Pre & Post YTTC Support
+            Support Before, During & After Your Teacher Training Course in Bali
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            Your transformation doesn't start or end with the training — we support you every step of the way
+            We prepare you before the course and support you after certification so you don’t feel lost at any stage.
           </p>
         </div>
 
@@ -148,7 +153,7 @@ const YTTCSupportSection = () => {
                 <GraduationCap className={`w-5 h-5 transition-colors duration-300 ${activeTab === 'pre' ? 'text-primary' : ''}`} />
               </div>
               <div className="text-left">
-                <p className="font-heading font-bold text-lg">Pre-YTTC</p>
+                <p className="font-heading font-bold text-lg">Before You Join</p>
                 <p className="text-xs text-muted-foreground hidden sm:block">Begin Before You Begin</p>
               </div>
             </button>
@@ -166,7 +171,7 @@ const YTTCSupportSection = () => {
                 <RefreshCw className={`w-5 h-5 transition-colors duration-300 ${activeTab === 'post' ? 'text-primary' : ''}`} />
               </div>
               <div className="text-left">
-                <p className="font-heading font-bold text-lg">Post-YTTC</p>
+                <p className="font-heading font-bold text-lg">Life After Graduation</p>
                 <p className="text-xs text-muted-foreground hidden sm:block">Lifelong Support</p>
               </div>
             </button>
@@ -185,16 +190,13 @@ const YTTCSupportSection = () => {
                 {/* Left: Visual Card with 3D Background */}
                 <div className="relative">
                   {/* Main Card */}
-                  <div className="relative bg-gradient-to-br from-amber-50/90 via-orange-50/80 to-yellow-50/70 dark:from-amber-950/40 dark:via-orange-950/30 dark:to-yellow-950/20 rounded-3xl p-8 border border-amber-200/50 dark:border-amber-800/30 overflow-hidden min-h-[500px]">
-                    {/* 3D Animated Background */}
-                    <Suspense fallback={
-                      <div className="absolute inset-0 bg-gradient-to-br from-amber-100/50 to-orange-100/50 dark:from-amber-900/20 dark:to-orange-900/20" />
-                    }>
-                      <SacredGeometryBackground />
-                    </Suspense>
-
-                    {/* Glass overlay for content readability */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white/70 dark:from-background/70 dark:via-background/50 dark:to-background/80 backdrop-blur-[2px]" />
+                  <div className="relative bg-gradient-to-br from-amber-50/90 via-orange-50/80 to-yellow-50/70 dark:from-amber-950/40 dark:via-orange-950/30 dark:to-yellow-950/20 rounded-3xl p-8 border border-amber-200/50 dark:border-amber-800/30 overflow-hidden min-h-[500px] flex flex-col">
+                    {/* 3D Background */}
+                    <div className="absolute inset-0">
+                      <Suspense fallback={<div className="w-full h-full bg-primary/5" />}>
+                        <SacredGeometryBackground />
+                      </Suspense>
+                    </div>
 
                     {/* Content with z-index for readability */}
                     <div className="relative z-10">
@@ -209,8 +211,8 @@ const YTTCSupportSection = () => {
                       </h3>
 
                       <p className="text-muted-foreground mb-8 leading-relaxed">
-                        The <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 rounded-full text-sm font-semibold border border-amber-200 dark:border-amber-700">Optional Complimentary Online</span> Pre-YTTC Preparation. If you feel like you don't know you are ready for course or not,
-                        this pre-YTTC is for you to be prepared & feel confident.
+                        The <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 rounded-full text-sm font-semibold border border-amber-200 dark:border-amber-700">Optional Complimentary Online</span> Before You Join Preparation. If you feel like you don't know you are ready for course or not,
+                        this preparation is for you to be prepared & feel confident.
                       </p>
 
                       {/* Feature List */}
@@ -250,7 +252,7 @@ const YTTCSupportSection = () => {
 
                   <div className="space-y-4 text-muted-foreground mb-8">
                     <p>
-                      At Yogagarhi, we do something different. We offer a Pre-YTTC Online Optional Complimentary
+                      At Yogagarhi, we do something different. We offer a "Before You Join" Online Optional Complimentary
                       Preparation Program before your main training begins.
                     </p>
                     <p>
@@ -270,7 +272,7 @@ const YTTCSupportSection = () => {
 
                     <span className="relative flex items-center gap-2">
                       <GraduationCap className="w-5 h-5" />
-                      Learn More About Pre-YTTC
+                      Learn More About Before You Join
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </span>
                   </Button>
@@ -385,49 +387,63 @@ const YTTCSupportSection = () => {
             {/* Line */}
             <div className="absolute inset-x-0 top-1/2 h-0.5 bg-gradient-to-r from-primary/50 via-primary to-primary/50 -translate-y-1/2" />
 
-            {/* Pre YTTC Point */}
+            {/* Before You Join Point */}
             <div
-              className={`relative z-10 flex flex-col items-center cursor-pointer transition-transform duration-300 ${activeTab === 'pre' ? 'scale-110' : 'hover:scale-105'}`}
+              className="relative z-10 flex flex-col items-center cursor-pointer group transition-all duration-300"
               onClick={() => setActiveTab('pre')}
             >
-              <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${activeTab === 'pre'
-                ? 'bg-primary text-primary-foreground shadow-lg ring-4 ring-primary/20'
-                : 'bg-background border-2 border-primary/40 text-primary'
+              <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500 z-20 ${activeTab === 'pre'
+                ? 'bg-primary text-primary-foreground shadow-[0_0_20px_rgba(var(--primary),0.3)] ring-4 ring-primary/20 scale-110'
+                : 'bg-background/80 backdrop-blur-sm border-2 border-primary/40 text-primary group-hover:scale-110 shadow-sm'
                 }`}>
                 <GraduationCap className="w-7 h-7" />
               </div>
-              <p className="mt-3 font-heading font-bold text-sm text-foreground">Pre-YTTC</p>
-              <p className="text-xs text-muted-foreground">Preparation</p>
+
+              <div className={`mt-4 px-6 py-2.5 rounded-full transition-all duration-500 border flex flex-col items-center min-w-[150px] backdrop-blur-md ${activeTab === 'pre'
+                ? 'bg-primary/90 text-primary-foreground border-primary/50 shadow-[0_8px_32px_rgba(var(--primary),0.25)] -translate-y-1'
+                : 'bg-white/40 dark:bg-white/5 border-white/20 dark:border-white/10 text-foreground shadow-[0_4px_16px_rgba(0,0,0,0.08)] group-hover:bg-white/60 group-hover:shadow-lg group-hover:-translate-y-0.5'
+                }`}>
+                <p className="font-heading font-bold text-sm leading-tight">Before You Join</p>
+                <p className={`text-[10px] mt-0.5 font-bold uppercase tracking-widest ${activeTab === 'pre' ? 'text-primary-foreground/90' : 'text-muted-foreground'}`}>Preparation</p>
+              </div>
             </div>
 
             {/* Training Point */}
             <div className="relative z-10 flex flex-col items-center">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground shadow-elevated ring-4 ring-primary/10">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground shadow-[0_10px_30px_rgba(var(--primary),0.3)] ring-4 ring-primary/10">
                 <Play className="w-8 h-8 ml-1" />
               </div>
-              <p className="mt-3 font-heading font-bold text-sm text-foreground">YTTC Training</p>
-              <p className="text-xs text-muted-foreground">21-24 Days</p>
+              <div className="mt-4 px-6 py-2.5 flex flex-col items-center">
+                <p className="font-heading font-bold text-sm text-foreground">YTTC Training</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">21-24 Days</p>
+              </div>
             </div>
 
-            {/* Post YTTC Point */}
+            {/* Life After Graduation Point */}
             <div
-              className={`relative z-10 flex flex-col items-center cursor-pointer transition-transform duration-300 ${activeTab === 'post' ? 'scale-110' : 'hover:scale-105'}`}
+              className="relative z-10 flex flex-col items-center cursor-pointer group transition-all duration-300"
               onClick={() => setActiveTab('post')}
             >
-              <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${activeTab === 'post'
-                ? 'bg-primary text-primary-foreground shadow-lg ring-4 ring-primary/20'
-                : 'bg-background border-2 border-primary/40 text-primary'
+              <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500 z-20 ${activeTab === 'post'
+                ? 'bg-primary text-primary-foreground shadow-[0_0_20px_rgba(var(--primary),0.3)] ring-4 ring-primary/20 scale-110'
+                : 'bg-background/80 backdrop-blur-sm border-2 border-primary/40 text-primary group-hover:scale-110 shadow-sm'
                 }`}>
                 <RefreshCw className="w-7 h-7" />
               </div>
-              <p className="mt-3 font-heading font-bold text-sm text-foreground">Post-YTTC</p>
-              <p className="text-xs text-muted-foreground">Lifelong Support</p>
+
+              <div className={`mt-4 px-6 py-2.5 rounded-full transition-all duration-500 border flex flex-col items-center min-w-[150px] backdrop-blur-md ${activeTab === 'post'
+                ? 'bg-primary/90 text-primary-foreground border-primary/50 shadow-[0_8px_32px_rgba(var(--primary),0.25)] -translate-y-1'
+                : 'bg-white/40 dark:bg-white/5 border-white/20 dark:border-white/10 text-foreground shadow-[0_4px_16px_rgba(0,0,0,0.08)] group-hover:bg-white/60 group-hover:shadow-lg group-hover:-translate-y-0.5'
+                }`}>
+                <p className="font-heading font-bold text-sm leading-tight">Life After Graduation</p>
+                <p className={`text-[10px] mt-0.5 font-bold uppercase tracking-widest ${activeTab === 'post' ? 'text-primary-foreground/90' : 'text-muted-foreground'}`}>Lifelong Support</p>
+              </div>
             </div>
           </div>
 
           {/* Hint Text */}
-          <p className="text-center mt-6 text-sm text-muted-foreground">
-            👆 Click on <span className="font-semibold text-primary cursor-pointer hover:underline" onClick={() => setActiveTab('pre')}>Pre-YTTC</span> or <span className="font-semibold text-primary cursor-pointer hover:underline" onClick={() => setActiveTab('post')}>Post-YTTC</span> buttons above to explore your journey
+          <p className="text-center mt-8 text-sm text-muted-foreground italic">
+            👆 Click on <span className="font-semibold text-primary cursor-pointer hover:underline underline-offset-4" onClick={() => setActiveTab('pre')}>Before You Join</span> or <span className="font-semibold text-primary cursor-pointer hover:underline underline-offset-4" onClick={() => setActiveTab('post')}>Life After Graduation</span> to see what we offer
           </p>
         </div>
       </div>
@@ -454,10 +470,10 @@ const YTTCSupportSection = () => {
 
             <DialogHeader className="text-center space-y-2">
               <DialogTitle className="font-heading text-2xl font-bold text-foreground">
-                Get Pre-YTTC Details
+                Get "Before You Join" Details
               </DialogTitle>
               <DialogDescription className="text-muted-foreground text-sm">
-                Enter your email to receive the complete Pre-YTTC preparation guide
+                Enter your email to receive the complete "Before You Join" preparation guide
               </DialogDescription>
             </DialogHeader>
 
@@ -495,7 +511,7 @@ const YTTCSupportSection = () => {
                 ) : (
                   <span className="flex items-center gap-2">
                     <Send className="w-5 h-5" />
-                    Send Me Pre-YTTC Guide
+                    Send Me "Before You Join" Guide
                   </span>
                 )}
               </Button>
@@ -533,7 +549,7 @@ const YTTCSupportSection = () => {
                 Thank You! 🙏
               </DialogTitle>
               <DialogDescription className="text-muted-foreground">
-                Your Pre-YTTC preparation guide is on its way to your inbox.
+                Your "Before You Join" preparation guide is on its way to your inbox.
               </DialogDescription>
             </div>
 

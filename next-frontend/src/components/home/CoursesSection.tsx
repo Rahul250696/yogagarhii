@@ -13,24 +13,26 @@ const courses = [
     hours: "100",
     title: "Hour YTTC",
     tagline: "Begin Your Journey",
+    description: "Ideal for deepening practice before full teacher training.",
     duration: "12 Days",
     level: "Beginner",
     price: "$1149",
     originalPrice: "$1399",
     savings: "$250",
-    href: "/courses/100-hour",
+    href: "/100-hour-yoga-teacher-training-in-bali",
     image: course100hr,
   },
   {
     hours: "200",
     title: "Hour YTTC",
     tagline: "Transform Yourself",
+    description: "Best choice if you want to deepen your practice & if you want to teach yoga internationally after certification.",
     duration: "24 Days",
     level: "Beginner to Intermediate",
     price: "$1750",
     originalPrice: "$2187",
     savings: "$437",
-    href: "/courses/200-hour",
+    href: "/200-hour-yoga-teacher-training-in-bali",
     image: course200hr,
     featured: true,
   },
@@ -38,12 +40,13 @@ const courses = [
     hours: "300",
     title: "Hour YTTC",
     tagline: "Master Your Practice",
+    description: "Advanced training to refine teaching skills and depth.",
     duration: "28 Days",
     level: "Intermediate to Advanced",
     price: "$2399",
     originalPrice: "$2999",
     savings: "$600",
-    href: "/courses/300-hour",
+    href: "/300-hour-yoga-teacher-training-in-bali",
     image: course300hr,
   },
 ];
@@ -119,7 +122,7 @@ export default function CoursesSection() {
                   {/* Content Section */}
                   <div className="bg-muted/30 p-6">
                     {/* Quick Info */}
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-5 pb-5 border-b border-border/40">
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4 pb-4 border-b border-border/40">
                       <div className="flex items-center gap-2">
                         <Clock className="w-4 h-4 text-primary" />
                         {course.duration}
@@ -130,6 +133,11 @@ export default function CoursesSection() {
                         {course.level}
                       </div>
                     </div>
+
+                    {/* Course Description */}
+                    <p className="text-sm text-sidebar-foreground/80 leading-relaxed mb-6 line-clamp-2 min-h-[40px]">
+                      {course.description}
+                    </p>
 
                     {/* Pricing */}
                     <div className="flex items-end justify-between mb-6">

@@ -15,7 +15,7 @@ export function generateMetadata(): Metadata {
         "Join YogaGarhi’s 200 Hour Yoga Teacher Training in Bali. A residential RYT 200 Yoga Alliance certified course offering authentic yogic education, asana, pranayama, meditation, philosophy, and teaching methodology in Bali.";
 
     const url =
-        "https://www.yogagarhi.com/200-hour-yoga-teacher-training-in-bali/";
+        "https://yogagarhi.com/200-hour-yoga-teacher-training-in-bali";
 
     return {
         title,
@@ -62,7 +62,7 @@ export function generateMetadata(): Metadata {
 export default function Page() {
     const course = courseData["200-hour"];
     const pageUrl =
-        "https://www.yogagarhi.com/200-hour-yoga-teacher-training-in-bali/";
+        "https://yogagarhi.com/200-hour-yoga-teacher-training-in-bali";
 
     /* =========================
        COURSE SCHEMA
@@ -126,12 +126,6 @@ export default function Page() {
             {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Yoga Teacher Training in Bali",
-                "item": "https://www.yogagarhi.com/courses"
-            },
-            {
-                "@type": "ListItem",
-                "position": 3,
                 "name": "200 Hour Yoga Teacher Training in Bali",
                 "item": pageUrl
             }

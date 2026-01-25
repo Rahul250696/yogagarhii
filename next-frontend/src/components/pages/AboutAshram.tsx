@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { Shield, Heart, Users, BookOpen, Sparkles, Mountain, ArrowRight, Leaf, Star, Flame } from "lucide-react";
+import { Shield, Heart, Users, BookOpen, Sparkles, Mountain, ArrowRight, Leaf, Star, Flame, Brain, Zap, Layers, RefreshCw } from "lucide-react";
 import { useEnrollment } from "@/components/EnrollmentDialog";
 import ReadyToBeginSection from "@/components/home/ReadyToBeginSection";
 import heroImage from "@/assets/hero-yoga-bali.jpg";
@@ -381,6 +381,146 @@ export default function AboutAshram() {
                     A fortress where <em className="text-foreground font-medium">yoga is lived, not merely taught</em>;
                     rooted in awareness, inner silence, and the timeless wisdom of the ancient sages.
                   </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== SACHIN JI'S RESEARCH & PRAKRITI SECTION ===== */}
+      <section id="sachinji-research" className="py-24 bg-background relative overflow-hidden">
+        {/* Decorative background elements */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+
+        <div className="container mx-auto px-4 relative z-10">
+          {/* Section Header */}
+          <div className="max-w-4xl mx-auto text-center mb-20">
+            <h2 className="font-heading text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+              Sachin Ji’s Research on Personalized Yoga and Prakriti
+            </h2>
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <div className="h-px w-20 bg-gradient-to-r from-transparent to-primary" />
+              <Sparkles className="w-8 h-8 text-primary animate-pulse" />
+              <div className="h-px w-20 bg-gradient-to-l from-transparent to-primary" />
+            </div>
+            <p className="font-heading text-2xl md:text-3xl text-primary font-medium italic max-w-3xl mx-auto leading-relaxed">
+              "Yoga Is Not One-Size-Fits-All Because Every Body Carries a Different Energy"
+            </p>
+          </div>
+
+          {/* Research Journey - Circular Cards Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-14 max-w-7xl mx-auto">
+            {[
+              {
+                title: "The Core Question",
+                text: <>During our Lead Teacher’s <strong className="text-foreground font-bold">Master Yoga studies</strong>, one question became impossible to ignore: Why does the same yoga practice calm some people, but leave others feeling <strong className="text-foreground font-bold">tired, restless, or mentally disturbed</strong>?</>,
+                icon: Brain,
+                color: "bg-amber-500/10 text-amber-600 border-amber-500/20"
+              },
+              {
+                title: "Deep Investigation",
+                text: <>This led to deep research into classical yoga texts, Ayurveda, and years of real student experience. The answer was simple, yet powerful: Every human being is born with a <strong className="text-foreground font-bold">unique Prakriti</strong>.</>,
+                icon: BookOpen,
+                color: "bg-blue-500/10 text-blue-600 border-blue-500/20"
+              },
+              {
+                title: "The Energy Blueprint",
+                text: <>Prakriti shapes the body, mind, emotions, and nervous system. Some people need <strong className="text-foreground font-bold">grounding</strong>, some need <strong className="text-foreground font-bold">movement</strong>, and others need <strong className="text-foreground font-bold">stillness</strong>. A fixed style for everyone can create imbalance.</>,
+                icon: Zap,
+                color: "bg-purple-500/10 text-purple-600 border-purple-500/20"
+              },
+              {
+                title: "Quality of Practice",
+                text: <>More than which yoga style you practice, what truly matters is <strong className="text-foreground font-bold italic">how you practice</strong>. How the <strong className="text-foreground font-bold">nervous system</strong> is approached, how the breath is guided, and how your <strong className="text-foreground font-bold">Dosha is supported</strong> rather than pushed.</>,
+                icon: Layers,
+                color: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
+              },
+              {
+                title: "Shiv–Shakti Sadhana",
+                text: <>Born from this realization, <strong className="text-foreground font-bold">Shiv–Shakti Sadhana</strong> is a balanced approach that harmonizes <strong className="text-foreground font-bold">stability and movement</strong>, awareness and energy. Asana here supports grounding and strength.</>,
+                icon: RefreshCw,
+                color: "bg-rose-500/10 text-rose-600 border-rose-500/20"
+              },
+              {
+                title: "Back to Balance",
+                text: <>When yoga respects your Prakriti, it becomes <strong className="text-foreground font-bold">accessible, sustainable, and deeply healing</strong>. Real yoga does not change you; it brings you back into <strong className="text-foreground font-bold">balance with yourself</strong>.</>,
+                icon: Heart,
+                color: "bg-cyan-500/10 text-cyan-600 border-cyan-500/20"
+              }
+            ].map((card, index) => (
+              <div key={index} className="group relative">
+                {/* Decorative orbital line for mobile/desktop staggered effect */}
+                <div className="absolute inset-0 border-2 border-dashed border-primary/10 rounded-full group-hover:border-primary/30 transition-all duration-500 -m-4 scale-95 opacity-0 group-hover:opacity-100 group-hover:scale-105" />
+
+                <div className="relative aspect-square rounded-full bg-card border border-border shadow-xl p-8 flex flex-col items-center justify-center text-center overflow-hidden hover:border-primary/40 transition-all duration-500 transform hover:-translate-y-2 group">
+                  {/* Inner Radial Gradient */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_var(--card-hover-bg)_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ '--card-hover-bg': 'rgba(var(--primary-rgb), 0.05)' } as any} />
+
+                  <div className={`w-16 h-16 rounded-full ${card.color} border flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
+                    <card.icon className="w-8 h-8" />
+                  </div>
+
+                  <h4 className="font-heading text-xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
+                    {card.title}
+                  </h4>
+
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed px-4 line-clamp-6 group-hover:line-clamp-none transition-all duration-500">
+                    {card.text}
+                  </p>
+
+                  {/* Number Badge */}
+                  <div className="absolute top-6 right-10 w-8 h-8 flex items-center justify-center rounded-full bg-secondary text-primary text-xs font-bold border border-primary/20">
+                    {index + 1}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Summary Conclusion */}
+          <div className="mt-20 max-w-4xl mx-auto">
+            <div className="bg-primary/5 border border-primary/20 rounded-[3rem] p-10 md:p-14 text-center relative overflow-hidden group">
+              {/* Floating Om Icon background */}
+              <div className="absolute -bottom-10 -right-10 opacity-[0.03] rotate-12 transition-transform duration-700 group-hover:scale-125">
+                <svg className="w-64 h-64 text-primary" viewBox="0 0 100 100" fill="currentColor">
+                  <path d="M28,68 C18,68 12,58 12,48 C12,32 24,22 40,22 C56,22 62,34 62,44 C62,56 50,62 44,62 C38,62 32,56 32,48 C32,42 38,38 44,38" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                  <path d="M62,44 C62,32 74,26 80,32 C86,38 80,50 74,56 L68,72" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                  <path d="M74,18 C80,18 84,24 84,30" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                  <circle cx="88" cy="14" r="4" />
+                </svg>
+              </div>
+
+              <div className="relative z-10">
+                <p className="text-lg md:text-xl text-foreground font-medium leading-relaxed mb-6">
+                  Our Lead Teacher observed that when practice does not respect the <strong className="text-foreground">nervous system and natural energy type</strong>, even correct postures can lead to restlessness, fatigue, or imbalance.
+                </p>
+                <p className="text-lg md:text-xl text-foreground/90 leading-relaxed italic border-t border-primary/20 pt-8 mb-8">
+                  "When yoga respects your Prakriti, it becomes <strong className="text-foreground">accessible, sustainable, and deeply healing</strong> for everyone. Here, yoga is not forced. It is <strong className="text-foreground">personalized, energy-aware, and deeply respectful</strong> of who you are."
+                </p>
+
+                <div className="flex justify-center">
+                  <Button
+                    size="lg"
+                    className="
+                      relative overflow-hidden
+                      bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 
+                      bg-[length:200%_100%]
+                      hover:bg-[position:100%_0]
+                      text-white font-semibold 
+                      shadow-lg hover:shadow-xl
+                      transition-all duration-500
+                      group
+                    "
+                    asChild
+                  >
+                    <Link href="/200-hour-yoga-teacher-training-in-bali#prakriti-section">
+                      <Sparkles className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
+                      Reveal Your Yogic Energy
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </Button>
                 </div>
               </div>
             </div>

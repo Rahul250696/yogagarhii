@@ -67,11 +67,10 @@ const WebinarSection = () => {
 
       <div className="container mx-auto px-4 max-w-4xl text-center relative z-10">
         <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-          Free Orientation Webinar
+          Still not Sure? Join our Free Orientation Webinar
         </h2>
         <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-          Join our live webinar to learn more about the training, ask questions,
-          and connect with our teachers before making your decision.
+          Understand the training, meet the teachers, and ask questions before deciding.
         </p>
         <Dialog open={showWebinarDialog} onOpenChange={setShowWebinarDialog}>
           <DialogTrigger asChild>

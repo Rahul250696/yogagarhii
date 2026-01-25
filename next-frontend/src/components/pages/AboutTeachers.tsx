@@ -268,7 +268,7 @@ export default function AboutTeachers() {
               <div>
                 <span className="inline-flex items-center gap-2 text-primary/80 text-sm font-medium tracking-widest uppercase mb-4">
                   <Heart className="w-4 h-4" fill="currentColor" />
-                  Meet Your Guide
+                  Meet The Teacher Behind YogaGarhi
                 </span>
 
                 <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-2">

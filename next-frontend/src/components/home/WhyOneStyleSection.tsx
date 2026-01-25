@@ -487,6 +487,10 @@ YogaGarhi – Bali`,
             </DialogContent>
           </Dialog>
 
+          <p className="mt-4 text-sm text-muted-foreground max-w-lg mx-auto">
+            Answer 6 simple questions to understand your natural tendencies and how they influence your yoga practice
+          </p>
+
         </div>
       </div>
 

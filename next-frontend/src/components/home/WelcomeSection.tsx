@@ -1,13 +1,14 @@
 "use client";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Leaf, Sun, Mountain, Flower2 } from "lucide-react";
+import { Leaf, Sun, Mountain, Flower2, CheckCircle2, Award, MessageCircle, Mail } from "lucide-react";
 
 const highlights = [
   { icon: Leaf, label: "Ancient Wisdom" },
   { icon: Sun, label: "Holistic Growth" },
   { icon: Mountain, label: "Sacred Space" },
   { icon: Flower2, label: "Inner Peace" },
+  { icon: Award, label: "Yoga Alliance Certified" },
 ];
 
 export default function WelcomeSection() {
@@ -96,12 +97,24 @@ export default function WelcomeSection() {
                 Welcome to <strong className="text-foreground font-semibold">YogaGarhi</strong>, a sacred space where ancient wisdom meets modern living. Rooted in the timeless traditions of yoga and wellness, YogaGarhi is more than just a place to practice – it is a sanctuary for self-discovery, healing, and inner transformation.
               </p>
 
-              <p>
-                At YogaGarhi, we believe that yoga is not only about postures but a way of life. Our approach blends the depth of classical yogic practices with contemporary insights to create a holistic journey of the body, mind, and soul.
-              </p>
+              <div className="bg-primary/5 border border-primary/10 rounded-2xl p-6 my-6">
+                <p className="font-heading font-bold text-foreground mb-4">In this training, you will:</p>
+                <ul className="space-y-3">
+                  {[
+                    "Learn Hatha, Ashtanga & Vinyasa with alignment and safety",
+                    "Understand yoga philosophy & Ayurveda foundations",
+                    "Practice real teaching skills, not just personal practice"
+                  ].map((text, i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm md:text-base text-muted-foreground italic">
+                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                      {text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
               <p>
-                With a focus on mindfulness, breathwork, meditation, and authentic teachings, we guide you to reconnect with your true self and find balance in today's fast-paced world.
+                At YogaGarhi, we believe that yoga is not only about postures but a way of life. Our approach blends the depth of classical yogic practices with contemporary insights to create a holistic journey of the body, mind, and soul.
               </p>
             </div>
 
@@ -112,25 +125,37 @@ export default function WelcomeSection() {
               </p>
             </div>
 
-            {/* CTA Button */}
-            <div className="pt-4">
-              <Button
-                size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 group"
-                asChild
-              >
-                <Link href="/about" className="flex items-center gap-2">
-                  More About Us
-                  <svg
-                    className="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+            {/* Ask Us Anything Section */}
+            <div className="mt-10 p-8 rounded-2xl bg-gradient-to-br from-secondary/30 to-background border border-primary/10 shadow-sm">
+              <h3 className="font-heading text-2xl font-medium text-foreground mb-6">
+                Ask Us Anything?
+              </h3>
+              <div className="flex flex-wrap gap-4">
+                <Button
+                  variant="outline"
+                  className="h-12 px-6 rounded-xl text-base gap-2.5 border-primary/20 bg-background/80 hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-all duration-300 shadow-sm hover:shadow-md"
+                  asChild
+                >
+                  <a
+                    href="https://wa.me/+917895350563"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              </Button>
+                    <MessageCircle className="w-5 h-5" />
+                    WhatsApp
+                  </a>
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-12 px-6 rounded-xl text-base gap-2.5 border-primary/20 bg-background/80 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 shadow-sm hover:shadow-md"
+                  asChild
+                >
+                  <a href="mailto:yogagarhi@gmail.com">
+                    <Mail className="w-5 h-5" />
+                    Email Us
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </div>

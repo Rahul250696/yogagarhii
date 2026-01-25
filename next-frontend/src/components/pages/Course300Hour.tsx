@@ -13,6 +13,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { useBooking } from "@/components/BookingDialog";
 import { useEnrollment } from "@/components/EnrollmentDialog";
 import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselApi,
+} from "@/components/ui/carousel";
+import {
   Award, Users, Leaf, MapPin, BookOpen, Heart,
   Check, X, ChevronDown, Play, Download, Phone,
   Calendar, Clock, Star, Instagram, MessageCircle, Sparkles,
@@ -20,12 +26,15 @@ import {
   UserCheck, Brain, BookMarked, UsersRound, RefreshCw,
   Salad, Coffee, Apple, Soup, UtensilsCrossed, Wheat, Milk,
   Cherry, Sprout, CircleDot, Sun, MessageSquare, Mail,
-  Wifi, Droplets, Wind
+  Wifi, Droplets, Wind, Activity, ShieldCheck, ArrowRight, Globe
 } from "lucide-react";
 import { timezones } from "@/constants/formOptions";
+import WhyChooseUs from "@/components/home/WhyChooseUs";
+import FounderSection from "@/components/home/FounderSection";
+import HomeGallerySection from "@/components/home/HomeGallerySection";
 import RoomCard from "./RoomCard";
 import heroImage from "@/assets/hero-yoga-bali.jpg";
-import preYttcOnline from "@/assets/pre-yttc-online.jpg";
+import preYttcOnline from "@/assets/pre-yttc-online.png";
 import activityAyurveda from "@/assets/activity-ayurveda.jpg";
 import transformYou from "@/assets/transform-you.jpg";
 import activitySoundHealing from "@/assets/activity-sound-healing.jpg";
@@ -48,12 +57,28 @@ import yaRys100 from "@/assets/ya-rys-100.png";
 import yaRys200 from "@/assets/ya-rys-200.jpg";
 import yaAllCertifications from "@/assets/ya-all-certifications.jpg";
 import WhyFeatureItem from "@/components/home/WhyFeatureItem";
+import HomeVideoGallerySection from "@/components/home/HomeVideoGallerySection";
 import StudentStoriesSection from "@/components/home/StudentStoriesSection";
 import { googleReviews } from "@/constants/googleReviews";
 import apartKecakDance from "@/assets/apart/kecak-dance.jpg";
 import apartYogaAllianceGraduates from "@/assets/apart/yoga-alliance-graduates.jpg";
 import apartCeremony from "@/assets/apart/ceremony.jpg";
 import apartRiceFieldTrek from "@/assets/apart/rice-field-trek.jpg";
+import apartHammock from "@/assets/apart/hammock.jpg";
+import apartSeatedTalk from "@/assets/apart/seated-talk.jpg";
+import apartGroupPose from "@/assets/apart/group-pose.jpg";
+import apartGroupClass from "@/assets/apart/group-class.jpg";
+import apartWaterTemple from "@/assets/apart/water-temple.jpg";
+import apartPoolVilla from "@/assets/apart/pool-villa.jpg";
+import apartMountainPose from "@/assets/apart/mountain-pose.jpg";
+import apartWarriorSequence from "@/assets/apart/warrior-sequence.jpg";
+import apartBaliSurroundings from "@/assets/apart/bali-surroundings.jpg";
+import apartCommunityBeach from "@/assets/apart/community-beach.jpg";
+import apartInstructorAnatomy from "@/assets/apart/instructor-anatomy.jpg";
+import apartBalineseMassage from "@/assets/apart/balinese-massage.jpg";
+import apartAyurvedicMeals from "@/assets/apart/ayurvedic-meals.jpg";
+import apartMeditationPractice from "@/assets/apart/meditation-practice.jpg";
+import apartYogaLifestyle from "@/assets/apart/yoga-lifestyle.jpg";
 
 // Workshop Images
 import workshopAyurveda from "@/assets/workshops/workshop-ayurveda.png";
@@ -81,6 +106,11 @@ import syllabus8 from "@/assets/syllabus/syllabus-8.jpg";
 import syllabus9 from "@/assets/syllabus/syllabus-9.jpg";
 import syllabus10 from "@/assets/syllabus/syllabus-10.jpg";
 import syllabusMudras from "@/assets/syllabus/syllabus-mudras.png";
+import syllabusAshtanga from "@/assets/syllabus/ashtanga-yoga.png";
+import syllabusHathaVinyasa from "@/assets/syllabus/hatha-vinyasa.png";
+import syllabusPranayamaBreathing from "@/assets/syllabus/pranayama-breathing.jpg";
+import syllabusAnatomyPhysiology from "@/assets/syllabus/anatomy-physiology.png";
+import syllabusMeditationMantra from "@/assets/syllabus/meditation-mantra.jpg";
 import tripleBalcony from "@/assets/rooms/triple-balcony.jpg";
 import tripleBathroom from "@/assets/rooms/triple-bathroom.jpg";
 import tripleBedroom1 from "@/assets/rooms/triple-bedroom-1.jpg";
@@ -202,13 +232,13 @@ const whatSetsApart = [
 const dailySchedule = [
   { time: "6:00 AM", activity: "Wake Up & Morning Cleansing" },
   { time: "6:30 AM", activity: "Pranayama & Meditation" },
-  { time: "7:30 AM", activity: "Asana Practice (Hatha/Ashtanga)" },
+  { time: "7:30 AM", activity: "Hatha & Vinyasa" },
   { time: "9:00 AM", activity: "Breakfast" },
-  { time: "10:00 AM", activity: "Yoga Philosophy / Anatomy" },
+  { time: "10:00 AM", activity: "Yoga Philosophy" },
   { time: "12:00 PM", activity: "Lunch & Rest" },
-  { time: "3:00 PM", activity: "Teaching Methodology" },
-  { time: "4:30 PM", activity: "Alignment & Adjustments" },
-  { time: "6:00 PM", activity: "Evening Practice" },
+  { time: "3:00 PM", activity: "Applied Anatomy & Bio Mechanics" },
+  { time: "4:30 PM", activity: "Alignment, Adjustments & Teaching Methodology" },
+  { time: "6:00 PM", activity: "Ashtanga & Iyengar with Yoga Therapy" },
   { time: "7:30 PM", activity: "Dinner" },
   { time: "9:00 PM", activity: "Self-Study / Lights Off" },
 ];
@@ -305,73 +335,73 @@ const whatYouWillReceive = [
     title: "Multi Style Yoga Training",
     description: "Learn yoga in its authentic, time-tested way. Our teachers preserve the wisdom of yogic tradition.",
     icon: Leaf,
-    image: "https://images.unsplash.com/photo-1545389336-cf090694435e?w=400&h=500&fit=crop"
+    image: apartSeatedTalk
   },
   {
     title: "Yoga Alliance Certified",
     description: "Receive globally recognized certification. Begin teaching yoga with confidence worldwide.",
     icon: Award,
-    image: "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=400&h=500&fit=crop"
+    image: apartYogaAllianceGraduates
   },
   {
     title: "Peaceful Bali Surroundings",
     description: "Experience yoga in the lap of nature. Calm beaches and greenery deepen your practice.",
     icon: Mountain,
-    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400&h=500&fit=crop"
+    image: apartBaliSurroundings
   },
   {
     title: "Outdoor Excursions",
     description: "Explore temples, beaches, and nature walks. Balance learning with adventure and culture.",
     icon: MapPin,
-    image: "https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=400&h=500&fit=crop"
+    image: apartWaterTemple
   },
   {
     title: "Small Batch Sizes",
     description: "Get personal attention and guidance. Every student's growth matters to us.",
     icon: Users,
-    image: "https://images.unsplash.com/photo-1588286840104-8957b019727f?w=400&h=500&fit=crop"
+    image: apartGroupClass
   },
   {
     title: "Supportive Community",
     description: "Be part of a warm and positive family. Grow together in a caring environment.",
     icon: Heart,
-    image: "https://images.unsplash.com/photo-1529693662653-9d480530a697?w=400&h=500&fit=crop"
+    image: apartCommunityBeach
   },
   {
     title: "Balinese Massage",
     description: "Traditional Indonesian therapy to relieve muscle tension. Promotes deep relaxation and holistic healing.",
     icon: Sparkles,
-    image: "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=400&h=500&fit=crop"
+    image: apartBalineseMassage
   },
   {
     title: "Balinese Dance Performance",
     description: "Ancient, dynamic and highly expressive dance form that reflects Bali's rich cultural heritage.",
     icon: Star,
-    image: "https://images.unsplash.com/photo-1518611507436-f9221403cca2?w=400&h=500&fit=crop"
+    image: apartKecakDance
   },
   {
     title: "Healthy Meals",
     description: "Enjoy sattvic and healthy meals supporting your practice.",
     icon: Heart,
-    image: healthyMeals
+    image: apartAyurvedicMeals
   },
   {
     title: "Meditation Practice",
     description: "Deepen inner peace and mindfulness with guided sessions.",
     icon: Sparkles,
-    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=500&fit=crop"
+    image: apartMeditationPractice
   },
   {
     title: "Experienced Instructors",
     description: "Learn from certified teachers with years of expertise.",
     icon: GraduationCap,
-    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=500&fit=crop"
+    image: apartInstructorAnatomy
   },
   {
     title: "Yoga Lifestyle",
     description: "Adopt the yogic way of living for body, mind, and spirit.",
     icon: Leaf,
-    image: "https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=400&h=500&fit=crop"
+    image: apartYogaLifestyle
   },
 ];
 
@@ -426,7 +456,7 @@ const excursions = [
   {
     title: "Sacred Waterfall Visit",
     description: "Journey to a sacred waterfall for a traditional cleansing ritual. Let the pure waters wash away what no longer serves you.",
-    image: "https://images.unsplash.com/photo-1544550581-5f7ceaf7f992?w=600&h=600&fit=crop",
+    image: activityWaterfall,
     icon: Sparkles
   },
 ];
@@ -446,14 +476,14 @@ const foodMenu = [
     time: "12:30 PM",
     icon: Salad,
     items: ["Nourishing Buddha bowls", "Tempeh & tofu preparations", "Fresh garden salads", "Traditional Balinese vegetables"],
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&h=400&fit=crop"
+    image: healthyMeals
   },
   {
     meal: "Dinner",
     time: "6:30 PM",
     icon: Soup,
     items: ["Light sattvic soups", "Wholesome grain dishes", "Steamed vegetables", "Healing Ayurvedic preparations"],
-    image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&h=400&fit=crop"
+    image: apartAyurvedicMeals
   },
 ];
 
@@ -468,11 +498,11 @@ const foodPhilosophy = [
 
 // Dietary Options
 const dietaryOptions = [
-  { icon: Leaf, name: "Vegan", description: "100% plant-based meals" },
+  { icon: Leaf, name: "Vegan", description: "100% vegan-based meals" },
   { icon: Milk, name: "Lactose Free", description: "Dairy-free alternatives" },
   { icon: Wheat, name: "Gluten Free", description: "No wheat or gluten" },
   { icon: Sprout, name: "Raw Food", description: "Living food options" },
-  { icon: CircleDot, name: "Organic", description: "Certified organic produce" },
+  { icon: CircleDot, name: "Nutrition & Healthy Food", description: "Nutrition and healthy food" },
   { icon: Cherry, name: "Fruitarian", description: "Fruit-based meals" },
   { icon: Sun, name: "Yogic Diet", description: "Traditional sattvic food" },
   { icon: MessageSquare, name: "Custom Request", description: "Other diets on request" },
@@ -560,6 +590,33 @@ export default function Course300Hour() {
   const [selectedDay, setSelectedDay] = useState<number | null>(13);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [showBookingDialog, setShowBookingDialog] = useState(false);
+
+  // Carousel state for syllabus
+  const [syllabusApi, setSyllabusApi] = useState<CarouselApi>();
+  const [currentSyllabus, setCurrentSyllabus] = useState(1);
+  const syllabusTotalItems = 11;
+
+  useEffect(() => {
+    if (!syllabusApi) return;
+
+    const updateProgress = () => {
+      const selected = syllabusApi.selectedScrollSnap();
+      const totalSnaps = syllabusApi.scrollSnapList().length;
+
+      if (totalSnaps <= 1) {
+        setCurrentSyllabus(1);
+        return;
+      }
+
+      // Map snap index 0...totalSnaps-1 to item index 1...11
+      const scaledCurrent = Math.round((selected / (totalSnaps - 1)) * (syllabusTotalItems - 1)) + 1;
+      setCurrentSyllabus(scaledCurrent);
+    };
+
+    updateProgress();
+    syllabusApi.on("select", updateProgress);
+    syllabusApi.on("reInit", updateProgress);
+  }, [syllabusApi]);
   const [showEnrollDialog, setShowEnrollDialog] = useState(false);
   const [showQuickEnquiryDialog, setShowQuickEnquiryDialog] = useState(false);
   const [quickEnquiryForm, setQuickEnquiryForm] = useState({
@@ -623,6 +680,7 @@ export default function Course300Hour() {
   };
 
   // Scroll to top functionality
+  const [showPreYttcOptions, setShowPreYttcOptions] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -894,50 +952,102 @@ export default function Course300Hour() {
 
       <Layout>
         {/* ===== HERO SECTION ===== */}
-        <section className="relative min-h-[90vh] flex items-center">
-          <div className="absolute inset-0">
-            <Image
-              src={heroImage}
-              alt="300 Hour Yoga Teacher Training in Bali"
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-foreground/40" />
+        <section className="relative min-h-[85vh] flex items-start justify-center overflow-hidden pt-8 md:pt-12 pb-20">
+          {/* Background Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: 'url(/hero-yoga-group.jpg)' }}
+          >
+            <div className="absolute inset-0 bg-black/40" />
           </div>
 
-          <div className="relative container mx-auto px-4 py-20 text-center text-primary-foreground">
-            <p className="font-body uppercase tracking-[0.3em] text-sm mb-4 opacity-90">
-              Yogagarhi
-            </p>
-            <p className="font-heading italic text-lg mb-8 opacity-80">
-              Ancient Wisdom. Modern Teaching.
-            </p>
+          {/* Content */}
+          <div className="relative z-10 container mx-auto px-4 text-center text-primary-foreground">
+            <div className="max-w-4xl mx-auto flex flex-col items-center">
+              <p className="text-xl md:text-2xl font-medium tracking-widest opacity-90 animate-fade-in mb-4 uppercase text-white/80" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
+                Welcome To
+              </p>
+              <h1 className="font-heading text-6xl md:text-8xl lg:text-9xl font-bold leading-tight mb-6 drop-shadow-2xl">
+                {"Yogagarhi".split("").map((char, index) => (
+                  <span
+                    key={index}
+                    className="inline-block animate-fade-in opacity-0 text-white"
+                    style={{
+                      animationDelay: `${0.4 + index * 0.08}s`,
+                      animationFillMode: 'forwards'
+                    }}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </h1>
 
-            <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              300 Hour Yoga Teacher Training
-            </h1>
-            <p className="font-heading text-2xl md:text-3xl mb-12 opacity-90">
-              Bali, Indonesia
-            </p>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold tracking-tight opacity-0 animate-fade-in text-primary-foreground/95 leading-tight mb-8" style={{ animationDelay: '1.2s', animationFillMode: 'forwards' }}>
+                300 Hour Yoga Teacher Training in Bali
+              </h2>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="xl"
-                className="bg-primary-foreground/20 backdrop-blur-sm border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/30 font-semibold"
-                onClick={() => setShowQuickEnquiryDialog(true)}
-              >
-                Quick Enquiry
-              </Button>
-              <Button
-                size="xl"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
-                onClick={() => openBookingDialog(true)}
-              >
-                Book an Appointment
-              </Button>
+              <div className="space-y-10 opacity-0 animate-fade-in mb-12" style={{ animationDelay: '1.4s', animationFillMode: 'forwards' }}>
+                <p className="text-2xl md:text-4xl font-medium max-w-5xl mx-auto leading-relaxed text-white">
+                  Created for dedicated practitioners and certified teachers who are ready to go beyond the basics seeking deeper understanding, refined alignment, and a more integrated, systematic Yogic practice.
+                </p>
+                <p className="text-xl md:text-3xl font-light max-w-3xl mx-auto italic text-white/90">
+                  Ancient Himalayan wisdom. Authentic yoga, lived & taught.
+                </p>
+              </div>
+
+              {/* Stats */}
+              <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 pt-4">
+                <div className="text-center">
+                  <p className="font-heading text-3xl md:text-4xl font-bold">500+</p>
+                  <p className="text-xs md:text-sm opacity-80">Graduated Students</p>
+                </div>
+                <div className="w-px h-10 bg-primary-foreground/30 hidden sm:block" />
+                <div className="text-center">
+                  <p className="font-heading text-3xl md:text-4xl font-bold">Multi-Style</p>
+                  <p className="text-xs md:text-sm opacity-80">Authentic Yoga</p>
+                </div>
+                <div className="w-px h-10 bg-primary-foreground/30 hidden sm:block" />
+                <div className="text-center">
+                  <p className="font-heading text-3xl md:text-4xl font-bold">Ayurveda</p>
+                  <p className="text-xs md:text-sm opacity-80">Strong Basis</p>
+                </div>
+              </div>
+
+              {/* Second Row - Yoga Alliance & World's First */}
+              <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+                <div className="text-center">
+                  <p className="font-heading text-3xl md:text-4xl font-bold">Yoga Alliance</p>
+                  <p className="text-xs md:text-sm opacity-80">Certified School</p>
+                </div>
+                <div className="w-px h-10 bg-primary-foreground/30 hidden sm:block" />
+                <div className="text-center">
+                  <p className="font-heading text-3xl md:text-4xl font-bold">World's First</p>
+                  <p className="text-xs md:text-sm opacity-80">Pre-YTTC Support Academy</p>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
+                <Button
+                  variant="hero"
+                  size="xl"
+                  onClick={() => setShowQuickEnquiryDialog(true)}
+                >
+                  Quick Enquiry
+                </Button>
+                <Button
+                  variant="heroOutline"
+                  size="xl"
+                  onClick={() => openBookingDialog(true)}
+                >
+                  Book an Appointment
+                </Button>
+              </div>
             </div>
           </div>
+
+          {/* Decorative Elements */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
         </section>
 
         {/* ===== COURSE DETAILS BAR ===== */}
@@ -1017,7 +1127,7 @@ export default function Course300Hour() {
                         <BookOpen className="w-4 h-4 text-primary" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-foreground">Pre-YTTC Support</p>
+                        <p className="text-sm font-medium text-foreground">Before You Join Support</p>
                         <p className="text-xs text-muted-foreground">Preparation & Guidance</p>
                       </div>
                     </div>
@@ -1027,7 +1137,7 @@ export default function Course300Hour() {
                         <Heart className="w-4 h-4 text-primary" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-foreground">Post-YTTC Mentorship</p>
+                        <p className="text-sm font-medium text-foreground">Life After Graduation Mentorship</p>
                         <p className="text-xs text-muted-foreground">Ongoing Support</p>
                       </div>
                     </div>
@@ -1067,6 +1177,7 @@ export default function Course300Hour() {
           </div>
         </section>
 
+
         {/* ===== WELCOME SECTION ===== */}
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
@@ -1081,16 +1192,60 @@ export default function Course300Hour() {
                 </p>
 
                 {/* YouTube Video - Shows here on mobile, hidden on desktop */}
-                <div className="relative w-full mb-8 lg:hidden">
+                <div className="relative w-full mb-6 lg:hidden">
                   <div className="aspect-video rounded-lg overflow-hidden shadow-card bg-muted">
                     <iframe
                       src="https://www.youtube.com/embed/U1r2mQRmWXM?rel=0&autoplay=1&mute=1"
-                      title="YogaGarhi 200 Hour Yoga Teacher Training"
+                      title="YogaGarhi 300 Hour Yoga Teacher Training"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                       className="w-full h-full"
                     />
                   </div>
+                </div>
+
+                <div className="bg-secondary/30 border-l-4 border-primary rounded-r-xl p-6 md:p-8 my-8 relative overflow-hidden group hover:bg-secondary/40 transition-colors">
+                  <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-6 flex items-center gap-3">
+                    <span className="w-10 h-1 bg-primary rounded-full" />
+                    This Training Is for You If
+                  </h3>
+
+                  <ul className="space-y-4">
+                    {[
+                      <>You want to <span className="font-semibold text-foreground">deepen your yoga practice</span> — physically, mentally, spiritually</>,
+                      <>You feel called to <span className="font-semibold text-foreground">teach yoga with confidence and clarity</span></>,
+                      <>You are seeking <span className="font-semibold text-foreground">healing, clarity, and a fresh start</span> in the heart of Bali</>,
+                      <>You want to learn yoga <span className="font-semibold text-foreground">authentically, not commercially</span></>,
+                      <>You’re not sure yet if you’ll teach — but you want a <span className="font-semibold text-foreground">strong foundation</span></>,
+                      <>You value <span className="font-semibold text-foreground">tradition, self-discipline, and conscious living</span></>
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-3 text-sm md:text-base text-muted-foreground">
+                        <div className="mt-1 flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                          <Check className="w-3.5 h-3.5 text-primary" />
+                        </div>
+                        <span className="leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Mobile-only Pre-YTTC Section */}
+                <div className="mb-10 p-6 rounded-2xl bg-primary/10 border-2 border-primary/20 lg:hidden group shadow-sm">
+                  <h3 className="font-heading text-xl font-extrabold text-foreground mb-3 flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Zap className="w-4 h-4 text-primary" />
+                    </div>
+                    Not Sure if You’re Ready? Let’s Start Together (Pre YTTC)
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                    If you’re worried about being <span className="font-semibold text-foreground italic">"just a beginner,"</span> don't be. The moment you sign up, you join our <span className="font-semibold text-primary">Live Online Prep sessions</span> where you can meet us and ask questions before Bali. We’ll guide you through the basics personally, so you can <span className="font-semibold text-foreground">build your confidence and flexibility from home</span>. You won’t just show up to a course; you’ll land in Bali already <span className="font-semibold text-foreground">knowing your teachers</span> and feeling <span className="font-bold text-primary italic underline underline-offset-4">100% ready to join the family</span>.
+                  </p>
+                  <Button
+                    className="w-full bg-gradient-to-r from-[#FF8C00] to-[#FF4500] text-white hover:from-[#FF4500] hover:to-[#FF8C00] font-bold shadow-lg shadow-orange-500/30 border-none"
+                    onClick={() => setShowPreYttcOptions(true)}
+                  >
+                    Start My Live Training
+                  </Button>
                 </div>
 
                 <div className="space-y-6 text-muted-foreground leading-relaxed">
@@ -1129,24 +1284,539 @@ export default function Course300Hour() {
                         }`}
                     />
                   </button>
+
+                  <div className="mt-10 p-8 rounded-2xl bg-gradient-to-br from-secondary/30 to-background border border-primary/10 shadow-sm">
+                    <h3 className="font-heading text-2xl font-medium text-foreground mb-6">
+                      Ask Us Anything?
+                    </h3>
+                    <div className="flex flex-wrap gap-4">
+                      <Button
+                        variant="outline"
+                        className="h-12 px-6 rounded-xl text-base gap-2.5 border-primary/20 bg-background/80 hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-all duration-300 shadow-sm hover:shadow-md"
+                        asChild
+                      >
+                        <a
+                          href="https://wa.me/+917895350563"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <MessageCircle className="w-5 h-5" />
+                          WhatsApp
+                        </a>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="h-12 px-6 rounded-xl text-base gap-2.5 border-primary/20 bg-background/80 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 shadow-sm hover:shadow-md"
+                        asChild
+                      >
+                        <a href="mailto:yogagarhi@gmail.com">
+                          <Mail className="w-5 h-5" />
+                          Email Us
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Right Column - YouTube Video (desktop only) */}
-              <div className="relative w-full order-2 lg:order-1 hidden lg:block">
+              {/* Right Column - YouTube Video & Pre-YTTC Support (desktop only) */}
+              <div className="relative w-full order-2 lg:order-1 hidden lg:block sticky top-24 self-start space-y-8">
                 <div className="aspect-video rounded-lg overflow-hidden shadow-card bg-muted">
                   <iframe
                     src="https://www.youtube.com/embed/U1r2mQRmWXM?rel=0&autoplay=1&mute=1"
-                    title="YogaGarhi 200 Hour Yoga Teacher Training"
+                    title="YogaGarhi 300 Hour Yoga Teacher Training"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full"
                   />
                 </div>
+
+                {/* Desktop-only Pre-YTTC Section */}
+                <div className="p-8 rounded-3xl bg-primary/[0.07] border-2 border-primary/20 relative overflow-hidden group shadow-xl shadow-primary/5">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110" />
+                  <div className="relative z-10">
+                    <h3 className="font-heading text-2xl font-extrabold text-foreground mb-4 flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                        <Zap className="w-5 h-5 text-primary" />
+                      </div>
+                      Not Sure if You’re Ready? Let’s Start Together (Pre YTTC)
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      If you’re worried about being <span className="font-semibold text-foreground italic">"just a beginner,"</span> don't be. The moment you sign up, you join our <span className="font-semibold text-primary">Live Online Prep sessions</span> where you can meet us and ask questions before Bali. We’ll guide you through the basics personally, so you can <span className="font-semibold text-foreground">build your confidence and flexibility from home</span>. You won’t just show up to a course; you’ll land in Bali already <span className="font-semibold text-foreground">knowing your teachers</span> and feeling <span className="font-bold text-primary italic underline underline-offset-4">100% ready to join the family</span>.
+                    </p>
+                    <div className="mt-8 flex flex-wrap items-center gap-6 justify-between">
+                      <Button
+                        size="lg"
+                        className="bg-gradient-to-r from-[#FF8C00] to-[#FF4500] text-white hover:from-[#FF4500] hover:to-[#FF8C00] font-bold px-8 shadow-xl shadow-orange-500/20 hover:scale-105 transition-all duration-300 border-none relative overflow-hidden group/btn"
+                        onClick={() => setShowPreYttcOptions(true)}
+                      >
+                        <span className="relative z-10 flex items-center gap-2">
+                          Start My Live Training
+                          <Zap className="w-4 h-4 fill-current animate-pulse" />
+                        </span>
+                        <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-500 ease-in-out" />
+                      </Button>
+
+                      <div className="flex items-center gap-5 text-sm font-medium text-primary">
+                        <span className="flex items-center gap-1.5 bg-primary/5 px-3 py-1.5 rounded-full">
+                          <Check className="w-4 h-4" /> Live Mentorship
+                        </span>
+                        <span className="flex items-center gap-1.5 bg-primary/5 px-3 py-1.5 rounded-full">
+                          <Check className="w-4 h-4" /> Community Access
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
+
+
+        {/* ===== WHAT YOU’LL CARRY HOME - UNIQUE COMPACT DESIGN ===== */}
+        <section className="py-16 bg-muted/30 relative overflow-hidden">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
+              {/* Left Column: Heading */}
+              <div className="lg:w-1/3 lg:sticky lg:top-24">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-4">
+                  <Heart className="w-3 h-3 text-primary" fill="currentColor" />
+                  <span className="text-[10px] font-bold tracking-widest uppercase text-primary">The Takeaway</span>
+                </div>
+                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 leading-tight">
+                  What You’ll <br />
+                  <span className="text-primary italic">Carry Home</span>
+                </h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Beyond the physical certificate, you walk away with a transformed perspective, a deeper connection to yourself, and the authentic skills to lead others.
+                </p>
+                <div className="mt-6 p-4 rounded-xl bg-primary/5 border border-primary/20 relative overflow-hidden group/box">
+                  <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
+                  <p className="text-xs md:text-sm text-foreground font-medium leading-relaxed relative z-10">
+                    <span className="text-primary font-bold">Career Impact:</span> After completing the 300-Hour Yoga Teacher Training, you can start teaching yoga <strong className="text-foreground">anywhere in the world</strong> in studios, online live classes, yoga retreats, or through your own independent practice.
+                  </p>
+                  <Globe className="absolute -bottom-2 -right-2 w-12 h-12 text-primary/10 group-hover/box:text-primary/20 transition-colors duration-500" />
+                </div>
+                <div className="mt-8 hidden lg:block">
+                  <div className="w-12 h-1 bg-primary/30 rounded-full" />
+                </div>
+              </div>
+
+              {/* Right Column: Compact Grid */}
+              <div className="lg:w-2/3 grid grid-cols-2 gap-x-6 gap-y-10 md:gap-x-12">
+                {[
+                  {
+                    title: "Global Certification",
+                    desc: "Yoga Alliance RYT-300 to reach the next level of teaching.",
+                    icon: Award
+                  },
+                  {
+                    title: "Master the Practice",
+                    desc: "Expert guidance in Hatha, Vinyasa, Ashtanga & Iyengar.",
+                    icon: Activity
+                  },
+                  {
+                    title: "Safety & Anatomy",
+                    desc: "Learn to teach and practice safely without injuries.",
+                    icon: ShieldCheck
+                  },
+                  {
+                    title: "Spiritual Depth",
+                    desc: "Deep dive into Mantras, Meditation, and Philosophy.",
+                    icon: Sparkles
+                  },
+                  {
+                    title: "Teaching Skills",
+                    desc: "Practical skills to lead, cue, and inspire students.",
+                    icon: GraduationCap
+                  },
+                  {
+                    title: "Deep Bonds",
+                    desc: "Lifelong connections with a global yoga community.",
+                    icon: Users
+                  }
+                ].map((item, index) => (
+                  <div key={index} className="group flex flex-col items-start">
+                    <div className="w-10 h-10 rounded-lg bg-background border border-border flex items-center justify-center mb-4 group-hover:border-primary/50 group-hover:bg-primary/5 transition-all duration-300">
+                      <item.icon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                    </div>
+                    <h3 className="font-heading text-sm sm:text-base font-bold text-foreground mb-1.5 group-hover:text-primary transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== WHAT YOU'LL RECEIVE ===== */}
+        <section className="py-20 bg-background overflow-hidden">
+          <div className="container mx-auto px-4">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-primary mb-4">
+              What You Will Receive in This Training
+            </h2>
+            {/* Decorative Mandala Icon */}
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
+              <svg className="w-10 h-10 text-primary" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1">
+                <circle cx="20" cy="20" r="16" />
+                <circle cx="20" cy="20" r="6" strokeDasharray="2 2" />
+                {/* Orbital dots */}
+                {isMounted && [0, 60, 120, 180, 240, 300].map((angle, i) => (
+                  <circle key={i} cx={20 + 10 * Math.cos(angle * Math.PI / 180)} cy={20 + 10 * Math.sin(angle * Math.PI / 180)} r="3" fill="currentColor" />
+                ))}
+              </svg>
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
+            </div>
+            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto italic">
+              Everything you need to live, learn, and grow — fully supported
+            </p>
+
+            {/* Horizontal Scrollable Flip Cards */}
+            <div className="relative">
+              {/* Gradient fade edges */}
+              <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
+              <div className="overflow-x-auto scrollbar-hide pb-4 -mx-4 px-4">
+                <div className="flex gap-6" style={{ width: 'max-content' }}>
+                  {whatYouWillReceive.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flip-card w-64 h-72 flex-shrink-0 cursor-pointer"
+                      onClick={(e) => {
+                        const card = e.currentTarget;
+                        card.classList.toggle('flipped');
+                      }}
+                    >
+                      <div className="flip-card-inner relative w-full h-full transition-transform duration-500 transform-style-preserve-3d">
+                        {/* Front - Image */}
+                        <div className="flip-card-front absolute w-full h-full backface-hidden rounded-xl overflow-hidden border border-border shadow-card">
+                          <Image
+                            src={item.image}
+                            alt={item.title}
+                            fill
+                            className="object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                          <div className="absolute bottom-0 left-0 right-0 p-5">
+                            <h3 className="font-heading text-lg font-semibold text-white text-center">
+                              {item.title}
+                            </h3>
+                            <p className="text-xs text-white/70 mt-1 text-center md:hidden">Tap to see more</p>
+                            <p className="text-xs text-white/70 mt-1 text-center hidden md:block">Hover to see more</p>
+                          </div>
+                        </div>
+
+                        {/* Back - Content */}
+                        <div className="flip-card-back absolute w-full h-full backface-hidden rounded-xl overflow-hidden border border-border shadow-card rotate-y-180 bg-card">
+                          <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center">
+                            <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                              <item.icon className="w-7 h-7 text-primary" />
+                            </div>
+                            <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
+                              {item.title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                              {item.description}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== YOGA ALLIANCE CERTIFICATION ===== */}
+        <section
+          className="py-24 relative bg-cover bg-center bg-fixed"
+          style={{ backgroundImage: `url(${apartYogaAllianceGraduates.src})` }}
+        >
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-black/50" />
+
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-4xl mx-auto text-center">
+              {/* Subtitle */}
+              <p className="text-white/90 text-lg mb-2 font-medium">
+                "YOGAGARHI – 300 Hour YTTC"
+              </p>
+
+              {/* Main Title */}
+              <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-amber-500 mb-6">
+                Yoga Alliance USA CERTIFIED
+              </h2>
+
+              {/* Description */}
+              <p className="text-white/90 text-base md:text-lg max-w-3xl mx-auto mb-10 leading-relaxed">
+                Our school, YogaGarhi, is registered with Yoga Alliance USA. Upon completing this course,
+                you will receive an internationally recognized certification, allowing you to become a
+                <span className="text-white font-medium"> Registered Yoga Teacher (RYT)</span>.
+                This certification opens doors for you to teach yoga anywhere in the world.
+              </p>
+
+              {/* Certification Badges - Real Images */}
+              <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8">
+                <Image src={yaRys100} alt="RYS 100" width={100} height={100} className="h-20 md:h-24 w-auto object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src={yaRys200} alt="RYS 200" width={100} height={100} className="h-20 md:h-24 w-auto object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src={yaRyt200} alt="RYT 200" width={100} height={100} className="h-20 md:h-24 w-auto object-contain hover:scale-110 transition-transform duration-300" />
+              </div>
+
+              {/* Full Certification Banner */}
+              <div className="mt-10">
+                <Image src={yaAllCertifications} alt="All Yoga Alliance Certifications" width={800} height={400} className="max-w-full md:max-w-2xl mx-auto rounded-lg shadow-lg" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== COURSE SYLLABUS ===== */}
+        <section className="py-20 bg-background overflow-hidden">
+          <div className="container mx-auto px-4">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-foreground mb-4">
+              Course Syllabus
+            </h2>
+            {/* Decorative Book/Scroll Icon */}
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
+              <svg className="w-10 h-8 text-primary" viewBox="0 0 48 32" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M24 6 C24 6 18 4 8 4 C4 4 2 6 2 8 L2 26 C2 28 4 30 8 30 C18 30 24 28 24 28" />
+                <path d="M24 6 C24 6 30 4 40 4 C44 4 46 6 46 8 L46 26 C46 28 44 30 40 30 C30 30 24 28 24 28" />
+                <line x1="24" y1="6" x2="24" y2="28" />
+              </svg>
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
+            </div>
+            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+              Comprehensive curriculum covering all aspects of yoga teacher training
+            </p>
+
+            {/* Horizontal Scrollable Cards */}
+            <div className="relative group/carousel">
+              <Carousel
+                setApi={setSyllabusApi}
+                opts={{
+                  align: "start",
+                  loop: false,
+                }}
+                className="w-full"
+              >
+                <CarouselContent className="-ml-4 md:-ml-6">
+                  {[
+                    {
+                      title: "Ashtanga Yoga Postures",
+                      content: "Complete Ashtanga yoga primary series sequence. Week-by-week progression through Sun Salutation A & B, Standing sequence, Seated sequence, and Mysore style practice.",
+                      image: syllabusAshtanga
+                    },
+                    {
+                      title: "Hatha & Vinyasa Flow",
+                      content: "Pawanmuktasana series, Surya Namaskar variations, Standing and seated postures, Backbends, Forward folds, Inversions, and complete sequencing methodology.",
+                      image: syllabusHathaVinyasa
+                    },
+                    {
+                      title: "Yoga Philosophy",
+                      content: "Introduction to yoga sutras of Patanjali, Eight limbs of Ashtanga Yoga, Nadis, Chakras, Pancha-Vayus, Panchakoshas, Triguna, and inspiring stories of great yogis.",
+                      image: syllabus3
+                    },
+                    {
+                      title: "Pranayama & Breathing",
+                      content: "Complete breathing techniques including Ujjayi, Bhastrika, Kapalbhati, Nadi-Sodhana, Bhramari, Surya-Bhedi, Chandra-Bhedi, Sheetali, and Sheetkari.",
+                      image: syllabusPranayamaBreathing
+                    },
+                    {
+                      title: "Anatomy & Physiology",
+                      content: "Body movement planes, joint protection, anatomy of ankle, knee, spine, shoulder, breathing mechanism, physiology of muscles, and nervous system.",
+                      image: syllabusAnatomyPhysiology
+                    },
+                    {
+                      title: "Teaching Methodology",
+                      content: "Class sequencing, adjustments, working with different levels, voice usage, mental preparation, demonstration principles, and step-by-step class planning.",
+                      image: syllabus6
+                    },
+                    {
+                      title: "Meditation & Mantra",
+                      content: "Multiple meditation techniques, mantra chanting, Trataka, Osho Dynamic meditation, Nada Brahma, Antar Mouna, and silence practices for inner stillness.",
+                      image: syllabusMeditationMantra
+                    },
+                    {
+                      title: "Iyengar Yoga",
+                      content: "Precision-focused yoga emphasizing correct body alignment using props like blocks, straps, and blankets to help practitioners achieve optimal posture and prevent injuries.",
+                      image: syllabus8
+                    },
+                    {
+                      title: "Alignment Principles",
+                      content: "Foundation of safe practice through understanding joint stacking, muscle engagement patterns, and body mechanics to protect and strengthen the physical body.",
+                      image: syllabus9
+                    },
+                    {
+                      title: "Bandhas (Energy Locks)",
+                      content: "Master the three primary bandhas - Mula, Uddiyana, and Jalandhara. These internal locks regulate prana flow, strengthen the core, and deepen meditation practice.",
+                      image: syllabus10
+                    },
+                    {
+                      title: "Mudras (Yogic Gestures)",
+                      content: "Sacred hand and body gestures that channel energy, enhance concentration, and connect with specific states of consciousness. Essential for pranayama and meditation.",
+                      image: syllabusMudras
+                    },
+                  ].map((item, index) => (
+                    <CarouselItem key={index} className="pl-4 md:pl-6 basis-[85%] sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                      <div className="flex flex-col h-full bg-card rounded-3xl overflow-hidden border border-border shadow-sm hover:shadow-md transition-all duration-300 group">
+                        {/* Rectangular Image */}
+                        <div className="relative aspect-[4/3] overflow-hidden">
+                          <Image
+                            src={item.image}
+                            alt={item.title}
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                          {/* Slide Counter - Mobile Friendly */}
+                          <div className="absolute top-4 right-4 bg-primary/90 backdrop-blur-md text-primary-foreground rounded-full px-3 py-1 text-xs font-bold shadow-lg flex items-center gap-1">
+                            <span className="text-secondary">{index + 1}</span>
+                            <span className="opacity-60">/</span>
+                            <span>11</span>
+                          </div>
+                        </div>
+
+                        {/* Text Content */}
+                        <div className="p-6 flex flex-col flex-1">
+                          <h3 className="font-heading text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                            {item.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {item.content}
+                          </p>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+
+              {/* Custom Scroll Progress Bar */}
+              <div className="mt-8 max-w-xs mx-auto">
+                <div className="h-1 w-full bg-secondary rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-primary transition-all duration-300 ease-out"
+                    style={{ width: `${(currentSyllabus / syllabusTotalItems) * 100}%` }}
+                  />
+                </div>
+                <div className="flex justify-between mt-2 px-1">
+                  <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Start</span>
+                  <span className="text-xs font-heading font-bold text-primary">{currentSyllabus} of {syllabusTotalItems}</span>
+                  <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">End</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center mt-12">
+              <Dialog open={showSyllabusDialog} onOpenChange={setShowSyllabusDialog}>
+                <DialogTrigger asChild>
+                  <Button size="lg" variant="outline" className="gap-2">
+                    <Download className="w-4 h-4" />
+                    Download Detailed Syllabus
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle className="font-heading text-2xl text-center">
+                      Download Syllabus
+                    </DialogTitle>
+                    <DialogDescription className="text-center text-muted-foreground text-sm">
+                      Select your course and enter email to receive the detailed syllabus.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <form onSubmit={handleSyllabusSubmit} className="space-y-4 pt-4">
+                    <select
+                      value={selectedSyllabusCourse}
+                      onChange={(e) => setSelectedSyllabusCourse(e.target.value)}
+                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                    >
+                      <option value="100">100 Hour YTTC</option>
+                      <option value="200">200 Hour YTTC</option>
+                      <option value="300">300 Hour YTTC</option>
+                    </select>
+                    <input
+                      type="email"
+                      placeholder="Your email address"
+                      value={syllabusEmail}
+                      onChange={(e) => {
+                        setSyllabusEmail(e.target.value);
+                        setSyllabusEmailError("");
+                      }}
+                      className={`w-full px-4 py-3 rounded-lg border ${syllabusEmailError ? 'border-red-500' : 'border-border'} bg-background focus:outline-none focus:ring-2 focus:ring-primary`}
+                    />
+                    {syllabusEmailError && (
+                      <p className="text-sm text-red-500">{syllabusEmailError}</p>
+                    )}
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      size="lg"
+                      disabled={isSubmittingSyllabus}
+                    >
+                      {isSubmittingSyllabus ? "Sending..." : "Send Syllabus"}
+                    </Button>
+                  </form>
+                </DialogContent>
+              </Dialog>
+
+              {/* Syllabus Thank You Dialog */}
+              <Dialog open={showSyllabusThankYou} onOpenChange={(open) => {
+                setShowSyllabusThankYou(open);
+                if (!open) {
+                  setSyllabusEmail("");
+                  setSyllabusEmailError("");
+                }
+              }}>
+                <DialogContent className="sm:max-w-md text-center">
+                  <div className="py-6 space-y-6">
+                    <div className="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
+                      <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div>
+                      <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
+                        Thank You! 🙏
+                      </DialogTitle>
+                      <DialogDescription className="text-muted-foreground">
+                        Your {selectedSyllabusCourse}-hour YTTC syllabus is on its way to <span className="font-medium text-foreground">{syllabusEmail}</span>
+                      </DialogDescription>
+                    </div>
+                    <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground">
+                      <p>Please check your inbox (and spam folder) within the next 24 hours.</p>
+                    </div>
+                    <Button
+                      onClick={() => {
+                        setShowSyllabusThankYou(false);
+                        setSyllabusEmail("");
+                        setSyllabusEmailError("");
+                      }}
+                      className="w-full"
+                    >
+                      Close
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
+          </div>
+        </section>
+
+
+
+
+
 
         {/* ===== VIDEO TESTIMONIALS ===== */}
         <section className="py-20 bg-secondary/30 relative overflow-hidden">
@@ -1242,8 +1912,8 @@ export default function Course300Hour() {
           </div>
 
           <div className="container mx-auto px-4 relative z-10">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-foreground mb-4">
-              Student Testimonials
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-foreground mb-4 italic">
+              Choosing a Teacher Training Is Deeply Personal
             </h2>
             {/* Decorative Lotus Icon */}
             <div className="flex items-center justify-center gap-2 mb-4">
@@ -1256,8 +1926,8 @@ export default function Course300Hour() {
               </svg>
               <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
             </div>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Hear from our graduates about their transformative journey
+            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto italic">
+              Here’s what one student felt after taking that step.
             </p>
 
             <div className="max-w-2xl mx-auto mb-12">
@@ -1273,100 +1943,113 @@ export default function Course300Hour() {
             </div>
 
             <div className="text-center">
-              <Dialog open={showManualDialog} onOpenChange={setShowManualDialog}>
-                <DialogTrigger asChild>
-                  <Button size="lg" className="bg-primary text-primary-foreground">
-                    Get Free 300-Hour Study Manual
+              <div className="flex flex-col items-center gap-6">
+                <h3 className="font-heading text-2xl font-medium text-foreground">
+                  Talk to Us Personally
+                </h3>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <Button
+                    variant="outline"
+                    className="h-12 px-6 rounded-xl text-base gap-2.5 border-primary/20 bg-background/80 hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-all duration-300 shadow-sm hover:shadow-md"
+                    asChild
+                  >
+                    <a
+                      href="https://wa.me/+917895350563"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MessageCircle className="w-5 h-5" />
+                      WhatsApp
+                    </a>
                   </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-md">
-                  <DialogHeader>
-                    <DialogTitle className="font-heading text-2xl text-center">
-                      Download Your Free Manual
-                    </DialogTitle>
-                    <DialogDescription className="text-center text-muted-foreground">
-                      Enter your email to receive the complete 300-hour YTTC study manual.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="space-y-4 pt-4">
-                    <input
-                      type="email"
-                      placeholder="Your email address"
-                      className={`w-full px-4 py-3 rounded-lg border ${manualEmailError ? 'border-red-500' : 'border-border'} bg-background focus:outline-none focus:ring-2 focus:ring-primary`}
-                      value={manualEmail}
-                      onChange={(e) => {
-                        setManualEmail(e.target.value);
-                        setManualEmailError("");
-                      }}
-                    />
-                    {manualEmailError && (
-                      <p className="text-sm text-red-500">{manualEmailError}</p>
-                    )}
-                    <Button
-                      className="w-full"
-                      size="lg"
-                      onClick={() => {
-                        if (!manualEmail) {
-                          setManualEmailError("Please enter your email address");
-                          return;
-                        }
-                        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(manualEmail)) {
-                          setManualEmailError("Please enter a valid email address");
-                          return;
-                        }
-                        setManualEmailError("");
-                        setShowManualDialog(false);
-                        setShowManualThankYou(true);
-                      }}
-                    >
-                      Send Me The Manual
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
+                  <Button
+                    variant="outline"
+                    className="h-12 px-6 rounded-xl text-base gap-2.5 border-primary/20 bg-background/80 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 shadow-sm hover:shadow-md"
+                    asChild
+                  >
+                    <a href="mailto:yogagarhi@gmail.com">
+                      <Mail className="w-5 h-5" />
+                      Email Us
+                    </a>
+                  </Button>
+                </div>
+              </div>
 
-              {/* Manual Thank You Dialog */}
-              <Dialog open={showManualThankYou} onOpenChange={(open) => {
-                setShowManualThankYou(open);
-                if (!open) {
-                  setManualEmail("");
-                  setManualEmailError("");
-                }
-              }}>
-                <DialogContent className="sm:max-w-md text-center">
-                  <div className="py-6 space-y-6">
-                    <div className="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
-                      <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <div>
-                      <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
-                        Thank You! 🙏
-                      </DialogTitle>
-                      <DialogDescription className="text-muted-foreground">
-                        Your free 300-hour study manual is on its way to <span className="font-medium text-foreground">{manualEmail}</span>
-                      </DialogDescription>
-                    </div>
-                    <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground">
-                      <p>Please check your inbox (and spam folder) within the next 24 hours.</p>
-                    </div>
-                    <Button
-                      onClick={() => {
-                        setShowManualThankYou(false);
-                        setManualEmail("");
-                        setManualEmailError("");
-                      }}
-                      className="w-full"
-                    >
-                      Close
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
+
+
             </div>
           </div>
         </section>
+
+        <FounderSection />
+
+        <HomeGallerySection />
+
+        <WhyChooseUs />
+
+
+
+
+        {/* ===== DAILY SCHEDULE ===== */}
+        <section className="py-20 bg-secondary/30">
+          <div className="container mx-auto px-4">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-primary mb-4">
+              Daily Schedule
+            </h2>
+            {/* Decorative Sun Icon */}
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
+              <svg className="w-10 h-10 text-primary" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <circle cx="20" cy="20" r="9" />
+                {/* Sun rays */}
+                {isMounted && [0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
+                  <line key={i} x1={20 + 11 * Math.cos(angle * Math.PI / 180)} y1={20 + 11 * Math.sin(angle * Math.PI / 180)} x2={20 + 16 * Math.cos(angle * Math.PI / 180)} y2={20 + 16 * Math.sin(angle * Math.PI / 180)} />
+                ))}
+              </svg>
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
+            </div>
+            <p className="text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
+              A typical day at YogaGarhi is designed to balance intensive learning with rest and integration.
+            </p>
+
+            <div className="max-w-3xl mx-auto">
+              <div className="relative space-y-4">
+                {/* Vertical connecting line */}
+                <div className="absolute left-[calc(6rem+1.5rem+0.5rem-1px)] md:left-[calc(7rem+1.5rem+0.5rem-1px)] top-2 bottom-2 w-0.5 bg-primary/30" />
+
+                {dailySchedule.map((item, index) => (
+                  <div
+                    key={index}
+                    className="relative flex items-center gap-6"
+                  >
+                    {/* Time */}
+                    <div className="w-24 md:w-28 flex-shrink-0 text-right">
+                      <span className="font-heading text-lg md:text-xl font-semibold text-primary">{item.time}</span>
+                    </div>
+
+                    {/* Timeline dot with pulse animation */}
+                    <div className="flex-shrink-0 z-10">
+                      <div
+                        className="w-4 h-4 rounded-full bg-primary animate-pulse-dot"
+                        style={{ animationDelay: `${index * 0.5}s` }}
+                      />
+                    </div>
+
+                    {/* Activity card */}
+                    <div className="flex-1 bg-card border border-border rounded-lg px-6 py-4 shadow-sm">
+                      <span className="text-foreground font-medium">{item.activity}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <p className="mt-12 text-center text-sm text-muted-foreground">
+                Sunday is a full day off for rest, self-study, or optional excursions.
+              </p>
+            </div>
+          </div>
+        </section>
+
 
         {/* ===== WHAT SETS YOGAGARHI APART ===== */}
         <section className="py-20 lg:py-28 bg-background">
@@ -1393,12 +2076,12 @@ export default function Course300Hour() {
 
             {/* Zigzag Feature Layout */}
             <div className="space-y-16">
-              {/* Feature 1: Pre-YTTC */}
+              {/* Feature 1: Before You Join */}
               <WhyFeatureItem
                 icon={<GraduationCap className="w-4 h-4 text-primary" />}
-                title="Begin Before You Begin – Pre YTTC"
-                preview="The World's First Pre-YTTC school. The Optional Complimentary Online Pre-YTTC Preparation. If you feel like you don't know you are ready for course or not, this pre-YTTC is for you to be prepared & feel confident."
-                expanded={`At Yogagarhi, we do something different. We offer a Pre-YTTC Online Optional Complimentary Preparation Program. This gives you time to:
+                title="Begin Before You Begin – Before You Join"
+                preview={`The World's First "Before You Join" school. The Optional Complimentary Online "Before You Join" Preparation. If you feel like you don't know you are ready for course or not, this preparation is for you to be prepared & feel confident.`}
+                expanded={`At Yogagarhi, we do something different. We offer a "Before You Join" Online Optional Complimentary Preparation Program. This gives you time to:
 
 • Prepare your body
 • Get friendly with curriculum & subjects
@@ -1409,6 +2092,7 @@ So when training begins, you don't panic. You arrive grounded. You don't jump in
                 imageUrl={preYttcOnline}
                 imageAlt="Pre-YTTC Preparation"
                 isReversed={false}
+                imagePosition="object-top"
               />
 
               {/* Feature 2: Transform You */}
@@ -1424,7 +2108,7 @@ So when training begins, you don't panic. You arrive grounded. You don't jump in
 • How you relate to others
 
 This is where real change happens.`}
-                imageUrl={transformYou}
+                imageUrl={apartChildPose}
                 imageAlt="Yoga Transformation"
                 isReversed={true}
               />
@@ -1443,7 +2127,7 @@ Instead of ignoring this need, Yogagarhi embraced it. Once you complete your YTT
 • Build confidence and refine skills
 
 Because yoga is not a one-time achievement. It is a lifelong refinement.`}
-                imageUrl={lifetimeReattendance}
+                imageUrl={apartGroupClass}
                 imageAlt="Lifetime Learning"
                 isReversed={false}
               />
@@ -1463,7 +2147,7 @@ Because yoga is not a one-time achievement. It is a lifelong refinement.`}
 • Understand how to read and work with different bodies
 
 At Yogagarhi, teaching is personalized, precise, and practical — you are a person on a journey, not a number.`}
-                imageUrl={smallGroupWork}
+                imageUrl={apartGroupPose}
                 imageAlt="Small Group Training"
                 isReversed={true}
               />
@@ -1486,7 +2170,7 @@ Key Benefits:
 • Designed to refine over time as your understanding deepens
 
 These sequences are not random flows — they are practical, purposeful, and built to give maximum benefit.`}
-                imageUrl={yogaSequences}
+                imageUrl={apartWarriorSequence}
                 imageAlt="Yoga Sequences"
                 isReversed={false}
               />
@@ -1504,7 +2188,7 @@ These sequences are not random flows — they are practical, purposeful, and bui
 • Raja Yoga – discipline of body and mind
 
 These paths are not taught as theory. They are experienced through daily life, reflection, and practice.`}
-                imageUrl={himalayanLineage}
+                imageUrl={apartMountainPose}
                 imageAlt="Himalayan Tradition"
                 isReversed={true}
               />
@@ -1517,7 +2201,7 @@ These paths are not taught as theory. They are experienced through daily life, r
                 expanded={`This is one of Yogagarhi's core strengths: students don't just transform how they practice, they transform how they live.
 
 Philosophy is not memorized for an exam — it is applied, reflected upon, and integrated into daily decisions, relationships, and self-understanding.`}
-                imageUrl={livingPhilosophy}
+                imageUrl={apartWaterTemple}
                 imageAlt="Living Philosophy"
                 isReversed={false}
               />
@@ -1535,7 +2219,7 @@ Philosophy is not memorized for an exam — it is applied, reflected upon, and i
 • Support as your journey continues
 
 This is not a transactional relationship — it is a lifelong connection.`}
-                imageUrl={activityWaterfall}
+                imageUrl={apartHammock}
                 imageAlt="Yoga Community"
                 isReversed={true}
               />
@@ -1549,7 +2233,7 @@ This is not a transactional relationship — it is a lifelong connection.`}
           <div className="absolute inset-0 -z-10">
             <div className="md:relative md:h-full sticky top-0 h-screen">
               <Image
-                src={heroImage}
+                src={apartCeremony}
                 alt="Yoga practice in nature"
                 fill
                 className="object-cover"
@@ -1699,147 +2383,8 @@ This is not a transactional relationship — it is a lifelong connection.`}
             </div>
           </div>
         </section>
-        {/* ===== DAILY SCHEDULE ===== */}
-        <section className="py-20 bg-secondary/30">
-          <div className="container mx-auto px-4">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-primary mb-4">
-              Daily Schedule
-            </h2>
-            {/* Decorative Sun Icon */}
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
-              <svg className="w-10 h-10 text-primary" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="20" cy="20" r="9" />
-                {/* Sun rays */}
-                {isMounted && [0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
-                  <line key={i} x1={20 + 11 * Math.cos(angle * Math.PI / 180)} y1={20 + 11 * Math.sin(angle * Math.PI / 180)} x2={20 + 16 * Math.cos(angle * Math.PI / 180)} y2={20 + 16 * Math.sin(angle * Math.PI / 180)} />
-                ))}
-              </svg>
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
-            </div>
-            <p className="text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
-              A typical day at YogaGarhi is designed to balance intensive learning with rest and integration.
-            </p>
 
-            <div className="max-w-3xl mx-auto">
-              <div className="relative space-y-4">
-                {/* Vertical connecting line */}
-                <div className="absolute left-[calc(6rem+1.5rem+0.5rem-1px)] md:left-[calc(7rem+1.5rem+0.5rem-1px)] top-2 bottom-2 w-0.5 bg-primary/30" />
 
-                {dailySchedule.map((item, index) => (
-                  <div
-                    key={index}
-                    className="relative flex items-center gap-6"
-                  >
-                    {/* Time */}
-                    <div className="w-24 md:w-28 flex-shrink-0 text-right">
-                      <span className="font-heading text-lg md:text-xl font-semibold text-primary">{item.time}</span>
-                    </div>
-
-                    {/* Timeline dot with pulse animation */}
-                    <div className="flex-shrink-0 z-10">
-                      <div
-                        className="w-4 h-4 rounded-full bg-primary animate-pulse-dot"
-                        style={{ animationDelay: `${index * 0.5}s` }}
-                      />
-                    </div>
-
-                    {/* Activity card */}
-                    <div className="flex-1 bg-card border border-border rounded-lg px-6 py-4 shadow-sm">
-                      <span className="text-foreground font-medium">{item.activity}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <p className="mt-12 text-center text-sm text-muted-foreground">
-                Sunday is a full day off for rest, self-study, or optional excursions.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== WHAT YOU'LL RECEIVE ===== */}
-        <section className="py-20 bg-background overflow-hidden">
-          <div className="container mx-auto px-4">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-primary mb-4">
-              What You Will Receive in This Training
-            </h2>
-            {/* Decorative Mandala Icon */}
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
-              <svg className="w-10 h-10 text-primary" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1">
-                <circle cx="20" cy="20" r="16" />
-                <circle cx="20" cy="20" r="6" strokeDasharray="2 2" />
-                {/* Orbital dots */}
-                {isMounted && [0, 60, 120, 180, 240, 300].map((angle, i) => (
-                  <circle key={i} cx={20 + 10 * Math.cos(angle * Math.PI / 180)} cy={20 + 10 * Math.sin(angle * Math.PI / 180)} r="3" fill="currentColor" />
-                ))}
-              </svg>
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
-            </div>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              A comprehensive curriculum covering all aspects of yoga
-            </p>
-
-            {/* Horizontal Scrollable Flip Cards */}
-            <div className="relative">
-              {/* Gradient fade edges */}
-              <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-              <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-
-              <div className="overflow-x-auto scrollbar-hide pb-4 -mx-4 px-4">
-                <div className="flex gap-6" style={{ width: 'max-content' }}>
-                  {whatYouWillReceive.map((item, index) => (
-                    <div
-                      key={index}
-                      className="flip-card w-64 h-72 flex-shrink-0 cursor-pointer"
-                      onClick={(e) => {
-                        const card = e.currentTarget;
-                        card.classList.toggle('flipped');
-                      }}
-                    >
-                      <div className="flip-card-inner relative w-full h-full transition-transform duration-500 transform-style-preserve-3d">
-                        {/* Front - Image */}
-                        <div className="flip-card-front absolute w-full h-full backface-hidden rounded-xl overflow-hidden border border-border shadow-card">
-                          <Image
-                            src={item.image}
-                            alt={item.title}
-                            fill
-                            className="object-cover"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                          <div className="absolute bottom-0 left-0 right-0 p-5">
-                            <h3 className="font-heading text-lg font-semibold text-white text-center">
-                              {item.title}
-                            </h3>
-                            <p className="text-xs text-white/70 mt-1 text-center md:hidden">Tap to see more</p>
-                            <p className="text-xs text-white/70 mt-1 text-center hidden md:block">Hover to see more</p>
-                          </div>
-                        </div>
-
-                        {/* Back - Content */}
-                        <div className="flip-card-back absolute w-full h-full backface-hidden rounded-xl overflow-hidden border border-border shadow-card rotate-y-180 bg-card">
-                          <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center">
-                            <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                              <item.icon className="w-7 h-7 text-primary" />
-                            </div>
-                            <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
-                              {item.title}
-                            </h3>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
-                              {item.description}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* ===== INCLUSIONS / EXCLUSIONS ===== */}
         <section className="py-20 bg-secondary/30">
@@ -1911,221 +2456,6 @@ This is not a transactional relationship — it is a lifelong connection.`}
           </div>
         </section>
 
-        {/* ===== COURSE SYLLABUS ===== */}
-        <section className="py-20 bg-background overflow-hidden">
-          <div className="container mx-auto px-4">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-foreground mb-4">
-              Course Syllabus
-            </h2>
-            {/* Decorative Book/Scroll Icon */}
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
-              <svg className="w-10 h-8 text-primary" viewBox="0 0 48 32" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M24 6 C24 6 18 4 8 4 C4 4 2 6 2 8 L2 26 C2 28 4 30 8 30 C18 30 24 28 24 28" />
-                <path d="M24 6 C24 6 30 4 40 4 C44 4 46 6 46 8 L46 26 C46 28 44 30 40 30 C30 30 24 28 24 28" />
-                <line x1="24" y1="6" x2="24" y2="28" />
-              </svg>
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
-            </div>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Comprehensive curriculum covering all aspects of yoga teacher training
-            </p>
-
-            {/* Horizontal Scrollable Cards */}
-            <div className="relative">
-              <div
-                className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide scroll-smooth snap-x snap-mandatory"
-                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-              >
-                {[
-                  {
-                    title: "Ashtanga Yoga Postures",
-                    content: "Complete Ashtanga yoga primary series sequence. Week-by-week progression through Sun Salutation A & B, Standing sequence, Seated sequence, and Mysore style practice.",
-                    image: syllabus1
-                  },
-                  {
-                    title: "Hatha & Vinyasa Flow",
-                    content: "Pawanmuktasana series, Surya Namaskar variations, Standing and seated postures, Backbends, Forward folds, Inversions, and complete sequencing methodology.",
-                    image: syllabus2
-                  },
-                  {
-                    title: "Yoga Philosophy",
-                    content: "Introduction to yoga sutras of Patanjali, Eight limbs of Ashtanga Yoga, Nadis, Chakras, Pancha-Vayus, Panchakoshas, Triguna, and inspiring stories of great yogis.",
-                    image: syllabus3
-                  },
-                  {
-                    title: "Pranayama & Breathing",
-                    content: "Complete breathing techniques including Ujjayi, Bhastrika, Kapalbhati, Nadi-Sodhana, Bhramari, Surya-Bhedi, Chandra-Bhedi, Sheetali, and Sheetkari.",
-                    image: syllabus4
-                  },
-                  {
-                    title: "Anatomy & Physiology",
-                    content: "Body movement planes, joint protection, anatomy of ankle, knee, spine, shoulder, breathing mechanism, physiology of muscles, and nervous system.",
-                    image: syllabus5
-                  },
-                  {
-                    title: "Teaching Methodology",
-                    content: "Class sequencing, adjustments, working with different levels, voice usage, mental preparation, demonstration principles, and step-by-step class planning.",
-                    image: syllabus6
-                  },
-                  {
-                    title: "Meditation & Mantra",
-                    content: "Multiple meditation techniques, mantra chanting, Trataka, Osho Dynamic meditation, Nada Brahma, Antar Mouna, and silence practices for inner stillness.",
-                    image: syllabus7
-                  },
-                  {
-                    title: "Iyengar Yoga",
-                    content: "Precision-focused yoga emphasizing correct body alignment using props like blocks, straps, and blankets to help practitioners achieve optimal posture and prevent injuries.",
-                    image: syllabus8
-                  },
-                  {
-                    title: "Alignment Principles",
-                    content: "Foundation of safe practice through understanding joint stacking, muscle engagement patterns, and body mechanics to protect and strengthen the physical body.",
-                    image: syllabus9
-                  },
-                  {
-                    title: "Bandhas (Energy Locks)",
-                    content: "Master the three primary bandhas - Mula, Uddiyana, and Jalandhara. These internal locks regulate prana flow, strengthen the core, and deepen meditation practice.",
-                    image: syllabus10
-                  },
-                  {
-                    title: "Mudras (Yogic Gestures)",
-                    content: "Sacred hand and body gestures that channel energy, enhance concentration, and connect with specific states of consciousness. Essential for pranayama and meditation.",
-                    image: syllabusMudras
-                  },
-                ].map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex-shrink-0 snap-start first:ml-4 last:mr-4"
-                  >
-                    {/* Circular design */}
-                    <div className="flex flex-col items-center w-72 group">
-                      {/* Circular Image */}
-                      <div className="relative mb-6">
-                        <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-secondary shadow-lg group-hover:shadow-xl group-hover:border-primary/30 transition-all duration-300">
-                          <Image
-                            src={item.image}
-                            alt={item.title}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-110"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Text Content */}
-                      <div className="text-center px-4">
-                        <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
-                          {item.title}
-                        </h3>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {item.content}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Scroll indicator */}
-              <div className="flex justify-center gap-2 mt-6">
-                <span className="text-sm text-muted-foreground">← Scroll to explore →</span>
-              </div>
-            </div>
-
-            <div className="text-center mt-12">
-              <Dialog open={showSyllabusDialog} onOpenChange={setShowSyllabusDialog}>
-                <DialogTrigger asChild>
-                  <Button size="lg" variant="outline" className="gap-2">
-                    <Download className="w-4 h-4" />
-                    Download Detailed Syllabus
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-md">
-                  <DialogHeader>
-                    <DialogTitle className="font-heading text-2xl text-center">
-                      Download Syllabus
-                    </DialogTitle>
-                    <DialogDescription className="text-center text-muted-foreground text-sm">
-                      Select your course and enter email to receive the detailed syllabus.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <form onSubmit={handleSyllabusSubmit} className="space-y-4 pt-4">
-                    <select
-                      value={selectedSyllabusCourse}
-                      onChange={(e) => setSelectedSyllabusCourse(e.target.value)}
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    >
-                      <option value="100">100 Hour YTTC</option>
-                      <option value="200">200 Hour YTTC</option>
-                      <option value="300">300 Hour YTTC</option>
-                    </select>
-                    <input
-                      type="email"
-                      placeholder="Your email address"
-                      value={syllabusEmail}
-                      onChange={(e) => {
-                        setSyllabusEmail(e.target.value);
-                        setSyllabusEmailError("");
-                      }}
-                      className={`w-full px-4 py-3 rounded-lg border ${syllabusEmailError ? 'border-red-500' : 'border-border'} bg-background focus:outline-none focus:ring-2 focus:ring-primary`}
-                    />
-                    {syllabusEmailError && (
-                      <p className="text-sm text-red-500">{syllabusEmailError}</p>
-                    )}
-                    <Button
-                      type="submit"
-                      className="w-full"
-                      size="lg"
-                      disabled={isSubmittingSyllabus}
-                    >
-                      {isSubmittingSyllabus ? "Sending..." : "Send Syllabus"}
-                    </Button>
-                  </form>
-                </DialogContent>
-              </Dialog>
-
-              {/* Syllabus Thank You Dialog */}
-              <Dialog open={showSyllabusThankYou} onOpenChange={(open) => {
-                setShowSyllabusThankYou(open);
-                if (!open) {
-                  setSyllabusEmail("");
-                  setSyllabusEmailError("");
-                }
-              }}>
-                <DialogContent className="sm:max-w-md text-center">
-                  <div className="py-6 space-y-6">
-                    <div className="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
-                      <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <div>
-                      <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
-                        Thank You! 🙏
-                      </DialogTitle>
-                      <DialogDescription className="text-muted-foreground">
-                        Your {selectedSyllabusCourse}-hour YTTC syllabus is on its way to <span className="font-medium text-foreground">{syllabusEmail}</span>
-                      </DialogDescription>
-                    </div>
-                    <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground">
-                      <p>Please check your inbox (and spam folder) within the next 24 hours.</p>
-                    </div>
-                    <Button
-                      onClick={() => {
-                        setShowSyllabusThankYou(false);
-                        setSyllabusEmail("");
-                        setSyllabusEmailError("");
-                      }}
-                      className="w-full"
-                    >
-                      Close
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </div>
-          </div>
-        </section>
 
         {/* ===== FREE WEBINAR ===== */}
         <section className="relative py-20 overflow-hidden">
@@ -2550,48 +2880,6 @@ This is not a transactional relationship — it is a lifelong connection.`}
           </div>
         </section>
 
-        {/* ===== YOGA ALLIANCE CERTIFICATION ===== */}
-        <section
-          className="py-24 relative bg-cover bg-center bg-fixed"
-          style={{ backgroundImage: `url(${apartYogaAllianceGraduates.src})` }}
-        >
-          {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-black/50" />
-
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-4xl mx-auto text-center">
-              {/* Subtitle */}
-              <p className="text-white/90 text-lg mb-2 font-medium">
-                "YOGAGARHI – 200 Hour YTTC"
-              </p>
-
-              {/* Main Title */}
-              <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-amber-500 mb-6">
-                Yoga Alliance USA CERTIFIED
-              </h2>
-
-              {/* Description */}
-              <p className="text-white/90 text-base md:text-lg max-w-3xl mx-auto mb-10 leading-relaxed">
-                Our school, YogaGarhi, is registered with Yoga Alliance USA. Upon completing this course,
-                you will receive an internationally recognized certification, allowing you to become a
-                <span className="text-white font-medium"> Registered Yoga Teacher (RYT)</span>.
-                This certification opens doors for you to teach yoga anywhere in the world.
-              </p>
-
-              {/* Certification Badges - Real Images */}
-              <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8">
-                <Image src={yaRys100} alt="RYS 100" width={100} height={100} className="h-20 md:h-24 w-auto object-contain hover:scale-110 transition-transform duration-300" />
-                <Image src={yaRys200} alt="RYS 200" width={100} height={100} className="h-20 md:h-24 w-auto object-contain hover:scale-110 transition-transform duration-300" />
-                <Image src={yaRyt200} alt="RYT 200" width={100} height={100} className="h-20 md:h-24 w-auto object-contain hover:scale-110 transition-transform duration-300" />
-              </div>
-
-              {/* Full Certification Banner */}
-              <div className="mt-10">
-                <Image src={yaAllCertifications} alt="All Yoga Alliance Certifications" width={800} height={400} className="max-w-full md:max-w-2xl mx-auto rounded-lg shadow-lg" />
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* ===== SPECIAL WORKSHOPS ===== */}
         <section className="py-20 bg-secondary/30">
@@ -2836,7 +3124,7 @@ This is not a transactional relationship — it is a lifelong connection.`}
           {/* Background Image */}
           <div className="absolute inset-0 -z-10">
             <Image
-              src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1920&h=1080&fit=crop"
+              src={apartPoolVilla}
               alt="Bali yoga retreat accommodation"
               fill
               className="object-cover"
@@ -3764,6 +4052,144 @@ This is not a transactional relationship — it is a lifelong connection.`}
           </div>
         </section>
 
+        {/* ===== SACHIN JI'S RESEARCH & PRAKRITI SECTION ===== */}
+        <section id="sachinji-research" className="py-24 bg-background relative overflow-hidden">
+          {/* Decorative background elements */}
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+
+          <div className="container mx-auto px-4 relative z-10">
+            {/* Section Header */}
+            <div className="max-w-4xl mx-auto text-center mb-20">
+              <h2 className="font-heading text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+                Sachin Ji’s Research on Personalized Yoga and Prakriti
+              </h2>
+              <div className="flex items-center justify-center gap-3 mb-8">
+                <div className="h-px w-20 bg-gradient-to-r from-transparent to-primary" />
+                <Sparkles className="w-8 h-8 text-primary animate-pulse" />
+                <div className="h-px w-20 bg-gradient-to-l from-transparent to-primary" />
+              </div>
+              <p className="font-heading text-2xl md:text-3xl text-primary font-medium italic max-w-3xl mx-auto leading-relaxed">
+                "Yoga Is Not One-Size-Fits-All Because Every Body Carries a Different Energy"
+              </p>
+            </div>
+
+            {/* Research Journey - Circular Cards Layout */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-14 max-w-7xl mx-auto">
+              {[
+                {
+                  title: "The Core Question",
+                  text: <>During our Lead Teacher’s <strong className="text-foreground font-bold">Master Yoga studies</strong>, one question became impossible to ignore: Why does the same yoga practice calm some people, but leave others feeling <strong className="text-foreground font-bold">tired, restless, or mentally disturbed</strong>?</>,
+                  icon: Brain,
+                  color: "bg-amber-500/10 text-amber-600 border-amber-500/20"
+                },
+                {
+                  title: "Deep Investigation",
+                  text: <>This led to deep research into classical yoga texts, Ayurveda, and years of real student experience. The answer was simple, yet powerful: Every human being is born with a <strong className="text-foreground font-bold">unique Prakriti</strong>.</>,
+                  icon: BookOpen,
+                  color: "bg-blue-500/10 text-blue-600 border-blue-500/20"
+                },
+                {
+                  title: "The Energy Blueprint",
+                  text: <>Prakriti shapes the body, mind, emotions, and nervous system. Some people need <strong className="text-foreground font-bold">grounding</strong>, some need <strong className="text-foreground font-bold">movement</strong>, and others need <strong className="text-foreground font-bold">stillness</strong>. A fixed style for everyone can create imbalance.</>,
+                  icon: Zap,
+                  color: "bg-purple-500/10 text-purple-600 border-purple-500/20"
+                },
+                {
+                  title: "Quality of Practice",
+                  text: <>More than which yoga style you practice, what truly matters is <strong className="text-foreground font-bold italic">how you practice</strong>. How the <strong className="text-foreground font-bold">nervous system</strong> is approached, how the breath is guided, and how your <strong className="text-foreground font-bold">Dosha is supported</strong> rather than pushed.</>,
+                  icon: Layers,
+                  color: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
+                },
+                {
+                  title: "Shiv–Shakti Sadhana",
+                  text: <>Born from this realization, <strong className="text-foreground font-bold">Shiv–Shakti Sadhana</strong> is a balanced approach that harmonizes <strong className="text-foreground font-bold">stability and movement</strong>, awareness and energy. Asana here supports grounding and strength.</>,
+                  icon: RefreshCw,
+                  color: "bg-rose-500/10 text-rose-600 border-rose-500/20"
+                },
+                {
+                  title: "Back to Balance",
+                  text: <>When yoga respects your Prakriti, it becomes <strong className="text-foreground font-bold">accessible, sustainable, and deeply healing</strong>. Real yoga does not change you; it brings you back into <strong className="text-foreground font-bold">balance with yourself</strong>.</>,
+                  icon: Heart,
+                  color: "bg-cyan-500/10 text-cyan-600 border-cyan-500/20"
+                }
+              ].map((card, index) => (
+                <div key={index} className="group relative">
+                  {/* Decorative orbital line for mobile/desktop staggered effect */}
+                  <div className="absolute inset-0 border-2 border-dashed border-primary/10 rounded-full group-hover:border-primary/30 transition-all duration-500 -m-4 scale-95 opacity-0 group-hover:opacity-100 group-hover:scale-105" />
+
+                  <div className="relative aspect-square rounded-full bg-card border border-border shadow-xl p-8 flex flex-col items-center justify-center text-center overflow-hidden hover:border-primary/40 transition-all duration-500 transform hover:-translate-y-2 group">
+                    {/* Inner Radial Gradient */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_var(--card-hover-bg)_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ '--card-hover-bg': 'rgba(var(--primary-rgb), 0.05)' } as any} />
+
+                    <div className={`w-16 h-16 rounded-full ${card.color} border flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
+                      <card.icon className="w-8 h-8" />
+                    </div>
+
+                    <h4 className="font-heading text-xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
+                      {card.title}
+                    </h4>
+
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed px-4 line-clamp-6 group-hover:line-clamp-none transition-all duration-500">
+                      {card.text}
+                    </p>
+
+                    {/* Number Badge */}
+                    <div className="absolute top-6 right-10 w-8 h-8 flex items-center justify-center rounded-full bg-secondary text-primary text-xs font-bold border border-primary/20">
+                      {index + 1}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Summary Conclusion */}
+            <div className="mt-20 max-w-4xl mx-auto">
+              <div className="bg-primary/5 border border-primary/20 rounded-[3rem] p-10 md:p-14 text-center relative overflow-hidden group">
+                {/* Floating Om Icon background */}
+                <div className="absolute -bottom-10 -right-10 opacity-[0.03] rotate-12 transition-transform duration-700 group-hover:scale-125">
+                  <svg className="w-64 h-64 text-primary" viewBox="0 0 100 100" fill="currentColor">
+                    <path d="M28,68 C18,68 12,58 12,48 C12,32 24,22 40,22 C56,22 62,34 62,44 C62,56 50,62 44,62 C38,62 32,56 32,48 C32,42 38,38 44,38" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                    <path d="M62,44 C62,32 74,26 80,32 C86,38 80,50 74,56 L68,72" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                    <path d="M74,18 C80,18 84,24 84,30" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                    <circle cx="88" cy="14" r="4" />
+                  </svg>
+                </div>
+
+                <div className="relative z-10">
+                  <p className="text-lg md:text-xl text-foreground font-medium leading-relaxed mb-6">
+                    Our Lead Teacher observed that when practice does not respect the <strong className="text-foreground">nervous system and natural energy type</strong>, even correct postures can lead to restlessness, fatigue, or imbalance.
+                  </p>
+                  <p className="text-lg md:text-xl text-foreground/90 leading-relaxed italic border-t border-primary/20 pt-8 mb-8">
+                    "When yoga respects your Prakriti, it becomes <strong className="text-foreground">accessible, sustainable, and deeply healing</strong> for everyone. Here, yoga is not forced. It is <strong className="text-foreground">personalized, energy-aware, and deeply respectful</strong> of who you are."
+                  </p>
+
+                  <div className="flex justify-center">
+                    <Button
+                      size="lg"
+                      className="
+                        relative overflow-hidden
+                        bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 
+                        bg-[length:200%_100%]
+                        hover:bg-[position:100%_0]
+                        text-white font-semibold 
+                        shadow-lg hover:shadow-xl
+                        transition-all duration-500
+                        group
+                      "
+                      onClick={() => setShowQuizDialog(true)}
+                    >
+                      <Sparkles className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
+                      Reveal Your Yogic Energy
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ===== CODE OF CONDUCT & REFUND ===== */}
         <section className="py-12 bg-secondary/20">
           <div className="container mx-auto px-4">
@@ -4363,6 +4789,51 @@ This is not a transactional relationship — it is a lifelong connection.`}
           </DialogContent>
         </Dialog>
 
+        {/* ===== PRE-YTTC CONTACT OPTIONS DIALOG ===== */}
+        <Dialog open={showPreYttcOptions} onOpenChange={setShowPreYttcOptions}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="font-heading text-2xl text-center">Start Your Journey</DialogTitle>
+              <DialogDescription className="text-center text-muted-foreground">
+                Connect with our founders to start your Live Online Prep sessions and join the family.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid grid-cols-1 gap-4 mt-6">
+              <Button
+                variant="outline"
+                className="h-16 rounded-2xl text-lg gap-4 border-primary/20 bg-background hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-all duration-300 shadow-sm hover:shadow-md"
+                asChild
+              >
+                <a
+                  href="https://wa.me/+917895350563"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="p-2 bg-[#25D366]/10 rounded-full group-hover:bg-white/20">
+                    <MessageCircle className="w-6 h-6" />
+                  </div>
+                  Continue on WhatsApp
+                </a>
+              </Button>
+              <Button
+                variant="outline"
+                className="h-16 rounded-2xl text-lg gap-4 border-primary/20 bg-background hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 shadow-sm hover:shadow-md"
+                asChild
+              >
+                <a href="mailto:yogagarhi@gmail.com">
+                  <div className="p-2 bg-primary/10 rounded-full group-hover:bg-white/20">
+                    <Mail className="w-6 h-6" />
+                  </div>
+                  Send us an Email
+                </a>
+              </Button>
+            </div>
+            <p className="text-center text-xs text-muted-foreground mt-6">
+              Typically replies within a few hours to help you get started.
+            </p>
+          </DialogContent>
+        </Dialog>
+
         {/* Scroll to Top Button */}
         {showScrollTop && (
           <button
@@ -4373,7 +4844,7 @@ This is not a transactional relationship — it is a lifelong connection.`}
             <ChevronDown className="w-6 h-6 rotate-180" />
           </button>
         )}
-      </Layout>
+      </Layout >
     </>
   );
 }

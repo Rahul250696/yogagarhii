@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     description: "Meet our experienced yoga teachers at YogaGarhi. Learn from Yogacharya Sachin and our expert faculty with decades of combined teaching experience.",
     keywords: "yoga teachers Bali, yoga masters, YogaGarhi instructors, Sachin Ji, yoga teacher training faculty",
     alternates: {
-        canonical: "/about/teachers",
+        canonical: "/teachers",
     },
 };
 
@@ -29,14 +29,8 @@ export default function AboutTeachersPage() {
                             {
                                 "@type": "ListItem",
                                 "position": 2,
-                                "name": "About",
-                                "item": "https://yogagarhi.com/about"
-                            },
-                            {
-                                "@type": "ListItem",
-                                "position": 3,
                                 "name": "Our Teachers",
-                                "item": "https://yogagarhi.com/about/teachers"
+                                "item": "https://yogagarhi.com/teachers"
                             }
                         ]
                     })

@@ -149,7 +149,7 @@ export default function RoomCard({ room, onBookNow }: { room: any, onBookNow: ()
                 <div className="flex items-end justify-between pt-4 border-t border-border mb-4">
                     <div>
                         <p className="text-muted-foreground line-through text-sm">{room.originalPrice}</p>
-                        <p className="font-heading text-2xl font-bold text-foreground">{room.price}</p>
+                        <p className="font-heading text-3xl md:text-4xl font-bold text-primary">{room.price}</p>
                     </div>
                     <span className="px-2.5 py-1 bg-primary/10 text-primary text-xs font-medium rounded-md">
                         Save 20%
