@@ -126,7 +126,7 @@ We are sending our detailed Pre-YTTC curriculum and schedule to you in a follow-
 
 With respect,
 YogaGarhi Team`,
-          source: "ReadyToBegin Section - Get Pre-YTTC Detail Button",
+          source: "ReadyToBegin Section - Get \"Before You Join\" Detail Button",
           form_type: "pre_yttc_info"
         })
       });
@@ -171,7 +171,7 @@ YogaGarhi Team`,
           Your Journey Awaits
         </p>
         <h2 className="font-heading text-3xl md:text-5xl font-bold text-center text-primary-foreground mb-6">
-          Ready to Begin?
+          Ready to Take the next step?
         </h2>
         <p className="text-center text-primary-foreground/80 max-w-2xl mx-auto mb-12">
           Take the first step towards becoming a certified yoga teacher
@@ -223,7 +223,7 @@ YogaGarhi Team`,
             onClick={() => setShowPreYTTCDialog(true)}
           >
             <GraduationCap className="w-4 h-4 mr-2" />
-            Get Pre-YTTC Detail
+            Get "Before You Join" Detail
           </Button>
           <Button
             size="lg"
@@ -405,10 +405,10 @@ YogaGarhi Team`,
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="font-heading text-2xl text-center">
-              Get Pre-YTTC Details
+              Get "Before You Join" Details
             </DialogTitle>
             <DialogDescription className="text-center text-muted-foreground text-sm">
-              Learn about our world-first Pre-YTTC preparation program
+              Learn about our world-first "Before You Join" preparation program
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handlePreYTTCSubmit} className="space-y-4 pt-4">
@@ -448,7 +448,7 @@ YogaGarhi Team`,
               disabled={!isPreYTTCFormComplete || isSubmittingPreYTTC}
             >
               <GraduationCap className="w-4 h-4 mr-2" />
-              {isSubmittingPreYTTC ? "Sending..." : "Get Pre-YTTC Details"}
+              {isSubmittingPreYTTC ? "Sending..." : "Get \"Before You Join\" Details"}
             </Button>
           </form>
         </DialogContent>

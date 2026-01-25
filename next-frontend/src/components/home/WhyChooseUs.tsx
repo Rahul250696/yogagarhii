@@ -4,14 +4,14 @@ import Link from "next/link";
 
 const features = [
   {
+    title: "Multi-Style & Ayurveda Training",
+    desc: "Vinyasa, Hatha, Ashtanga, and Iyengar taught with a strong foundation in Ayurveda.",
+    highlight: "Integrated"
+  },
+  {
     title: "Shiv-Shakti Method",
     desc: "Our signature approach that converts ancient yogic theory into practical, life-changing wisdom.",
     highlight: "Signature"
-  },
-  {
-    title: "Multi-Style & Ayurveda",
-    desc: "Vinyasa, Hatha, Ashtanga, and Iyengar taught with a strong foundation in Ayurveda.",
-    highlight: "Integrated"
   },
   {
     title: "Pre-TTC Mentorship",
@@ -93,9 +93,12 @@ export default function WhyChooseUs() {
             The Yogagarhi Difference
           </span>
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Why Choose Us
+            Why Students Choose Yogagarhi
           </h2>
-          <LotusDecor className="w-16 h-10 mx-auto text-primary/40" />
+          <LotusDecor className="w-16 h-10 mx-auto text-primary/40 mb-6" />
+          <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground italic leading-relaxed">
+            "Choosing a teacher training is not about trends, it’s about trust, depth, and being ready for your next step, as a practitioner or teacher."
+          </p>
         </div>
 
         {/* Unique Bento-style layout */}
@@ -211,7 +214,7 @@ export default function WhyChooseUs() {
                     Growth
                   </div>
                   <h3 className="font-heading text-xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors">
-                    Teacher Opportunity
+                    Assistant Teacher Opportunity (Optional)
                   </h3>
                   <p className="text-muted-foreground text-sm">
                     Get the chance to become an assistant teacher in future batches and grow your authentic teaching experience.

@@ -1,0 +1,29 @@
+﻿{/* ===== HERO SECTION ===== */}
+{/* ===== COURSE DETAILS BAR ===== */}
+{/* ===== ICON HIGHLIGHTS ===== */}
+{/* ===== WELCOME SECTION ===== */}
+{/* ===== WHAT YOUâ€™LL CARRY HOME - UNIQUE COMPACT DESIGN ===== */}
+{/* ===== WHAT YOU'LL RECEIVE ===== */}
+{/* ===== YOGA ALLIANCE CERTIFICATION ===== */}
+{/* ===== YOGA ALLIANCE CERTIFICATION ===== */}
+{/* ===== VIDEO TESTIMONIALS ===== */}
+{/* ===== COURSE SYLLABUS ===== */}
+{/* ===== DAILY SCHEDULE ===== */}
+{/* ===== SPECIAL WORKSHOPS ===== */}
+{/* ===== POST-PROGRAM SUPPORT ===== */}
+{/* ===== ACCOMMODATION ===== */}
+{/* ===== ACCOMMODATION GALLERY ===== */}
+{/* ===== SATTVIC FOOD ===== */}
+{/* ===== EXCURSIONS ===== */}
+{/* ===== INCLUSIONS / EXCLUSIONS ===== */}
+{/* ===== UPCOMING DATES ===== */}
+{/* ===== GOOGLE REVIEWS ===== */}
+{/* ===== CODE OF CONDUCT & REFUND ===== */}
+{/* ===== BOOK A CALL ===== */}
+{/* ===== SACHIN JI'S RESEARCH & PRAKRITI SECTION ===== */}
+{/* ===== LOCATION & MAP ===== */}
+{/* ===== FINAL CONVERSION HUB ===== */}
+{/* ===== INSTAGRAM FOLLOW ===== */}
+{/* ===== ENROLLMENT FORM DIALOG ===== */}
+{/* ===== QUICK ENQUIRY DIALOG ===== */}
+{/* ===== PRE-YTTC CONTACT OPTIONS DIALOG ===== */}

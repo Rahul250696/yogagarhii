@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     description: "Read reviews and testimonials from our yoga teacher training graduates. Discover how YogaGarhi has transformed lives through authentic yoga education.",
     keywords: "yoga teacher training reviews, YogaGarhi testimonials, yoga school reviews Bali, student stories, yoga certification reviews",
     alternates: {
-        canonical: "/about/testimonials",
+        canonical: "/testimonials",
     },
 };
 
@@ -29,14 +29,8 @@ export default function AboutTestimonialsPage() {
                             {
                                 "@type": "ListItem",
                                 "position": 2,
-                                "name": "About",
-                                "item": "https://yogagarhi.com/about"
-                            },
-                            {
-                                "@type": "ListItem",
-                                "position": 3,
                                 "name": "Reviews & Testimonials",
-                                "item": "https://yogagarhi.com/about/testimonials"
+                                "item": "https://yogagarhi.com/testimonials"
                             }
                         ]
                     })

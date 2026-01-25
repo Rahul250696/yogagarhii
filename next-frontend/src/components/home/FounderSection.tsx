@@ -1,27 +1,48 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Award, Heart, Users, Sparkles } from "lucide-react";
 import founderImage from "@/assets/founder-image.png";
 
 const achievements = [
   { icon: Users, label: "2500+ Students Trained" },
-  { icon: Award, label: "E-RYT 500 & Master in Yoga" },
+  { icon: Award, label: "E-RYT 500" },
+  { icon: Award, label: "Master in Yoga" },
   { icon: Heart, label: "18+ Years Practice" },
-  { icon: Award, label: "Yoga Therapy to Indian Army" },
+  { icon: Award, label: "Taught Yoga Therapy to Indian Army" },
 ];
 
 export default function FounderSection() {
+  const pathname = usePathname();
+  const isCoursePage = pathname?.includes("-hour-yoga-teacher-training-in-bali");
+  const researchLink = isCoursePage
+    ? "#sachinji-research"
+    : "/200-hour-yoga-teacher-training-in-bali#sachinji-research";
+
   return (
-    <section className="py-24 bg-background relative overflow-hidden">
+    <section className="py-12 md:py-24 bg-background relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/10 rounded-full blur-3xl" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Mobile Header */}
+          <div className="lg:hidden mb-8">
+            <span className="inline-flex items-center gap-2 text-primary/80 text-sm font-medium tracking-widest uppercase mb-4">
+              <Heart className="w-4 h-4" fill="currentColor" />
+              Meet The Teacher Behind YogaGarhi
+            </span>
+
+            <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-2">
+              Yogacharya Sachin
+            </h2>
+            <p className="text-primary font-medium text-lg">Founder & Lead Teacher, YogaGarhi</p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center">
 
             {/* Image Column */}
             <div className="relative order-1 lg:order-1">
@@ -58,15 +79,30 @@ export default function FounderSection() {
 
             {/* Content Column */}
             <div className="order-2 lg:order-2">
-              <span className="inline-flex items-center gap-2 text-primary/80 text-sm font-medium tracking-widest uppercase mb-4">
-                <Heart className="w-4 h-4" fill="currentColor" />
-                Meet Your Guide
-              </span>
+              <div className="hidden lg:block">
+                <span className="inline-flex items-center gap-2 text-primary/80 text-sm font-medium tracking-widest uppercase mb-4">
+                  <Heart className="w-4 h-4" fill="currentColor" />
+                  Meet The Teacher Behind YogaGarhi
+                </span>
 
-              <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-2">
-                Yogacharya Sachin
-              </h2>
-              <p className="text-primary font-medium text-lg mb-6">Founder & Lead Teacher, YogaGarhi</p>
+                <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-2">
+                  Yogacharya Sachin
+                </h2>
+                <p className="text-primary font-medium text-lg mb-6">Founder & Lead Teacher, YogaGarhi</p>
+              </div>
+
+              {/* Achievement Badges */}
+              <div className="flex flex-wrap gap-2 md:gap-4 mb-6 md:mb-8">
+                {achievements.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-2 bg-secondary/50 px-3 py-1.5 md:px-4 md:py-2 rounded-full"
+                  >
+                    <item.icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-primary" />
+                    <span className="text-xs md:text-sm font-medium text-foreground">{item.label}</span>
+                  </div>
+                ))}
+              </div>
 
               <div className="space-y-5 text-muted-foreground leading-relaxed mb-8">
                 <p>
@@ -95,26 +131,24 @@ export default function FounderSection() {
                 </p>
               </div>
 
-              {/* Achievement Badges */}
-              <div className="flex flex-wrap gap-4 mb-8">
-                {achievements.map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-2 bg-secondary/50 px-4 py-2 rounded-full"
-                  >
-                    <item.icon className="w-4 h-4 text-primary" />
-                    <span className="text-sm font-medium text-foreground">{item.label}</span>
-                  </div>
-                ))}
-              </div>
+
 
               {/* CTA */}
-              <Button size="lg" className="group" asChild>
-                <Link href="/about" className="flex items-center gap-2">
-                  Learn More About My Journey
-                  <span className="group-hover:translate-x-1 transition-transform">→</span>
-                </Link>
-              </Button>
+              <div className="flex flex-wrap gap-4">
+                <Button size="lg" className="group" asChild>
+                  <Link href="/teachers" className="flex items-center gap-2">
+                    Learn More About Teachers
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </Link>
+                </Button>
+
+                <Button size="lg" variant="outline" className="group border-primary text-primary hover:bg-primary/5 px-6" asChild>
+                  <Link href={researchLink} className="flex items-center gap-2">
+                    Discover Sachinji's Research
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>

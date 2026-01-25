@@ -19,15 +19,15 @@ const Index = () => {
       <Hero />
       <WelcomeSection />
       <CoursesSection />
+      <WhyChooseUs />
       <YTTCSupportSection />
+      <GoogleReviewsSection />
+      <StudentStoriesSection />
       <FounderSection />
       <WhyOneStyleSection />
-      <GoogleReviewsSection />
-      <WhyChooseUs />
+      <HomeVideoGallerySection />
       <WebinarSection />
       <HomeGallerySection />
-      <HomeVideoGallerySection />
-      <StudentStoriesSection />
       <ReadyToBeginSection />
       <FAQSection />
     </>

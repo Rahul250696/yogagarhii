@@ -33,7 +33,7 @@ export default function AboutTestimonials() {
             <div className="w-8 h-px bg-primary-foreground/40" />
           </div>
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-            Student Testimonials
+            Voice from our Yogagarhi Family
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
             Real experiences from our global community of graduates

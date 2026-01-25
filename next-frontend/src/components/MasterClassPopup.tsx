@@ -37,7 +37,7 @@ const MasterClassPopup = () => {
             const timer = setTimeout(() => {
                 setIsOpen(true);
                 sessionStorage.setItem("hasSeenMasterClassPopup", "true");
-            }, 10000);
+            }, 45000);
 
             return () => clearTimeout(timer);
         }

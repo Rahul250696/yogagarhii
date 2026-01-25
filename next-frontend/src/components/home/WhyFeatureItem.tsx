@@ -11,6 +11,7 @@ interface WhyFeatureItemProps {
   imageUrl: string | StaticImageData;
   imageAlt: string;
   isReversed?: boolean;
+  imagePosition?: string;
 }
 
 const WhyFeatureItem = ({
@@ -20,7 +21,8 @@ const WhyFeatureItem = ({
   expanded,
   imageUrl,
   imageAlt,
-  isReversed = false
+  isReversed = false,
+  imagePosition = "object-cover"
 }: WhyFeatureItemProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -74,7 +76,7 @@ const WhyFeatureItem = ({
             src={imageUrl}
             alt={imageAlt}
             fill
-            className="object-cover"
+            className={cn("object-cover", imagePosition)}
           />
         </div>
       </div>

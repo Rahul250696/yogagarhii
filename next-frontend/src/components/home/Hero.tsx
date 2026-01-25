@@ -58,7 +58,10 @@ export default function Hero() {
               </span>
             </span>
           </h1>
-          <p className="text-xl md:text-2xl font-light max-w-2xl mx-auto opacity-0 animate-fade-in" style={{ animationDelay: '1.2s', animationFillMode: 'forwards' }}>
+          <p className="text-xl md:text-3xl font-heading font-medium max-w-4xl mx-auto opacity-0 animate-fade-in" style={{ animationDelay: '1.1s', animationFillMode: 'forwards' }}>
+            Yoga Alliance Certified Teacher Training in Bali for practitioners seeking depth, structure, and real teaching confidence.
+          </p>
+          <p className="text-lg md:text-xl font-light max-w-2xl mx-auto opacity-0 animate-fade-in" style={{ animationDelay: '1.4s', animationFillMode: 'forwards' }}>
             Ancient Himalayan wisdom. Authentic yoga, lived & taught.
           </p>
 

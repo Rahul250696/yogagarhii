@@ -14,7 +14,7 @@ const videos = [
     },
     {
         id: "6JllDeF3WzY",
-        title: "Student Testimonials",
+        title: "Voice from our Yogagarhi Family",
         description: "Hear from our graduates about their transformative journey."
     },
     {
@@ -37,7 +37,7 @@ export default function HomeVideoGallerySection() {
                         Watch & Experience
                     </span>
                     <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
-                        Glimpses of Yoga Teaching at Yogagarhi
+                        Glimpses of Life at Yogagarhi
                     </h2>
                     <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
                         Immerse yourself in the energy of Yogagarhi. From morning flows to sacred ceremonies, capture the essence of our training.

@@ -14,6 +14,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { useBooking } from "@/components/BookingDialog";
 import { useEnrollment } from "@/components/EnrollmentDialog";
 import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselApi,
+} from "@/components/ui/carousel";
+import {
   Award, Users, Leaf, MapPin, BookOpen, Heart,
   Check, X, ChevronDown, Play, Download, Phone,
   Calendar, Clock, Star, Instagram, MessageCircle, Sparkles,
@@ -21,16 +27,19 @@ import {
   UserCheck, Brain, BookMarked, UsersRound, RefreshCw,
   Salad, Coffee, Apple, Soup, UtensilsCrossed, Wheat, Milk,
   Cherry, Sprout, CircleDot, Sun, MessageSquare, Mail,
-  Wifi, Droplets, Wind
+  Wifi, Droplets, Wind, Activity, ShieldCheck, ArrowRight, Globe
 } from "lucide-react";
 import { timezones } from "@/constants/formOptions";
+import WhyChooseUs from "@/components/home/WhyChooseUs";
+import FounderSection from "@/components/home/FounderSection";
+import HomeGallerySection from "@/components/home/HomeGallerySection";
 import RoomCard from "./RoomCard";
 import heroImage from "@/assets/hero-yoga-bali.jpg";
-import preYttcOnline from "@/assets/pre-yttc-online.jpg";
+import preYttcOnline from "@/assets/pre-yttc-online.png";
 import activityAyurveda from "@/assets/activity-ayurveda.jpg";
 import transformYou from "@/assets/transform-you.jpg";
 import activitySoundHealing from "@/assets/activity-sound-healing.jpg";
-import activityWaterfall from "@/assets/activity-waterfall.jpg";
+import activityWaterfall from "@/assets/activity-waterfall-new.jpg";
 import lifetimeReattendance from "@/assets/lifetime-reattendance.jpg";
 import smallGroupWork from "@/assets/small-group-work.jpg";
 import yogaSequences from "@/assets/yoga-sequences.png";
@@ -50,6 +59,7 @@ import yaRys200 from "@/assets/ya-rys-200.jpg";
 import yaAllCertifications from "@/assets/ya-all-certifications.jpg";
 import WhyFeatureItem from "@/components/home/WhyFeatureItem";
 import StudentStoriesSection from "@/components/home/StudentStoriesSection";
+import HomeVideoGallerySection from "@/components/home/HomeVideoGallerySection";
 import { googleReviews } from "@/constants/googleReviews";
 
 // User-provided photos for different sections
@@ -82,14 +92,17 @@ import syllabus9 from "@/assets/syllabus/syllabus-9.jpg";
 import syllabus10 from "@/assets/syllabus/syllabus-10.jpg";
 import syllabusMudras from "@/assets/syllabus/syllabus-mudras.png";
 import apartCommunityBeach from "@/assets/apart/community-beach.jpg";
-import apartKecakDance from "@/assets/apart/kecak-dance.jpg";
+import apartKecakDance from "@/assets/apart/balinese-dance-new.jpg";
 import apartInstructorAnatomy from "@/assets/apart/instructor-anatomy.jpg";
 import apartBalineseMassage from "@/assets/apart/balinese-massage.jpg";
 import apartAyurvedicMeals from "@/assets/apart/ayurvedic-meals.jpg";
 import apartMeditationPractice from "@/assets/apart/meditation-practice.jpg";
 import apartYogaLifestyle from "@/assets/apart/yoga-lifestyle.jpg";
-import anatomyPhysiologyImage from "@/assets/syllabus/anatomy-physiology.jpg";
-import meditationMantraImage from "@/assets/syllabus/meditation-mantra.jpg";
+import syllabusAshtanga from "@/assets/syllabus/ashtanga-yoga.png";
+import syllabusHathaVinyasa from "@/assets/syllabus/hatha-vinyasa.png";
+import syllabusPranayamaBreathing from "@/assets/syllabus/pranayama-breathing.jpg";
+import syllabusAnatomyPhysiology from "@/assets/syllabus/anatomy-physiology.png";
+import syllabusMeditationMantra from "@/assets/syllabus/meditation-mantra.jpg";
 
 // Workshop Images
 import workshopAyurveda from "@/assets/workshops/workshop-ayurveda.png";
@@ -127,7 +140,18 @@ import privateNew2 from "@/assets/rooms/private-new-2.png";
 import privateNew3 from "@/assets/rooms/private-new-3.png";
 import privateNew4 from "@/assets/rooms/private-new-4.png";
 import privateNew5 from "@/assets/rooms/private-new-5.png";
-import sattvicBreakfast from "@/assets/food/sattvic-breakfast.jpg";
+import apartGallery1 from "@/assets/apart/gallery/gallery-1.jpg";
+import apartGallery2 from "@/assets/apart/gallery/gallery-2.jpg";
+import apartGallery3 from "@/assets/apart/gallery/gallery-3.jpg";
+import apartGallery4 from "@/assets/apart/gallery/gallery-4.jpg";
+import apartGallery5 from "@/assets/apart/gallery/gallery-5.jpg";
+import apartGallery6 from "@/assets/apart/gallery/gallery-6.jpg";
+import apartGallery7 from "@/assets/apart/gallery/gallery-7.jpg";
+import apartGallery8 from "@/assets/apart/gallery/gallery-8.jpg";
+import apartGallery9 from "@/assets/apart/gallery/gallery-9.jpg";
+import apartGallery10 from "@/assets/apart/gallery/gallery-10.jpg";
+import sattvicBreakfast from "@/assets/food/sattvic-breakfast-new.jpg";
+import sattvicDinner from "@/assets/food/sattvic-dinner-new.jpg";
 
 
 
@@ -221,13 +245,13 @@ const whatSetsApart = [
 const dailySchedule = [
   { time: "6:00 AM", activity: "Wake Up & Morning Cleansing" },
   { time: "6:30 AM", activity: "Pranayama & Meditation" },
-  { time: "7:30 AM", activity: "Asana Practice (Hatha/Ashtanga)" },
+  { time: "7:30 AM", activity: "Hatha & Vinyasa" },
   { time: "9:00 AM", activity: "Breakfast" },
-  { time: "10:00 AM", activity: "Yoga Philosophy / Anatomy" },
+  { time: "10:00 AM", activity: "Yoga Philosophy" },
   { time: "12:00 PM", activity: "Lunch & Rest" },
-  { time: "3:00 PM", activity: "Teaching Methodology" },
-  { time: "4:30 PM", activity: "Alignment & Adjustments" },
-  { time: "6:00 PM", activity: "Evening Practice" },
+  { time: "3:00 PM", activity: "Applied Anatomy & Bio Mechanics" },
+  { time: "4:30 PM", activity: "Alignment, Adjustments & Teaching Methodology" },
+  { time: "6:00 PM", activity: "Ashtanga & Iyengar with Yoga Therapy" },
   { time: "7:30 PM", activity: "Dinner" },
   { time: "9:00 PM", activity: "Self-Study / Lights Off" },
 ];
@@ -372,7 +396,7 @@ const whatYouWillReceive = [
     title: "Healthy Meals",
     description: "Enjoy sattvic and healthy meals supporting your practice.",
     icon: Heart,
-    image: healthyMeals
+    image: apartAyurvedicMeals
   },
   {
     title: "Meditation Practice",
@@ -446,7 +470,7 @@ const excursions = [
   {
     title: "Sacred Waterfall Visit",
     description: "Journey to a sacred waterfall for a traditional cleansing ritual. Let the pure waters wash away what no longer serves you.",
-    image: apartWaterTemple,
+    image: activityWaterfall,
     icon: Sparkles
   },
 ];
@@ -466,14 +490,14 @@ const foodMenu = [
     time: "12:30 PM",
     icon: Salad,
     items: ["Nourishing Buddha bowls", "Tempeh & tofu preparations", "Fresh garden salads", "Traditional Balinese vegetables"],
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&h=400&fit=crop"
+    image: healthyMeals
   },
   {
     meal: "Dinner",
     time: "6:30 PM",
     icon: Soup,
     items: ["Light sattvic soups", "Wholesome grain dishes", "Steamed vegetables", "Healing Ayurvedic preparations"],
-    image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&h=400&fit=crop"
+    image: sattvicDinner
   },
 ];
 
@@ -488,11 +512,11 @@ const foodPhilosophy = [
 
 // Dietary Options
 const dietaryOptions = [
-  { icon: Leaf, name: "Vegan", description: "100% plant-based meals" },
+  { icon: Leaf, name: "Vegan", description: "100% vegan-based meals" },
   { icon: Milk, name: "Lactose Free", description: "Dairy-free alternatives" },
   { icon: Wheat, name: "Gluten Free", description: "No wheat or gluten" },
   { icon: Sprout, name: "Raw Food", description: "Living food options" },
-  { icon: CircleDot, name: "Organic", description: "Certified organic produce" },
+  { icon: CircleDot, name: "Nutrition & Healthy Food", description: "Nutrition and healthy food" },
   { icon: Cherry, name: "Fruitarian", description: "Fruit-based meals" },
   { icon: Sun, name: "Yogic Diet", description: "Traditional sattvic food" },
   { icon: MessageSquare, name: "Custom Request", description: "Other diets on request" },
@@ -581,6 +605,33 @@ export default function Course200Hour() {
   const [selectedDay, setSelectedDay] = useState<number | null>(13);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [showBookingDialog, setShowBookingDialog] = useState(false);
+
+  // Carousel state for syllabus
+  const [syllabusApi, setSyllabusApi] = useState<CarouselApi>();
+  const [currentSyllabus, setCurrentSyllabus] = useState(1);
+  const syllabusTotalItems = 11;
+
+  useEffect(() => {
+    if (!syllabusApi) return;
+
+    const updateProgress = () => {
+      const selected = syllabusApi.selectedScrollSnap();
+      const totalSnaps = syllabusApi.scrollSnapList().length;
+
+      if (totalSnaps <= 1) {
+        setCurrentSyllabus(1);
+        return;
+      }
+
+      // Map snap index 0...totalSnaps-1 to item index 1...11
+      const scaledCurrent = Math.round((selected / (totalSnaps - 1)) * (syllabusTotalItems - 1)) + 1;
+      setCurrentSyllabus(scaledCurrent);
+    };
+
+    updateProgress();
+    syllabusApi.on("select", updateProgress);
+    syllabusApi.on("reInit", updateProgress);
+  }, [syllabusApi]);
   const [showEnrollDialog, setShowEnrollDialog] = useState(false);
   const [showQuickEnquiryDialog, setShowQuickEnquiryDialog] = useState(false);
   const [quickEnquiryForm, setQuickEnquiryForm] = useState({
@@ -644,6 +695,7 @@ export default function Course200Hour() {
   };
 
   // Scroll to top functionality
+  const [showPreYttcOptions, setShowPreYttcOptions] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Check for #book-now hash and open enrollment dialog
@@ -938,50 +990,102 @@ export default function Course200Hour() {
     <>
       <Layout>
         {/* ===== HERO SECTION ===== */}
-        <section className="relative min-h-[90vh] flex items-center">
-          <div className="absolute inset-0">
-            <Image
-              src={heroImage}
-              alt="200 Hour Yoga Teacher Training in Bali"
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-foreground/40" />
+        <section className="relative min-h-[85vh] flex items-start justify-center overflow-hidden pt-8 md:pt-12 pb-20">
+          {/* Background Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: 'url(/hero-yoga-group.jpg)' }}
+          >
+            <div className="absolute inset-0 bg-black/40" />
           </div>
 
-          <div className="relative container mx-auto px-4 py-20 text-center text-primary-foreground">
-            <p className="font-body uppercase tracking-[0.3em] text-sm mb-4 opacity-90">
-              Yogagarhi
-            </p>
-            <p className="font-heading italic text-lg mb-8 opacity-80">
-              Ancient Wisdom. Modern Teaching.
-            </p>
+          {/* Content */}
+          <div className="relative z-10 container mx-auto px-4 text-center text-primary-foreground">
+            <div className="max-w-4xl mx-auto flex flex-col items-center">
+              <p className="text-xl md:text-2xl font-medium tracking-widest opacity-90 animate-fade-in mb-4 uppercase text-white/80" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
+                Welcome To
+              </p>
+              <h1 className="font-heading text-6xl md:text-8xl lg:text-9xl font-bold leading-tight mb-6 drop-shadow-2xl">
+                {"Yogagarhi".split("").map((char, index) => (
+                  <span
+                    key={index}
+                    className="inline-block animate-fade-in opacity-0 text-white"
+                    style={{
+                      animationDelay: `${0.4 + index * 0.08}s`,
+                      animationFillMode: 'forwards'
+                    }}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </h1>
 
-            <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              200 Hour Yoga Teacher Training
-            </h1>
-            <p className="font-heading text-2xl md:text-3xl mb-12 opacity-90">
-              Bali, Indonesia
-            </p>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold tracking-tight opacity-0 animate-fade-in text-primary-foreground/95 leading-tight mb-8" style={{ animationDelay: '1.2s', animationFillMode: 'forwards' }}>
+                200 Hour Yoga Teacher Training in Bali
+              </h2>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="xl"
-                className="bg-primary-foreground/20 backdrop-blur-sm border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/30 font-semibold"
-                onClick={() => setShowQuickEnquiryDialog(true)}
-              >
-                Quick Enquiry
-              </Button>
-              <Button
-                size="xl"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
-                onClick={() => openBookingDialog(true)}
-              >
-                Book an Appointment
-              </Button>
+              <div className="space-y-10 opacity-0 animate-fade-in mb-12" style={{ animationDelay: '1.4s', animationFillMode: 'forwards' }}>
+                <p className="text-2xl md:text-4xl font-medium max-w-5xl mx-auto leading-relaxed text-white">
+                  Whether you are a complete beginner, an aspiring teacher, or a wellness seeker we provide the clear, step-by-step guidance you need to master Yoga with confidence.
+                </p>
+                <p className="text-xl md:text-3xl font-light max-w-3xl mx-auto italic text-white/90">
+                  Ancient Himalayan wisdom. Authentic yoga, lived & taught.
+                </p>
+              </div>
+
+              {/* Stats */}
+              <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 pt-4">
+                <div className="text-center">
+                  <p className="font-heading text-3xl md:text-4xl font-bold">500+</p>
+                  <p className="text-xs md:text-sm opacity-80">Graduated Students</p>
+                </div>
+                <div className="w-px h-10 bg-primary-foreground/30 hidden sm:block" />
+                <div className="text-center">
+                  <p className="font-heading text-3xl md:text-4xl font-bold">Multi-Style</p>
+                  <p className="text-xs md:text-sm opacity-80">Authentic Yoga</p>
+                </div>
+                <div className="w-px h-10 bg-primary-foreground/30 hidden sm:block" />
+                <div className="text-center">
+                  <p className="font-heading text-3xl md:text-4xl font-bold">Ayurveda</p>
+                  <p className="text-xs md:text-sm opacity-80">Strong Basis</p>
+                </div>
+              </div>
+
+              {/* Second Row - Yoga Alliance & World's First */}
+              <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+                <div className="text-center">
+                  <p className="font-heading text-3xl md:text-4xl font-bold">Yoga Alliance</p>
+                  <p className="text-xs md:text-sm opacity-80">Certified School</p>
+                </div>
+                <div className="w-px h-10 bg-primary-foreground/30 hidden sm:block" />
+                <div className="text-center">
+                  <p className="font-heading text-3xl md:text-4xl font-bold">World's First</p>
+                  <p className="text-xs md:text-sm opacity-80">Pre-YTTC Support Academy</p>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
+                <Button
+                  variant="hero"
+                  size="xl"
+                  onClick={() => setShowQuickEnquiryDialog(true)}
+                >
+                  Quick Enquiry
+                </Button>
+                <Button
+                  variant="heroOutline"
+                  size="xl"
+                  onClick={() => openBookingDialog(true)}
+                >
+                  Book an Appointment
+                </Button>
+              </div>
             </div>
           </div>
+
+          {/* Decorative Elements */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
         </section>
 
         {/* ===== COURSE DETAILS BAR ===== */}
@@ -1024,11 +1128,21 @@ export default function Course200Hour() {
                   {/* Price */}
                   <div className="text-center lg:text-left border-r border-border/30 pr-4 last:border-r-0">
                     <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">Starting From</p>
-                    <div className="flex items-baseline gap-2 justify-center lg:justify-start">
-                      <span className="text-sm text-muted-foreground line-through">$2187</span>
-                      <span className="font-heading text-2xl md:text-3xl font-bold text-primary animate-pulse">$1750</span>
+                    <div className="flex flex-col items-center lg:items-start">
+                      <div className="flex items-baseline gap-2 justify-center lg:justify-start">
+                        <span className="text-base text-muted-foreground line-through opacity-60">$2187</span>
+                        <div className="relative group">
+                          <span className="font-heading text-4xl md:text-5xl font-extrabold text-primary drop-shadow-[0_0_15px_rgba(255,140,0,0.3)] animate-pulse inline-block">
+                            $1750
+                          </span>
+                          <div className="absolute -inset-1 bg-primary/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
+                        </div>
+                      </div>
+                      <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 text-sm font-bold bg-green-500 text-white rounded-full shadow-lg shadow-green-500/20 transform hover:scale-105 transition-transform">
+                        <Zap className="w-3.5 h-3.5 fill-current" />
+                        Save $437 Now
+                      </div>
                     </div>
-                    <span className="inline-block mt-1 px-2 py-0.5 text-xs font-medium bg-green-100 text-green-700 rounded-full">Save $437</span>
                   </div>
 
                   {/* Book Now Button */}
@@ -1061,7 +1175,7 @@ export default function Course200Hour() {
                         <BookOpen className="w-4 h-4 text-primary" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-foreground">Pre-YTTC Support</p>
+                        <p className="text-sm font-medium text-foreground">Before You Join Support</p>
                         <p className="text-xs text-muted-foreground">Preparation & Guidance</p>
                       </div>
                     </div>
@@ -1071,7 +1185,7 @@ export default function Course200Hour() {
                         <Heart className="w-4 h-4 text-primary" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-foreground">Post-YTTC Mentorship</p>
+                        <p className="text-sm font-medium text-foreground">Life After Graduation Mentorship</p>
                         <p className="text-xs text-muted-foreground">Ongoing Support</p>
                       </div>
                     </div>
@@ -1137,6 +1251,50 @@ export default function Course200Hour() {
                   </div>
                 </div>
 
+                <div className="bg-secondary/30 border-l-4 border-primary rounded-r-xl p-6 md:p-8 my-8 relative overflow-hidden group hover:bg-secondary/40 transition-colors">
+                  <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-6 flex items-center gap-3">
+                    <span className="w-10 h-1 bg-primary rounded-full" />
+                    This Training Is for You If
+                  </h3>
+
+                  <ul className="space-y-4">
+                    {[
+                      <>You want to <span className="font-semibold text-foreground">deepen your yoga practice</span> — physically, mentally, spiritually</>,
+                      <>You feel called to <span className="font-semibold text-foreground">teach yoga with confidence and clarity</span></>,
+                      <>You are seeking <span className="font-semibold text-foreground">healing, clarity, and a fresh start</span> in the heart of Bali</>,
+                      <>You want to learn yoga <span className="font-semibold text-foreground">authentically, not commercially</span></>,
+                      <>You’re not sure yet if you’ll teach — but you want a <span className="font-semibold text-foreground">strong foundation</span></>,
+                      <>You value <span className="font-semibold text-foreground">tradition, self-discipline, and conscious living</span></>
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-3 text-sm md:text-base text-muted-foreground">
+                        <div className="mt-1 flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                          <Check className="w-3.5 h-3.5 text-primary" />
+                        </div>
+                        <span className="leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Mobile-only Pre-YTTC Section */}
+                <div className="mb-10 p-6 rounded-2xl bg-primary/10 border-2 border-primary/20 lg:hidden group shadow-sm">
+                  <h3 className="font-heading text-xl font-extrabold text-foreground mb-3 flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Zap className="w-4 h-4 text-primary" />
+                    </div>
+                    Not Sure if You’re Ready? Let’s Start Together (Pre YTTC)
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                    If you’re worried about being <span className="font-semibold text-foreground italic">"just a beginner,"</span> don't be. The moment you sign up, you join our <span className="font-semibold text-primary">Live Online Prep sessions</span> where you can meet us and ask questions before Bali. We’ll guide you through the basics personally, so you can <span className="font-semibold text-foreground">build your confidence and flexibility from home</span>. You won’t just show up to a course; you’ll land in Bali already <span className="font-semibold text-foreground">knowing your teachers</span> and feeling <span className="font-bold text-primary italic underline underline-offset-4">100% ready to join the family</span>.
+                  </p>
+                  <Button
+                    className="w-full bg-gradient-to-r from-[#FF8C00] to-[#FF4500] text-white hover:from-[#FF4500] hover:to-[#FF8C00] font-bold shadow-lg shadow-orange-500/30 border-none"
+                    onClick={() => setShowPreYttcOptions(true)}
+                  >
+                    Start My Live Training
+                  </Button>
+                </div>
+
                 <div className="space-y-6 text-muted-foreground leading-relaxed">
                   {/* First 2 paragraphs - always visible */}
                   <p>
@@ -1144,6 +1302,7 @@ export default function Course200Hour() {
                     200-Hour Yoga Teacher Training in Bali Ubud and join a life-changing journey
                     of yoga and self-realization.
                   </p>
+
                   <p>
                     Our professional course is made for both beginners and intermediate practitioners.
                     This course covers all essential aspects of yoga, including asanas, pranayama,
@@ -1173,11 +1332,43 @@ export default function Course200Hour() {
                         }`}
                     />
                   </button>
+
+                  <div className="mt-10 p-8 rounded-2xl bg-gradient-to-br from-secondary/30 to-background border border-primary/10 shadow-sm">
+                    <h3 className="font-heading text-2xl font-medium text-foreground mb-6">
+                      Ask Us Anything?
+                    </h3>
+                    <div className="flex flex-wrap gap-4">
+                      <Button
+                        variant="outline"
+                        className="h-12 px-6 rounded-xl text-base gap-2.5 border-primary/20 bg-background/80 hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-all duration-300 shadow-sm hover:shadow-md"
+                        asChild
+                      >
+                        <a
+                          href="https://wa.me/+917895350563"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <MessageCircle className="w-5 h-5" />
+                          WhatsApp
+                        </a>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="h-12 px-6 rounded-xl text-base gap-2.5 border-primary/20 bg-background/80 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 shadow-sm hover:shadow-md"
+                        asChild
+                      >
+                        <a href="mailto:yogagarhi@gmail.com">
+                          <Mail className="w-5 h-5" />
+                          Email Us
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Right Column - YouTube Video (desktop only) */}
-              <div className="relative w-full order-2 lg:order-1 hidden lg:block">
+              {/* Right Column - YouTube Video & Pre-YTTC Support (desktop only) */}
+              <div className="relative w-full order-2 lg:order-1 hidden lg:block sticky top-24 self-start space-y-8">
                 <div className="aspect-video rounded-lg overflow-hidden shadow-card bg-muted">
                   <iframe
                     src="https://www.youtube.com/embed/U1r2mQRmWXM?rel=0&autoplay=1&mute=1"
@@ -1187,10 +1378,266 @@ export default function Course200Hour() {
                     className="w-full h-full"
                   />
                 </div>
+
+                {/* Desktop-only Pre-YTTC Section */}
+                <div className="p-8 rounded-3xl bg-primary/[0.07] border-2 border-primary/20 relative overflow-hidden group shadow-xl shadow-primary/5">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110" />
+                  <div className="relative z-10">
+                    <h3 className="font-heading text-2xl font-extrabold text-foreground mb-4 flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                        <Zap className="w-5 h-5 text-primary" />
+                      </div>
+                      Not Sure if You’re Ready? Let’s Start Together (Pre YTTC)
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      If you’re worried about being <span className="font-semibold text-foreground italic">"just a beginner,"</span> don't be. The moment you sign up, you join our <span className="font-semibold text-primary">Live Online Prep sessions</span> where you can meet us and ask questions before Bali. We’ll guide you through the basics personally, so you can <span className="font-semibold text-foreground">build your confidence and flexibility from home</span>. You won’t just show up to a course; you’ll land in Bali already <span className="font-semibold text-foreground">knowing your teachers</span> and feeling <span className="font-bold text-primary italic underline underline-offset-4">100% ready to join the family</span>.
+                    </p>
+                    <div className="mt-8 flex flex-wrap items-center gap-6 justify-between">
+                      <Button
+                        size="lg"
+                        className="bg-gradient-to-r from-[#FF8C00] to-[#FF4500] text-white hover:from-[#FF4500] hover:to-[#FF8C00] font-bold px-8 shadow-xl shadow-orange-500/20 hover:scale-105 transition-all duration-300 border-none relative overflow-hidden group/btn"
+                        onClick={() => setShowPreYttcOptions(true)}
+                      >
+                        <span className="relative z-10 flex items-center gap-2">
+                          Start My Live Training
+                          <Zap className="w-4 h-4 fill-current animate-pulse" />
+                        </span>
+                        <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-500 ease-in-out" />
+                      </Button>
+
+                      <div className="flex items-center gap-5 text-sm font-medium text-primary">
+                        <span className="flex items-center gap-1.5 bg-primary/5 px-3 py-1.5 rounded-full">
+                          <Check className="w-4 h-4" /> Live Mentorship
+                        </span>
+                        <span className="flex items-center gap-1.5 bg-primary/5 px-3 py-1.5 rounded-full">
+                          <Check className="w-4 h-4" /> Community Access
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
+
+
+        {/* ===== WHAT YOU’LL CARRY HOME - UNIQUE COMPACT DESIGN ===== */}
+        <section className="py-16 bg-muted/30 relative overflow-hidden">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
+              {/* Left Column: Heading */}
+              <div className="lg:w-1/3 lg:sticky lg:top-24">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-4">
+                  <Heart className="w-3 h-3 text-primary" fill="currentColor" />
+                  <span className="text-[10px] font-bold tracking-widest uppercase text-primary">The Takeaway</span>
+                </div>
+                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 leading-tight">
+                  What You’ll <br />
+                  <span className="text-primary italic">Carry Home</span>
+                </h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Beyond the physical certificate, you walk away with a transformed perspective, a deeper connection to yourself, and the authentic skills to lead others.
+                </p>
+                <div className="mt-6 p-4 rounded-xl bg-primary/5 border border-primary/20 relative overflow-hidden group/box">
+                  <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
+                  <p className="text-xs md:text-sm text-foreground font-medium leading-relaxed relative z-10">
+                    <span className="text-primary font-bold">Career Impact:</span> After completing the 200-Hour Yoga Teacher Training, you can start teaching yoga <strong className="text-foreground">anywhere in the world</strong> in studios, online live classes, yoga retreats, or through your own independent practice.
+                  </p>
+                  <Globe className="absolute -bottom-2 -right-2 w-12 h-12 text-primary/10 group-hover/box:text-primary/20 transition-colors duration-500" />
+                </div>
+                <div className="mt-8 hidden lg:block">
+                  <div className="w-12 h-1 bg-primary/30 rounded-full" />
+                </div>
+              </div>
+
+              {/* Right Column: Compact Grid */}
+              <div className="lg:w-2/3 grid grid-cols-2 gap-x-6 gap-y-10 md:gap-x-12">
+                {[
+                  {
+                    title: "Global Certification",
+                    desc: "Yoga Alliance RYT-200 to start your career anywhere.",
+                    icon: Award
+                  },
+                  {
+                    title: "Master the Practice",
+                    desc: "Expert guidance in Hatha, Vinyasa, Ashtanga & Iyengar.",
+                    icon: Activity
+                  },
+                  {
+                    title: "Safety & Anatomy",
+                    desc: "Learn to teach and practice safely without injuries.",
+                    icon: ShieldCheck
+                  },
+                  {
+                    title: "Spiritual Depth",
+                    desc: "Deep dive into Mantras, Meditation, and Philosophy.",
+                    icon: Sparkles
+                  },
+                  {
+                    title: "Teaching Skills",
+                    desc: "Practical skills to lead, cue, and inspire students.",
+                    icon: GraduationCap
+                  },
+                  {
+                    title: "Deep Bonds",
+                    desc: "Lifelong connections with a global yoga community.",
+                    icon: Users
+                  }
+                ].map((item, index) => (
+                  <div key={index} className="group flex flex-col items-start">
+                    <div className="w-10 h-10 rounded-lg bg-background border border-border flex items-center justify-center mb-4 group-hover:border-primary/50 group-hover:bg-primary/5 transition-all duration-300">
+                      <item.icon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                    </div>
+                    <h3 className="font-heading text-sm sm:text-base font-bold text-foreground mb-1.5 group-hover:text-primary transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== WHAT YOU'LL RECEIVE ===== */}
+        <section className="py-20 bg-background overflow-hidden">
+          <div className="container mx-auto px-4">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-primary mb-4">
+              What You Will Receive in This Training
+            </h2>
+            {/* Decorative Mandala Icon */}
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
+              <svg className="w-10 h-10 text-primary" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1">
+                <circle cx="20" cy="20" r="16" />
+                <circle cx="20" cy="20" r="6" strokeDasharray="2 2" />
+                {/* Orbital dots */}
+                {isMounted && [0, 60, 120, 180, 240, 300].map((angle, i) => (
+                  <circle key={i} cx={20 + 10 * Math.cos(angle * Math.PI / 180)} cy={20 + 10 * Math.sin(angle * Math.PI / 180)} r="3" fill="currentColor" />
+                ))}
+              </svg>
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
+            </div>
+            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto italic">
+              Everything you need to live, learn, and grow — fully supported
+            </p>
+
+            {/* Horizontal Scrollable Flip Cards */}
+            <div className="relative">
+              {/* Gradient fade edges */}
+              <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
+              <div className="overflow-x-auto scrollbar-hide pb-4 -mx-4 px-4">
+                <div className="flex gap-6" style={{ width: 'max-content' }}>
+                  {whatYouWillReceive.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flip-card w-64 h-72 flex-shrink-0 cursor-pointer"
+                      onClick={(e) => {
+                        const card = e.currentTarget;
+                        card.classList.toggle('flipped');
+                      }}
+                    >
+                      <div className="flip-card-inner relative w-full h-full transition-transform duration-500 transform-style-preserve-3d">
+                        {/* Front - Image */}
+                        <div className="flip-card-front absolute w-full h-full backface-hidden rounded-xl overflow-hidden border border-border shadow-card">
+                          <Image
+                            src={item.image}
+                            alt={item.title}
+                            fill
+                            className="object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                          <div className="absolute bottom-0 left-0 right-0 p-5">
+                            <h3 className="font-heading text-lg font-semibold text-white text-center">
+                              {item.title}
+                            </h3>
+                            <p className="text-xs text-white/70 mt-1 text-center md:hidden">Tap to see more</p>
+                            <p className="text-xs text-white/70 mt-1 text-center hidden md:block">Hover to see more</p>
+                          </div>
+                        </div>
+
+                        {/* Back - Content */}
+                        <div className="flip-card-back absolute w-full h-full backface-hidden rounded-xl overflow-hidden border border-border shadow-card rotate-y-180 bg-card">
+                          <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center">
+                            <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                              <item.icon className="w-7 h-7 text-primary" />
+                            </div>
+                            <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
+                              {item.title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                              {item.description}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== YOGA ALLIANCE CERTIFICATION ===== */}
+
+        {/* ===== YOGA ALLIANCE CERTIFICATION ===== */}
+        <section
+          className="py-24 relative bg-cover bg-center bg-fixed"
+          style={{ backgroundImage: `url(${apartYogaAllianceGraduates.src})` }}
+        >
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-black/50" />
+
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-4xl mx-auto text-center">
+              {/* Subtitle */}
+              <p className="text-white/90 text-lg mb-2 font-medium">
+                "YOGAGARHI – 200 Hour YTTC"
+              </p>
+
+              {/* Main Title */}
+              <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-amber-500 mb-6">
+                Yoga Alliance USA CERTIFIED
+              </h2>
+
+              {/* Description */}
+              <p className="text-white/90 text-base md:text-lg max-w-3xl mx-auto mb-10 leading-relaxed">
+                Our school, YogaGarhi, is registered with Yoga Alliance USA. Upon completing this course,
+                you will receive an internationally recognized certification, allowing you to become a
+                <span className="text-white font-medium"> Registered Yoga Teacher (RYT)</span>.
+                This certification opens doors for you to teach yoga anywhere in the world.
+              </p>
+
+              {/* Certification Badges - Real Images */}
+              <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8">
+                <Image src={yaRys100} alt="RYS 100" height={96} className="w-auto object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src={yaRys200} alt="RYS 200" height={96} className="w-auto object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src={yaRyt200} alt="RYT 200" height={96} className="w-auto object-contain hover:scale-110 transition-transform duration-300" />
+              </div>
+
+              {/* Full Certification Banner */}
+              <div className="mt-10">
+                <Image src={yaAllCertifications} alt="All Yoga Alliance Certifications" width={672} height={400} className="rounded-lg shadow-lg mx-auto" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* COURSE_SYLLABUS_REMOVED_FROM_HERE */}
+
+
+
+
+
+
+
+
 
         {/* ===== VIDEO TESTIMONIALS ===== */}
         <section className="py-20 bg-secondary/30 relative overflow-hidden">
@@ -1286,8 +1733,8 @@ export default function Course200Hour() {
           </div>
 
           <div className="container mx-auto px-4 relative z-10">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-foreground mb-4">
-              Student Testimonials
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-foreground mb-4 italic">
+              Choosing a Teacher Training Is Deeply Personal
             </h2>
             {/* Decorative Lotus Icon */}
             <div className="flex items-center justify-center gap-2 mb-4">
@@ -1300,8 +1747,8 @@ export default function Course200Hour() {
               </svg>
               <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
             </div>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Hear from our graduates about their transformative journey
+            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto italic">
+              Here’s what one student felt after taking that step.
             </p>
 
             <div className="max-w-2xl mx-auto mb-12">
@@ -1317,64 +1764,224 @@ export default function Course200Hour() {
             </div>
 
             <div className="text-center">
-              <Dialog open={showManualDialog} onOpenChange={setShowManualDialog}>
+              <div className="flex flex-col items-center gap-6">
+                <h3 className="font-heading text-2xl font-medium text-foreground">
+                  Talk to Us Personally
+                </h3>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <Button
+                    variant="outline"
+                    className="h-12 px-6 rounded-xl text-base gap-2.5 border-primary/20 bg-background/80 hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-all duration-300 shadow-sm hover:shadow-md"
+                    asChild
+                  >
+                    <a
+                      href="https://wa.me/+917895350563"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MessageCircle className="w-5 h-5" />
+                      WhatsApp
+                    </a>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="h-12 px-6 rounded-xl text-base gap-2.5 border-primary/20 bg-background/80 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 shadow-sm hover:shadow-md"
+                    asChild
+                  >
+                    <a href="mailto:yogagarhi@gmail.com">
+                      <Mail className="w-5 h-5" />
+                      Email Us
+                    </a>
+                  </Button>
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <FounderSection />
+
+        <HomeGallerySection />
+
+        {/* ===== COURSE SYLLABUS ===== */}
+        <section className="py-20 bg-background overflow-hidden">
+          <div className="container mx-auto px-4">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-foreground mb-4">
+              Course Syllabus
+            </h2>
+            {/* Decorative Book/Scroll Icon */}
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
+              <svg className="w-10 h-8 text-primary" viewBox="0 0 48 32" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M24 6 C24 6 18 4 8 4 C4 4 2 6 2 8 L2 26 C2 28 4 30 8 30 C18 30 24 28 24 28" />
+                <path d="M24 6 C24 6 30 4 40 4 C44 4 46 6 46 8 L46 26 C46 28 44 30 40 30 C30 30 24 28 24 28" />
+                <line x1="24" y1="6" x2="24" y2="28" />
+              </svg>
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
+            </div>
+            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+              Comprehensive curriculum covering all aspects of yoga teacher training
+            </p>
+
+            {/* Horizontal Scrollable Cards */}
+            <div className="relative">
+              <div className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
+                {[
+                  {
+                    title: "Ashtanga Yoga Postures",
+                    content: "Complete Ashtanga yoga primary series sequence. Week-by-week progression through Sun Salutation A & B, Standing sequence, Seated sequence, and Mysore style practice.",
+                    image: syllabusAshtanga
+                  },
+                  {
+                    title: "Hatha & Vinyasa Flow",
+                    content: "Pawanmuktasana series, Surya Namaskar variations, Standing and seated postures, Backbends, Forward folds, Inversions, and complete sequencing methodology.",
+                    image: syllabusHathaVinyasa
+                  },
+                  {
+                    title: "Yoga Philosophy",
+                    content: "Introduction to yoga sutras of Patanjali, Eight limbs of Ashtanga Yoga, Nadis, Chakras, Pancha-Vayus, Panchakoshas, Triguna, and inspiring stories of great yogis.",
+                    image: syllabus3
+                  },
+                  {
+                    title: "Pranayama & Breathing",
+                    content: "Complete breathing techniques including Ujjayi, Bhastrika, Kapalbhati, Nadi-Sodhana, Bhramari, Surya-Bhedi, Chandra-Bhedi, Sheetali, and Sheetkari.",
+                    image: syllabusPranayamaBreathing
+                  },
+                  {
+                    title: "Anatomy & Physiology",
+                    content: "Body movement planes, joint protection, anatomy of ankle, knee, spine, shoulder, breathing mechanism, physiology of muscles, and nervous system.",
+                    image: syllabusAnatomyPhysiology
+                  },
+                  {
+                    title: "Teaching Methodology",
+                    content: "Class sequencing, adjustments, working with different levels, voice usage, mental preparation, demonstration principles, and step-by-step class planning.",
+                    image: syllabus6
+                  },
+                  {
+                    title: "Meditation & Mantra",
+                    content: "Multiple meditation techniques, mantra chanting, Trataka, Osho Dynamic meditation, Nada Brahma, Antar Mouna, and silence practices for inner stillness.",
+                    image: syllabusMeditationMantra
+                  },
+                  {
+                    title: "Iyengar Yoga",
+                    content: "Precision-focused yoga emphasizing correct body alignment using props like blocks, straps, and blankets to help practitioners achieve optimal posture and prevent injuries.",
+                    image: syllabus8
+                  },
+                  {
+                    title: "Alignment Principles",
+                    content: "Foundation of safe practice through understanding joint stacking, muscle engagement patterns, and body mechanics to protect and strengthen the physical body.",
+                    image: syllabus9
+                  },
+                  {
+                    title: "Bandhas (Energy Locks)",
+                    content: "Master the three primary bandhas - Mula, Uddiyana, and Jalandhara. These internal locks regulate prana flow, strengthen the core, and deepen meditation practice.",
+                    image: syllabus10
+                  },
+                  {
+                    title: "Mudras (Yogic Gestures)",
+                    content: "Sacred hand and body gestures that channel energy, enhance concentration, and connect with specific states of consciousness. Essential for pranayama and meditation.",
+                    image: syllabusMudras
+                  },
+                ].map((item, index) => (
+                  <div key={index} className="flex-shrink-0 w-[85vw] md:w-[400px] snap-center">
+                    <div className="flex flex-col h-full bg-card rounded-3xl overflow-hidden border border-border shadow-sm hover:shadow-md transition-all duration-300 group">
+                      {/* Rectangular Image */}
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                        {/* Slide Counter - Mobile Friendly */}
+                        <div className="absolute top-4 right-4 bg-primary/90 backdrop-blur-md text-primary-foreground rounded-full px-3 py-1 text-xs font-bold shadow-lg flex items-center gap-1">
+                          <span className="text-secondary">{index + 1}</span>
+                          <span className="opacity-60">/</span>
+                          <span>11</span>
+                        </div>
+                      </div>
+
+                      {/* Text Content */}
+                      <div className="p-6 flex flex-col flex-1">
+                        <h3 className="font-heading text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                          {item.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {item.content}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="text-center mt-12">
+              <Dialog open={showSyllabusDialog} onOpenChange={setShowSyllabusDialog}>
                 <DialogTrigger asChild>
-                  <Button size="lg" className="bg-primary text-primary-foreground">
-                    Get Free 200-Hour Study Manual
+                  <Button size="lg" variant="outline" className="gap-2">
+                    <Download className="w-4 h-4" />
+                    Download Detailed Syllabus
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-md">
                   <DialogHeader>
                     <DialogTitle className="font-heading text-2xl text-center">
-                      Download Your Free Manual
+                      Download Syllabus
                     </DialogTitle>
-                    <DialogDescription className="text-center text-muted-foreground">
-                      Enter your email to receive the complete 200-hour YTTC study manual.
+                    <DialogDescription className="text-center text-muted-foreground text-sm">
+                      Select your course and enter email to receive the detailed syllabus.
                     </DialogDescription>
                   </DialogHeader>
-                  <div className="space-y-4 pt-4">
+                  <form onSubmit={handleSyllabusSubmit} className="space-y-4 pt-4">
+                    <select
+                      value={selectedSyllabusCourse}
+                      onChange={(e) => setSelectedSyllabusCourse(e.target.value)}
+                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                    >
+                      <option value="100">100 Hour YTTC</option>
+                      <option value="200">200 Hour YTTC</option>
+                      <option value="300">300 Hour YTTC</option>
+                    </select>
                     <input
                       type="email"
                       placeholder="Your email address"
-                      className={`w-full px-4 py-3 rounded-lg border ${manualEmailError ? 'border-red-500' : 'border-border'} bg-background focus:outline-none focus:ring-2 focus:ring-primary`}
-                      value={manualEmail}
+                      value={syllabusEmail}
                       onChange={(e) => {
-                        setManualEmail(e.target.value);
-                        setManualEmailError("");
+                        setSyllabusEmail(e.target.value);
+                        setSyllabusEmailError("");
                       }}
+                      className={`w-full px-4 py-3 rounded-lg border ${syllabusEmailError ? 'border-red-500' : 'border-border'} bg-background focus:outline-none focus:ring-2 focus:ring-primary`}
                     />
-                    {manualEmailError && (
-                      <p className="text-sm text-red-500">{manualEmailError}</p>
+                    {syllabusEmailError && (
+                      <p className="text-sm text-red-500">{syllabusEmailError}</p>
                     )}
                     <Button
+                      type="submit"
                       className="w-full"
                       size="lg"
-                      onClick={() => {
-                        if (!manualEmail) {
-                          setManualEmailError("Please enter your email address");
-                          return;
-                        }
-                        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(manualEmail)) {
-                          setManualEmailError("Please enter a valid email address");
-                          return;
-                        }
-                        setManualEmailError("");
-                        setShowManualDialog(false);
-                        setShowManualThankYou(true);
-                      }}
+                      disabled={isSubmittingSyllabus}
                     >
-                      Send Me The Manual
+                      {isSubmittingSyllabus ? "Sending..." : "Send Syllabus"}
                     </Button>
-                  </div>
+                  </form>
                 </DialogContent>
               </Dialog>
+              <p className="mt-4 text-sm text-muted-foreground italic">
+                Want to see the hour-by-hour breakdown and reading list?
+              </p>
 
-              {/* Manual Thank You Dialog */}
-              <Dialog open={showManualThankYou} onOpenChange={(open) => {
-                setShowManualThankYou(open);
+              {/* Syllabus Thank You Dialog */}
+              <Dialog open={showSyllabusThankYou} onOpenChange={(open) => {
+                setShowSyllabusThankYou(open);
                 if (!open) {
-                  setManualEmail("");
-                  setManualEmailError("");
+                  setSyllabusEmail("");
+                  setSyllabusEmailError("");
                 }
               }}>
                 <DialogContent className="sm:max-w-md text-center">
@@ -1389,7 +1996,7 @@ export default function Course200Hour() {
                         Thank You! 🙏
                       </DialogTitle>
                       <DialogDescription className="text-muted-foreground">
-                        Your free 200-hour study manual is on its way to <span className="font-medium text-foreground">{manualEmail}</span>
+                        Your {selectedSyllabusCourse}-hour YTTC syllabus is on its way to <span className="font-medium text-foreground">{syllabusEmail}</span>
                       </DialogDescription>
                     </div>
                     <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground">
@@ -1397,9 +2004,9 @@ export default function Course200Hour() {
                     </div>
                     <Button
                       onClick={() => {
-                        setShowManualThankYou(false);
-                        setManualEmail("");
-                        setManualEmailError("");
+                        setShowSyllabusThankYou(false);
+                        setSyllabusEmail("");
+                        setSyllabusEmailError("");
                       }}
                       className="w-full"
                     >
@@ -1412,337 +2019,7 @@ export default function Course200Hour() {
           </div>
         </section>
 
-        {/* ===== WHAT SETS YOGAGARHI APART ===== */}
-        <section className="py-20 lg:py-28 bg-background">
-          <div className="container mx-auto px-4 max-w-4xl">
-            {/* Section Header */}
-            <div className="text-center mb-16">
-              <p className="font-body uppercase tracking-[0.2em] text-sm text-primary mb-4">
-                What Makes Us Different
-              </p>
-              <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
-                What Sets YogaGarhi Apart
-              </h2>
-              {/* Decorative Om Symbol */}
-              <div className="flex items-center justify-center gap-2 mt-4">
-                <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
-                <svg className="w-8 h-8 text-primary" viewBox="0 0 40 40" fill="currentColor">
-                  <path d="M12,28 C6,28 3,22 3,17 C3,9 9,4 18,4 C27,4 30,11 30,17 C30,24 23,28 19,28 C15,28 12,24 12,19 C12,15 16,13 19,13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                  <path d="M30,17 C30,11 36,8 39,12 C42,16 38,22 34,26 L31,32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                  <circle cx="37" cy="6" r="2" />
-                </svg>
-                <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
-              </div>
-            </div>
 
-            {/* Zigzag Feature Layout */}
-            <div className="space-y-16">
-              {/* Feature 1: Pre-YTTC */}
-              <WhyFeatureItem
-                icon={<GraduationCap className="w-4 h-4 text-primary" />}
-                title="Begin Before You Begin – Pre YTTC"
-                preview="The World's First Pre-YTTC school. The Optional Complimentary Online Pre-YTTC Preparation. If you feel like you don't know you are ready for course or not, this pre-YTTC is for you to be prepared & feel confident."
-                expanded={`At Yogagarhi, we do something different. We offer a Pre-YTTC Online Optional Complimentary Preparation Program. This gives you time to:
-
-• Prepare your body
-• Get friendly with curriculum & subjects
-• Understand basic concepts
-• Feel confident & clear
-
-So when training begins, you don't panic. You arrive grounded. You don't jump into transformation — you are gently prepared for it.`}
-                imageUrl={preYttcOnline}
-                imageAlt="Pre-YTTC Preparation"
-                isReversed={false}
-              />
-
-              {/* Feature 2: Transform You */}
-              <WhyFeatureItem
-                icon={<Heart className="w-4 h-4 text-primary" />}
-                title="Not Just Transform Yoga – Transform You"
-                preview="Very few address the human being behind the practice. At Yogagarhi, yoga is taught as a way of living, not as a skill to perform."
-                expanded={`The focus is not only on how you practice, but on how you think, relate, act, and respond to life itself. Here, philosophy is not memorized. It is applied, reflected upon, and lived — so transformation becomes visible in daily life, not just on the mat. We work with:
-
-• How you think
-• How you react
-• How you handle stress
-• How you relate to others
-
-This is where real change happens.`}
-                imageUrl={transformYou}
-                imageAlt="Yoga Transformation"
-                isReversed={true}
-              />
-
-              {/* Feature 3: Lifetime Re-Attendance */}
-              <WhyFeatureItem
-                icon={<Repeat className="w-4 h-4 text-primary" />}
-                title="Lifetime Re-Attendance & Assistant Teaching"
-                preview="At Yogagarhi, graduation is not the end of learning. Graduates are welcome to return to future trainings for deeper practice and to assist as teachers."
-                expanded={`Over years of teaching, our founder observed a clear pattern: students often wanted to repeat their 200-hour training to revise, deepen, and truly integrate what they had learned.
-
-Instead of ignoring this need, Yogagarhi embraced it. Once you complete your YTTC with us, you are welcome to repeat the same course again in the future — without paying the course fee again (food & stay exclusive).
-
-• Observe teaching methodology in real time
-• Support classes as an Assistant Teacher
-• Build confidence and refine skills
-
-Because yoga is not a one-time achievement. It is a lifelong refinement.`}
-                imageUrl={lifetimeReattendance}
-                imageAlt="Lifetime Learning"
-                isReversed={false}
-              />
-
-              {/* Feature 4: Small Groups */}
-              <WhyFeatureItem
-                icon={<Users className="w-4 h-4 text-primary" />}
-                title="Small Group Deep Work. Personal Transformation."
-                preview="At Yogagarhi, we intentionally keep small groups (8–10 students) allowing personalized guidance, deeper alignment, and understanding different bodies."
-                expanded={`This allows:
-
-• Individual attention
-• Personal correction
-• Emotional and mental support
-• Teaching adapted to your unique body and mind
-• Learn deeper alignment for your own practice
-• Understand how to read and work with different bodies
-
-At Yogagarhi, teaching is personalized, precise, and practical — you are a person on a journey, not a number.`}
-                imageUrl={smallGroupWork}
-                imageAlt="Small Group Training"
-                isReversed={true}
-              />
-
-              {/* Feature 5: 35+ Sequences */}
-              <WhyFeatureItem
-                icon={<BookOpen className="w-4 h-4 text-primary" />}
-                title="35+ Functional, Ready-to-Use Sequences"
-                preview="Yogagarhi provides over 35 functional, purpose-based yoga sequences for personal practice, teaching clarity, therapeutic understanding, and intelligent class structuring."
-                expanded={`At Yogagarhi, students receive over 35 carefully designed yoga sequences:
-
-• Personal Practice – structured flows to deepen your daily practice
-• Teaching Clarity – sequences to confidently structure your own classes
-• Therapeutic Understanding – flows designed to address common body imbalances
-• Intelligent Class Structuring – practical tools to create effective classes
-
-Key Benefits:
-• Ready-to-use sequences for immediate application
-• Flexible and adaptable to different student levels
-• Designed to refine over time as your understanding deepens
-
-These sequences are not random flows — they are practical, purposeful, and built to give maximum benefit.`}
-                imageUrl={yogaSequences}
-                imageAlt="Yoga Sequences"
-                isReversed={false}
-              />
-
-              {/* Feature 6: Himalayan Lineage */}
-              <WhyFeatureItem
-                icon={<Mountain className="w-4 h-4 text-primary" />}
-                title="Rooted in Himalayan Lineage"
-                preview="Modern yoga often focuses only on physical and meditative practices. At Yogagarhi, our teachings are inspired by Himalayan yogic traditions, where yoga is understood as an integrated path."
-                expanded={`We teach the four classical paths:
-
-• Karma Yoga – conscious action
-• Jnana Yoga – self-inquiry and wisdom
-• Bhakti Yoga – devotion and humility
-• Raja Yoga – discipline of body and mind
-
-These paths are not taught as theory. They are experienced through daily life, reflection, and practice.`}
-                imageUrl={himalayanLineage}
-                imageAlt="Himalayan Tradition"
-                isReversed={true}
-              />
-
-              {/* Feature 7: Living Philosophy */}
-              <WhyFeatureItem
-                icon={<Sparkles className="w-4 h-4 text-primary" />}
-                title="The Heart of Yogagarhi: Living Philosophy"
-                preview="At Yogagarhi we teach philosophy as a tool for living. Our approach focuses on applied yogic philosophy — helping students observe suffering, understand its roots, and dissolve it through awareness."
-                expanded={`This is one of Yogagarhi's core strengths: students don't just transform how they practice, they transform how they live.
-
-Philosophy is not memorized for an exam — it is applied, reflected upon, and integrated into daily decisions, relationships, and self-understanding.`}
-                imageUrl={livingPhilosophy}
-                imageAlt="Living Philosophy"
-                isReversed={false}
-              />
-
-              {/* Feature 8: Continuing Community */}
-              <WhyFeatureItem
-                icon={<Handshake className="w-4 h-4 text-primary" />}
-                title="A Community That Continues After Certification"
-                preview="Yoga does not end with a certificate. Yogagarhi is building a living yoga community where students remain connected after completing their training."
-                expanded={`Growth is supported through:
-
-• Connection with fellow graduates
-• Ongoing guidance from teachers
-• Sharing experiences and asking questions
-• Support as your journey continues
-
-This is not a transactional relationship — it is a lifelong connection.`}
-                imageUrl={apartHammock}
-                imageAlt="Yoga Community"
-                isReversed={true}
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* ===== WHY ONE STYLE DOESN'T FIT ALL ===== */}
-        <section className="relative overflow-hidden">
-          {/* Background Image - Sticky only on mobile within this section */}
-          <div className="absolute inset-0 -z-10">
-            <div className="md:relative md:h-full sticky top-0 h-screen">
-              <Image
-                src={apartCeremony}
-                alt="Diverse yoga practice styles"
-                fill
-                className="object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-black/60" />
-            </div>
-          </div>
-
-          {/* Content - Scrollable on mobile */}
-          <div className="relative z-10 min-h-screen md:min-h-0 flex items-center py-20">
-            <div className="container mx-auto px-4 max-w-4xl">
-              <h2 className="font-heading text-4xl md:text-6xl font-bold text-center text-white mb-8 tracking-tight">
-                Why One Style Does Not Fit All
-              </h2>
-              <p className="font-heading text-xl md:text-3xl text-center text-primary-foreground/90 mb-12 italic">
-                Why We Teach Authentic Multi-Style & Prakriti-Based Yoga
-              </p>
-
-              <div className="space-y-6 text-white/90 leading-relaxed text-center max-w-3xl mx-auto mb-12">
-                <p>
-                  Every human being is unique. Your body, your energy, your mind — they are unlike
-                  anyone else's. So why should your yoga practice be the same as everyone else's?
-                </p>
-                <p>
-                  At Yogagarhi, we teach multi-style yoga not to confuse, but to liberate.
-                  By understanding Hatha, Vinyasa, Ashtanga, and Iyengar as complete systems,
-                  you learn to adapt yoga to the individual — not force the individual into yoga.
-                </p>
-                <p>
-                  Our Prakriti-based approach considers your unique constitution. We help you
-                  discover which practices serve your nature, so your teaching can be truly
-                  responsive to each student who comes to you.
-                </p>
-              </div>
-
-              <div className="text-center">
-                <Dialog open={showQuizDialog} onOpenChange={(open) => {
-                  setShowQuizDialog(open);
-                  if (!open) resetQuiz();
-                }}>
-                  <DialogTrigger asChild>
-                    <Button size="lg" className="bg-amber-500 text-white hover:bg-amber-600 font-semibold shadow-lg">
-                      Reveal Your Yogic Energy
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-lg">
-                    <DialogHeader>
-                      <DialogTitle className="font-heading text-2xl text-center">
-                        {quizStep < quizQuestions.length
-                          ? "Discover Your Yogic Energy"
-                          : "Your Insight Awaits"}
-                      </DialogTitle>
-                      <DialogDescription className="text-center text-muted-foreground text-sm">
-                        {quizStep < quizQuestions.length
-                          ? `Question ${quizStep + 1} of ${quizQuestions.length}: ${quizQuestions[quizStep].question}`
-                          : "Thank you for sharing. Enter your email to receive your personalized insight."
-                        }
-                      </DialogDescription>
-                    </DialogHeader>
-
-                    <div className="pt-4">
-                      {quizStep < quizQuestions.length ? (
-                        <div className="space-y-6">
-                          <div className="space-y-3">
-                            {quizQuestions[quizStep].options.map((option, i) => (
-                              <button
-                                key={i}
-                                onClick={() => handleQuizAnswer(option)}
-                                className="w-full p-4 text-left rounded-lg border border-border hover:border-primary hover:bg-primary/5 transition-colors"
-                              >
-                                {option}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="space-y-4 text-center">
-                          <p className="text-muted-foreground">
-                            Thank you for sharing. Enter your email and we will send you
-                            your personalized yogic energy insight shortly.
-                          </p>
-                          <div className="space-y-2">
-                            <input
-                              type="email"
-                              placeholder="Your email address *"
-                              className={`w-full px-4 py-3 rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary ${emailError ? 'border-red-500' : 'border-border'}`}
-                              value={email}
-                              onChange={(e) => {
-                                setEmail(e.target.value);
-                                if (emailError) setEmailError("");
-                              }}
-                            />
-                            {emailError && (
-                              <p className="text-sm text-red-500">{emailError}</p>
-                            )}
-                          </div>
-                          <Button
-                            className="w-full"
-                            size="lg"
-                            onClick={handleQuizSubmit}
-                            disabled={isSubmittingQuiz}
-                          >
-                            {isSubmittingQuiz ? "Submitting..." : "Submit & Receive My Insight"}
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                  </DialogContent>
-                </Dialog>
-
-                {/* Quiz Thank You Dialog */}
-                <Dialog open={showQuizThankYou} onOpenChange={(open) => {
-                  setShowQuizThankYou(open);
-                  if (!open) resetQuiz();
-                }}>
-                  <DialogContent className="sm:max-w-md text-center">
-                    <div className="py-6 space-y-6">
-                      <div className="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
-                        <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <div>
-                        <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
-                          Thank You! 🙏
-                        </DialogTitle>
-                        <p className="text-muted-foreground">
-                          Your personalized yogic energy insight is on its way to <span className="font-medium text-foreground">{email}</span>
-                        </p>
-                      </div>
-                      <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground">
-                        <p>Please check your inbox (and spam folder) within the next 24 hours.</p>
-                      </div>
-                      <Button
-                        onClick={() => {
-                          setShowQuizThankYou(false);
-                          resetQuiz();
-                        }}
-                        className="w-full"
-                      >
-                        Close
-                      </Button>
-                    </div>
-                  </DialogContent>
-                </Dialog>
-              </div>
-            </div>
-          </div>
-        </section>
         {/* ===== DAILY SCHEDULE ===== */}
         <section className="py-20 bg-secondary/30">
           <div className="container mx-auto px-4">
@@ -1801,844 +2078,58 @@ This is not a transactional relationship — it is a lifelong connection.`}
               </p>
             </div>
           </div>
-        </section>
+        </section >
 
-        {/* ===== WHAT YOU'LL RECEIVE ===== */}
-        <section className="py-20 bg-background overflow-hidden">
+        {/* ===== PROGRAM TIMELINE HIGHLIGHTS ===== */}
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-primary mb-4">
-              What You Will Receive in This Training
-            </h2>
-            {/* Decorative Mandala Icon */}
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
-              <svg className="w-10 h-10 text-primary" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1">
-                <circle cx="20" cy="20" r="16" />
-                <circle cx="20" cy="20" r="6" strokeDasharray="2 2" />
-                {/* Orbital dots */}
-                {isMounted && [0, 60, 120, 180, 240, 300].map((angle, i) => (
-                  <circle key={i} cx={20 + 10 * Math.cos(angle * Math.PI / 180)} cy={20 + 10 * Math.sin(angle * Math.PI / 180)} r="3" fill="currentColor" />
-                ))}
-              </svg>
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
-            </div>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              A comprehensive curriculum covering all aspects of yoga
-            </p>
-
-            {/* Horizontal Scrollable Flip Cards */}
-            <div className="relative">
-              {/* Gradient fade edges */}
-              <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-              <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-
-              <div className="overflow-x-auto scrollbar-hide pb-4 -mx-4 px-4">
-                <div className="flex gap-6" style={{ width: 'max-content' }}>
-                  {whatYouWillReceive.map((item, index) => (
-                    <div
-                      key={index}
-                      className="flip-card w-64 h-72 flex-shrink-0 cursor-pointer"
-                      onClick={(e) => {
-                        const card = e.currentTarget;
-                        card.classList.toggle('flipped');
-                      }}
-                    >
-                      <div className="flip-card-inner relative w-full h-full transition-transform duration-500 transform-style-preserve-3d">
-                        {/* Front - Image */}
-                        <div className="flip-card-front absolute w-full h-full backface-hidden rounded-xl overflow-hidden border border-border shadow-card">
-                          <Image
-                            src={item.image}
-                            alt={item.title}
-                            fill
-                            className="object-cover"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                          <div className="absolute bottom-0 left-0 right-0 p-5">
-                            <h3 className="font-heading text-lg font-semibold text-white text-center">
-                              {item.title}
-                            </h3>
-                            <p className="text-xs text-white/70 mt-1 text-center md:hidden">Tap to see more</p>
-                            <p className="text-xs text-white/70 mt-1 text-center hidden md:block">Hover to see more</p>
-                          </div>
-                        </div>
-
-                        {/* Back - Content */}
-                        <div className="flip-card-back absolute w-full h-full backface-hidden rounded-xl overflow-hidden border border-border shadow-card rotate-y-180 bg-card">
-                          <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center">
-                            <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                              <item.icon className="w-7 h-7 text-primary" />
-                            </div>
-                            <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
-                              {item.title}
-                            </h3>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
-                              {item.description}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== INCLUSIONS / EXCLUSIONS ===== */}
-        <section className="py-20 bg-secondary/30">
-          <div className="container mx-auto px-4">
-            {/* Tab Buttons */}
-            <div className="flex justify-center gap-4 mb-12">
-              <button
-                onClick={() => setActiveInclusionTab('inclusions')}
-                className={`px-8 py-3 rounded-lg font-heading text-lg font-semibold transition-all duration-300 ${activeInclusionTab === 'inclusions'
-                  ? 'bg-primary text-primary-foreground shadow-lg'
-                  : 'bg-card text-foreground border border-border hover:bg-secondary'
-                  }`}
-              >
-                What's Included
-              </button>
-              <button
-                onClick={() => setActiveInclusionTab('exclusions')}
-                className={`px-8 py-3 rounded-lg font-heading text-lg font-semibold transition-all duration-300 ${activeInclusionTab === 'exclusions'
-                  ? 'bg-primary text-primary-foreground shadow-lg'
-                  : 'bg-card text-foreground border border-border hover:bg-secondary'
-                  }`}
-              >
-                What's Not Included
-              </button>
-            </div>
-
-            {/* Content */}
-            <div className="max-w-5xl mx-auto">
-              {activeInclusionTab === 'inclusions' ? (
-                <div className="animate-fade-in">
-                  <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-primary mb-10">
-                    What's Included
-                  </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {inclusions.map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center gap-4 p-5 bg-card rounded-lg shadow-sm"
-                      >
-                        <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-                          <Check className="w-5 h-5 text-accent" />
-                        </div>
-                        <span className="text-foreground font-medium">{item}</span>
-                      </div>
-                    ))}
+            <div className="max-w-4xl mx-auto">
+              <div className="grid md:grid-cols-3 gap-8">
+                {/* Preparation */}
+                <div className="text-center group">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                    <BookOpen className="w-8 h-8 text-primary" />
                   </div>
-                </div>
-              ) : (
-                <div className="animate-fade-in">
-                  <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-primary mb-10">
-                    What's Not Included
-                  </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {exclusions.map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center gap-4 p-5 bg-card rounded-lg shadow-sm"
-                      >
-                        <div className="w-8 h-8 rounded-full bg-destructive/20 flex items-center justify-center flex-shrink-0">
-                          <X className="w-5 h-5 text-destructive" />
-                        </div>
-                        <span className="text-foreground font-medium">{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* ===== COURSE SYLLABUS ===== */}
-        <section className="py-20 bg-background overflow-hidden">
-          <div className="container mx-auto px-4">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-foreground mb-4">
-              Course Syllabus
-            </h2>
-            {/* Decorative Book/Scroll Icon */}
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
-              <svg className="w-10 h-8 text-primary" viewBox="0 0 48 32" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M24 6 C24 6 18 4 8 4 C4 4 2 6 2 8 L2 26 C2 28 4 30 8 30 C18 30 24 28 24 28" />
-                <path d="M24 6 C24 6 30 4 40 4 C44 4 46 6 46 8 L46 26 C46 28 44 30 40 30 C30 30 24 28 24 28" />
-                <line x1="24" y1="6" x2="24" y2="28" />
-              </svg>
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
-            </div>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Comprehensive curriculum covering all aspects of yoga teacher training
-            </p>
-
-            {/* Horizontal Scrollable Cards */}
-            <div className="relative">
-              <div
-                className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide scroll-smooth snap-x snap-mandatory"
-                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-              >
-                {[
-                  {
-                    title: "Ashtanga Yoga Postures",
-                    content: "Complete Ashtanga yoga primary series sequence. Week-by-week progression through Sun Salutation A & B, Standing sequence, Seated sequence, and Mysore style practice.",
-                    image: syllabus1
-                  },
-                  {
-                    title: "Hatha & Vinyasa Flow",
-                    content: "Pawanmuktasana series, Surya Namaskar variations, Standing and seated postures, Backbends, Forward folds, Inversions, and complete sequencing methodology.",
-                    image: syllabus2
-                  },
-                  {
-                    title: "Yoga Philosophy",
-                    content: "Introduction to yoga sutras of Patanjali, Eight limbs of Ashtanga Yoga, Nadis, Chakras, Pancha-Vayus, Panchakoshas, Triguna, and inspiring stories of great yogis.",
-                    image: syllabus3
-                  },
-                  {
-                    title: "Pranayama & Breathing",
-                    content: "Complete breathing techniques including Ujjayi, Bhastrika, Kapalbhati, Nadi-Sodhana, Bhramari, Surya-Bhedi, Chandra-Bhedi, Sheetali, and Sheetkari.",
-                    image: syllabus4
-                  },
-                  {
-                    title: "Anatomy & Physiology",
-                    content: "Body movement planes, joint protection, anatomy of ankle, knee, spine, shoulder, breathing mechanism, physiology of muscles, and nervous system.",
-                    image: syllabus5
-                  },
-                  {
-                    title: "Teaching Methodology",
-                    content: "Class sequencing, adjustments, working with different levels, voice usage, mental preparation, demonstration principles, and step-by-step class planning.",
-                    image: syllabus6
-                  },
-                  {
-                    title: "Meditation & Mantra",
-                    content: "Multiple meditation techniques, mantra chanting, Trataka, Osho Dynamic meditation, Nada Brahma, Antar Mouna, and silence practices for inner stillness.",
-                    image: syllabus7
-                  },
-                  {
-                    title: "Iyengar Yoga",
-                    content: "Precision-focused yoga emphasizing correct body alignment using props like blocks, straps, and blankets to help practitioners achieve optimal posture and prevent injuries.",
-                    image: syllabus8
-                  },
-                  {
-                    title: "Alignment Principles",
-                    content: "Foundation of safe practice through understanding joint stacking, muscle engagement patterns, and body mechanics to protect and strengthen the physical body.",
-                    image: syllabus9
-                  },
-                  {
-                    title: "Bandhas (Energy Locks)",
-                    content: "Master the three primary bandhas - Mula, Uddiyana, and Jalandhara. These internal locks regulate prana flow, strengthen the core, and deepen meditation practice.",
-                    image: syllabus10
-                  },
-                  {
-                    title: "Mudras (Yogic Gestures)",
-                    content: "Sacred hand and body gestures that channel energy, enhance concentration, and connect with specific states of consciousness. Essential for pranayama and meditation.",
-                    image: syllabusMudras
-                  },
-                ].map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex-shrink-0 snap-start first:ml-4 last:mr-4"
-                  >
-                    {/* Circular design */}
-                    <div className="flex flex-col items-center w-72 group">
-                      {/* Circular Image */}
-                      <div className="relative mb-6">
-                        <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-secondary shadow-lg group-hover:shadow-xl group-hover:border-primary/30 transition-all duration-300">
-                          <Image
-                            src={item.image}
-                            alt={item.title}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-110"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Text Content */}
-                      <div className="text-center px-4">
-                        <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
-                          {item.title}
-                        </h3>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {item.content}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Scroll indicator */}
-              <div className="flex justify-center gap-2 mt-6">
-                <span className="text-sm text-muted-foreground">← Scroll to explore →</span>
-              </div>
-            </div>
-
-            <div className="text-center mt-12">
-              <Dialog open={showSyllabusDialog} onOpenChange={setShowSyllabusDialog}>
-                <DialogTrigger asChild>
-                  <Button size="lg" variant="outline" className="gap-2">
-                    <Download className="w-4 h-4" />
-                    Download Detailed Syllabus
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-md">
-                  <DialogHeader>
-                    <DialogTitle className="font-heading text-2xl text-center">
-                      Download Syllabus
-                    </DialogTitle>
-                    <DialogDescription className="text-center text-muted-foreground text-sm">
-                      Select your course and enter email to receive the detailed syllabus.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <form onSubmit={handleSyllabusSubmit} className="space-y-4 pt-4">
-                    <select
-                      value={selectedSyllabusCourse}
-                      onChange={(e) => setSelectedSyllabusCourse(e.target.value)}
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    >
-                      <option value="100">100 Hour YTTC</option>
-                      <option value="200">200 Hour YTTC</option>
-                      <option value="300">300 Hour YTTC</option>
-                    </select>
-                    <input
-                      type="email"
-                      placeholder="Your email address"
-                      value={syllabusEmail}
-                      onChange={(e) => {
-                        setSyllabusEmail(e.target.value);
-                        setSyllabusEmailError("");
-                      }}
-                      className={`w-full px-4 py-3 rounded-lg border ${syllabusEmailError ? 'border-red-500' : 'border-border'} bg-background focus:outline-none focus:ring-2 focus:ring-primary`}
-                    />
-                    {syllabusEmailError && (
-                      <p className="text-sm text-red-500">{syllabusEmailError}</p>
-                    )}
-                    <Button
-                      type="submit"
-                      className="w-full"
-                      size="lg"
-                      disabled={isSubmittingSyllabus}
-                    >
-                      {isSubmittingSyllabus ? "Sending..." : "Send Syllabus"}
-                    </Button>
-                  </form>
-                </DialogContent>
-              </Dialog>
-
-              {/* Syllabus Thank You Dialog */}
-              <Dialog open={showSyllabusThankYou} onOpenChange={(open) => {
-                setShowSyllabusThankYou(open);
-                if (!open) {
-                  setSyllabusEmail("");
-                  setSyllabusEmailError("");
-                }
-              }}>
-                <DialogContent className="sm:max-w-md text-center">
-                  <div className="py-6 space-y-6">
-                    <div className="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
-                      <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <div>
-                      <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
-                        Thank You! 🙏
-                      </DialogTitle>
-                      <DialogDescription className="text-muted-foreground">
-                        Your {selectedSyllabusCourse}-hour YTTC syllabus is on its way to <span className="font-medium text-foreground">{syllabusEmail}</span>
-                      </DialogDescription>
-                    </div>
-                    <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground">
-                      <p>Please check your inbox (and spam folder) within the next 24 hours.</p>
-                    </div>
-                    <Button
-                      onClick={() => {
-                        setShowSyllabusThankYou(false);
-                        setSyllabusEmail("");
-                        setSyllabusEmailError("");
-                      }}
-                      className="w-full"
-                    >
-                      Close
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== FREE WEBINAR ===== */}
-        <section className="relative py-20 overflow-hidden">
-          {/* Background Image */}
-          <div className="absolute inset-0 -z-10">
-            <Image
-              src={webinarBackground}
-              alt="Yoga meditation background"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-foreground/70" />
-          </div>
-
-          <div className="container mx-auto px-4 max-w-4xl text-center relative z-10">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-              Free Orientation Webinar
-            </h2>
-            <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              Join our live webinar to learn more about the training, ask questions,
-              and connect with our teachers before making your decision.
-            </p>
-            <Dialog open={showWebinarDialog} onOpenChange={setShowWebinarDialog}>
-              <DialogTrigger asChild>
-                <Button size="lg" className="bg-primary-foreground text-foreground hover:bg-primary-foreground/90">
-                  Register for Free Webinar
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-md">
-                <DialogHeader>
-                  <DialogTitle className="font-heading text-2xl text-center">
-                    Register for Free Webinar
-                  </DialogTitle>
-                  <DialogDescription className="text-center text-muted-foreground text-sm">
-                    Fill in your details to join our live orientation session
-                  </DialogDescription>
-                </DialogHeader>
-                <form onSubmit={handleWebinarSubmit} className="space-y-4 pt-4">
-
-                  {/* Name */}
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-1 block">
-                      Full Name <span className="text-destructive">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Enter your full name"
-                      required
-                      value={webinarForm.name}
-                      onChange={(e) => setWebinarForm(prev => ({ ...prev, name: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                  </div>
-
-                  {/* Email */}
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-1 block">
-                      Email Address <span className="text-destructive">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      placeholder="Enter your email"
-                      required
-                      value={webinarForm.email}
-                      onChange={(e) => setWebinarForm(prev => ({ ...prev, email: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                  </div>
-
-                  {/* Timezone */}
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-1 block">
-                      Your Timezone <span className="text-destructive">*</span>
-                    </label>
-                    <select
-                      required
-                      value={webinarForm.timezone}
-                      onChange={(e) => setWebinarForm(prev => ({ ...prev, timezone: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    >
-                      <option value="">Select your timezone</option>
-                      <option value="UTC-12:00">(UTC-12:00) Baker Island</option>
-                      <option value="UTC-11:00">(UTC-11:00) American Samoa</option>
-                      <option value="UTC-10:00">(UTC-10:00) Hawaii</option>
-                      <option value="UTC-09:00">(UTC-09:00) Alaska</option>
-                      <option value="UTC-08:00">(UTC-08:00) Pacific Time (US & Canada)</option>
-                      <option value="UTC-07:00">(UTC-07:00) Mountain Time (US & Canada)</option>
-                      <option value="UTC-06:00">(UTC-06:00) Central Time (US & Canada)</option>
-                      <option value="UTC-05:00">(UTC-05:00) Eastern Time (US & Canada)</option>
-                      <option value="UTC-04:00">(UTC-04:00) Atlantic Time (Canada)</option>
-                      <option value="UTC-03:00">(UTC-03:00) Buenos Aires, São Paulo</option>
-                      <option value="UTC-02:00">(UTC-02:00) Mid-Atlantic</option>
-                      <option value="UTC-01:00">(UTC-01:00) Azores</option>
-                      <option value="UTC+00:00">(UTC+00:00) London, Dublin, Lisbon</option>
-                      <option value="UTC+01:00">(UTC+01:00) Berlin, Paris, Rome, Madrid</option>
-                      <option value="UTC+02:00">(UTC+02:00) Cairo, Athens, Istanbul</option>
-                      <option value="UTC+03:00">(UTC+03:00) Moscow, Nairobi, Kuwait</option>
-                      <option value="UTC+03:30">(UTC+03:30) Tehran</option>
-                      <option value="UTC+04:00">(UTC+04:00) Dubai, Abu Dhabi</option>
-                      <option value="UTC+04:30">(UTC+04:30) Kabul</option>
-                      <option value="UTC+05:00">(UTC+05:00) Karachi, Tashkent</option>
-                      <option value="UTC+05:30">(UTC+05:30) Mumbai, New Delhi, Kolkata</option>
-                      <option value="UTC+05:45">(UTC+05:45) Kathmandu</option>
-                      <option value="UTC+06:00">(UTC+06:00) Dhaka, Almaty</option>
-                      <option value="UTC+06:30">(UTC+06:30) Yangon</option>
-                      <option value="UTC+07:00">(UTC+07:00) Bangkok, Jakarta, Hanoi</option>
-                      <option value="UTC+08:00">(UTC+08:00) Singapore, Kuala Lumpur, Bali</option>
-                      <option value="UTC+09:00">(UTC+09:00) Tokyo, Seoul</option>
-                      <option value="UTC+09:30">(UTC+09:30) Adelaide</option>
-                      <option value="UTC+10:00">(UTC+10:00) Sydney, Melbourne</option>
-                      <option value="UTC+11:00">(UTC+11:00) Solomon Islands</option>
-                      <option value="UTC+12:00">(UTC+12:00) Auckland, Fiji</option>
-                      <option value="UTC+13:00">(UTC+13:00) Samoa, Tonga</option>
-                    </select>
-                  </div>
-
-                  {/* Preferred Date */}
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-1 block">
-                      Preferred Date <span className="text-destructive">*</span>
-                    </label>
-                    <input
-                      type="date"
-                      required
-                      value={webinarForm.date}
-                      onChange={(e) => setWebinarForm(prev => ({ ...prev, date: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                  </div>
-
-                  {/* Preferred Time */}
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-1 block">
-                      Preferred Time <span className="text-destructive">*</span>
-                    </label>
-                    <select
-                      required
-                      value={webinarForm.time}
-                      onChange={(e) => setWebinarForm(prev => ({ ...prev, time: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    >
-                      <option value="">Select preferred time</option>
-                      <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
-                      <option value="afternoon">Afternoon (12:00 PM - 4:00 PM)</option>
-                      <option value="evening">Evening (4:00 PM - 8:00 PM)</option>
-                    </select>
-                  </div>
-
-                  <Button
-                    type="submit"
-                    className={`w-full transition-all ${isWebinarFormComplete ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'bg-muted text-muted-foreground cursor-not-allowed'}`}
-                    size="lg"
-                    disabled={!isWebinarFormComplete || isSubmittingWebinar}
-                  >
-                    {isSubmittingWebinar ? "Registering..." : "Register Now"}
-                  </Button>
-
-                  <p className="text-xs text-center text-muted-foreground">
-                    You'll receive a confirmation email with the webinar link
-                  </p>
-                </form>
-              </DialogContent>
-            </Dialog>
-
-            {/* Webinar Thank You Dialog */}
-            <Dialog open={showWebinarThankYou} onOpenChange={(open) => {
-              setShowWebinarThankYou(open);
-              if (!open) {
-                setWebinarForm({ name: '', email: '', timezone: '', date: '', time: '' });
-              }
-            }}>
-              <DialogContent className="sm:max-w-md text-center">
-                <div className="py-6 space-y-6">
-                  <div className="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
-                    <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <div>
-                    <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
-                      You're Registered! 🎉
-                    </DialogTitle>
-                    <DialogDescription className="text-muted-foreground">
-                      Thank you, <span className="font-medium text-foreground">{webinarForm.name}</span>! Your webinar registration is confirmed.
-                    </DialogDescription>
-                  </div>
-                  <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground space-y-2">
-                    <p>📧 Confirmation sent to: <span className="font-medium text-foreground">{webinarForm.email}</span></p>
-                    <p>📅 We'll send you the webinar link before your selected date.</p>
-                  </div>
-                  <Button
-                    onClick={() => {
-                      setShowWebinarThankYou(false);
-                      setWebinarForm({ name: '', email: '', timezone: '', date: '', time: '' });
-                    }}
-                    className="w-full"
-                  >
-                    Close
-                  </Button>
-                </div>
-              </DialogContent>
-            </Dialog>
-
-            {/* Pre-YTTC Detail Dialog */}
-            <Dialog open={showPreYTTCDialog} onOpenChange={setShowPreYTTCDialog}>
-              <DialogContent className="sm:max-w-md">
-                <DialogHeader>
-                  <DialogTitle className="font-heading text-2xl text-center">
-                    Get Pre-YTTC Details
-                  </DialogTitle>
-                  <DialogDescription className="text-center text-muted-foreground text-sm">
-                    Learn about our world-first Pre-YTTC preparation program
-                  </DialogDescription>
-                </DialogHeader>
-                <form onSubmit={handlePreYTTCSubmit} className="space-y-4 pt-4">
-
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-1 block">
-                      Full Name <span className="text-destructive">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Enter your full name"
-                      required
-                      value={preYTTCForm.name}
-                      onChange={(e) => setPreYTTCForm(prev => ({ ...prev, name: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-1 block">
-                      Email Address <span className="text-destructive">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      placeholder="Enter your email"
-                      required
-                      value={preYTTCForm.email}
-                      onChange={(e) => setPreYTTCForm(prev => ({ ...prev, email: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    className={`w-full transition-all ${preYTTCForm.name && preYTTCForm.email ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'bg-muted text-muted-foreground cursor-not-allowed'}`}
-                    size="lg"
-                    disabled={!preYTTCForm.name || !preYTTCForm.email || isSubmittingPreYTTC}
-                  >
-                    <GraduationCap className="w-4 h-4 mr-2" />
-                    {isSubmittingPreYTTC ? "Sending..." : "Get Pre-YTTC Details"}
-                  </Button>
-                </form>
-              </DialogContent>
-            </Dialog>
-
-            {/* Pre-YTTC Thank You Dialog */}
-            <Dialog open={showPreYTTCThankYou} onOpenChange={(open) => {
-              setShowPreYTTCThankYou(open);
-              if (!open) setPreYTTCForm({ name: '', email: '' });
-            }}>
-              <DialogContent className="sm:max-w-md text-center">
-                <div className="py-6 space-y-6">
-                  <div className="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
-                    <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <div>
-                    <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
-                      Details on the Way! 🎓
-                    </DialogTitle>
-                    <DialogDescription className="text-muted-foreground">
-                      Thank you, <span className="font-medium text-foreground">{preYTTCForm.name}</span>! Your Pre-YTTC program details will be sent to your email.
-                    </DialogDescription>
-                  </div>
-                  <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground">
-                    📧 Sent to: <span className="font-medium text-foreground">{preYTTCForm.email}</span>
-                  </div>
-                  <Button
-                    onClick={() => {
-                      setShowPreYTTCThankYou(false);
-                      setPreYTTCForm({ name: '', email: '' });
-                    }}
-                    className="w-full"
-                  >
-                    Close
-                  </Button>
-                </div>
-              </DialogContent>
-            </Dialog>
-
-            {/* Manual Download Dialog */}
-            <Dialog open={showManualDialog} onOpenChange={setShowManualDialog}>
-              <DialogContent className="sm:max-w-md">
-                <DialogHeader>
-                  <DialogTitle className="font-heading text-2xl text-center">
-                    Get Free Study Manual
-                  </DialogTitle>
-                  <DialogDescription className="text-center text-muted-foreground text-sm">
-                    Enter your details to receive our comprehensive yoga training manual
-                  </DialogDescription>
-                </DialogHeader>
-                <form onSubmit={handleManualSubmit} className="space-y-4 pt-4">
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-1 block">
-                      Full Name <span className="text-destructive">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Enter your full name"
-                      required
-                      value={manualForm.name}
-                      onChange={(e) => setManualForm(prev => ({ ...prev, name: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-1 block">
-                      Email Address <span className="text-destructive">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      placeholder="Enter your email"
-                      required
-                      value={manualForm.email}
-                      onChange={(e) => setManualForm(prev => ({ ...prev, email: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                  </div>
-                  <Button
-                    type="submit"
-                    className="w-full"
-                    size="lg"
-                    disabled={!manualForm.name || !manualForm.email || isSubmittingManual}
-                  >
-                    <BookOpen className="w-4 h-4 mr-2" />
-                    {isSubmittingManual ? "Sending..." : "Get Free Manual"}
-                  </Button>
-                </form>
-              </DialogContent>
-            </Dialog>
-
-            {/* Manual Thank You Dialog */}
-            <Dialog open={showManualThankYou} onOpenChange={setShowManualThankYou}>
-              <DialogContent className="sm:max-w-md text-center">
-                <div className="py-6 space-y-6">
-                  <div className="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
-                    <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <div>
-                    <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
-                      Manual on the Way! 📚
-                    </DialogTitle>
-                    <DialogDescription className="text-muted-foreground">
-                      Thank you! The study manual has been sent to <span className="font-medium text-foreground">{manualForm.email}</span>
-                    </DialogDescription>
-                  </div>
-                  <Button
-                    onClick={() => setShowManualThankYou(false)}
-                    className="w-full"
-                  >
-                    Close
-                  </Button>
-                </div>
-              </DialogContent>
-            </Dialog>
-          </div>
-        </section>
-
-        {/* ===== WHY CHOOSE YOGAGARHI (USPs) ===== */}
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-foreground mb-4">
-              Why Choose Yogagarhi
-            </h2>
-            {/* Decorative Chakra Icon */}
-            <div className="flex items-center justify-center gap-2 mb-8">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
-              <svg className="w-10 h-10 text-primary" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="20" cy="20" r="16" />
-                <circle cx="20" cy="20" r="8" />
-                {/* Petals */}
-                {isMounted && [0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
-                  <ellipse key={i} cx={20 + 12 * Math.cos(angle * Math.PI / 180)} cy={20 + 12 * Math.sin(angle * Math.PI / 180)} rx="2" ry="4" transform={`rotate(${angle} ${20 + 12 * Math.cos(angle * Math.PI / 180)} ${20 + 12 * Math.sin(angle * Math.PI / 180)})`} />
-                ))}
-              </svg>
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-              {[
-                { title: "Unique Shiv-Shakti Method", desc: "Our signature approach converts yogic theory into practical wisdom.", icon: Zap },
-                { title: "Traditional Multi-Style", desc: "Vinyasa, Hatha, Ashtanga, and Iyengar as complete systems.", icon: Layers },
-                { title: "Pre-TTC Mentorship", desc: "Build a strong foundation before training begins.", icon: UserCheck },
-                { title: "Small Learning Groups", desc: "Only 8-10 students for personalized attention.", icon: Users },
-                { title: "Philosophy-Driven", desc: "Highest philosophy through rituals, meditation, and satsang.", icon: Brain },
-                { title: "35+ Sequencing Book", desc: "Practical sequences for immediate teaching application.", icon: BookMarked },
-                { title: "Yoga Community", desc: "Join a large yoga family that supports growth.", icon: UsersRound },
-                { title: "Course Repetition", desc: "Revisit training whenever it runs, at no extra cost.", icon: RefreshCw },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="group p-6 bg-card rounded-lg border border-border text-center hover:shadow-lg hover:border-primary/30 transition-all duration-300"
-                >
-                  <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-                    <item.icon
-                      className="w-7 h-7 text-primary animate-float group-hover:scale-110 transition-transform duration-300"
-                      style={{ animationDelay: `${index * 0.2}s` }}
-                    />
-                  </div>
-                  <h3 className="font-heading text-lg font-semibold text-foreground mb-2">
-                    {item.title}
+                  <h3 className="font-heading text-lg font-bold text-foreground mb-2">
+                    Preparation begins on signup
                   </h3>
-                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  <p className="text-sm text-muted-foreground">
+                    Start your journey with pre-course materials and guidance
+                  </p>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        {/* ===== YOGA ALLIANCE CERTIFICATION ===== */}
-        <section
-          className="py-24 relative bg-cover bg-center bg-fixed"
-          style={{ backgroundImage: `url(${apartYogaAllianceGraduates.src})` }}
-        >
-          {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-black/50" />
+                {/* Training Dates */}
+                <div className="text-center group">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                    <Calendar className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="font-heading text-lg font-bold text-foreground mb-2">
+                    Training: 1st – 24th of each month
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Immersive 24-day program every month in Bali
+                  </p>
+                </div>
 
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-4xl mx-auto text-center">
-              {/* Subtitle */}
-              <p className="text-white/90 text-lg mb-2 font-medium">
-                "YOGAGARHI – 200 Hour YTTC"
-              </p>
-
-              {/* Main Title */}
-              <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-amber-500 mb-6">
-                Yoga Alliance USA CERTIFIED
-              </h2>
-
-              {/* Description */}
-              <p className="text-white/90 text-base md:text-lg max-w-3xl mx-auto mb-10 leading-relaxed">
-                Our school, YogaGarhi, is registered with Yoga Alliance USA. Upon completing this course,
-                you will receive an internationally recognized certification, allowing you to become a
-                <span className="text-white font-medium"> Registered Yoga Teacher (RYT)</span>.
-                This certification opens doors for you to teach yoga anywhere in the world.
-              </p>
-
-              {/* Certification Badges - Real Images */}
-              <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8">
-                <Image src={yaRys100} alt="RYS 100" height={96} className="w-auto object-contain hover:scale-110 transition-transform duration-300" />
-                <Image src={yaRys200} alt="RYS 200" height={96} className="w-auto object-contain hover:scale-110 transition-transform duration-300" />
-                <Image src={yaRyt200} alt="RYT 200" height={96} className="w-auto object-contain hover:scale-110 transition-transform duration-300" />
-              </div>
-
-              {/* Full Certification Banner */}
-              <div className="mt-10">
-                <Image src={yaAllCertifications} alt="All Yoga Alliance Certifications" width={672} height={400} className="rounded-lg shadow-lg mx-auto" />
+                {/* Lifetime Support */}
+                <div className="text-center group">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                    <Users className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="font-heading text-lg font-bold text-foreground mb-2">
+                    Lifetime Yogagarhi community support
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Forever connected to our global yoga family
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* ===== SPECIAL WORKSHOPS ===== */}
-        <section className="py-20 bg-secondary/30">
+        < section className="py-20 bg-secondary/30" >
           <div className="container mx-auto px-4">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-foreground mb-4">
               Special Workshops Included
@@ -2699,79 +2190,10 @@ This is not a transactional relationship — it is a lifelong connection.`}
               ))}
             </div>
           </div>
-        </section>
-
-        {/* ===== EXCURSIONS ===== */}
-        <section className="py-24 bg-background relative overflow-hidden">
-          {/* Decorative Elements */}
-          <div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/50 rounded-full translate-x-1/3 translate-y-1/3" />
-
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center mb-16">
-              <p className="text-primary uppercase tracking-[0.2em] text-sm mb-3">Beyond The Mat</p>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Sacred Excursions
-              </h2>
-              {/* Decorative Mountain/Nature Icon */}
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
-                <svg className="w-12 h-8 text-primary" viewBox="0 0 48 32" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M4 28 L16 8 L24 18 L32 10 L44 28 Z" strokeLinejoin="round" />
-                  <circle cx="38" cy="8" r="4" />
-                </svg>
-                <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
-              </div>
-              <p className="text-muted-foreground max-w-xl mx-auto">
-                Immerse yourself in Bali's spiritual heritage through transformative experiences
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-              {excursions.map((excursion, index) => {
-                const IconComponent = excursion.icon;
-                return (
-                  <div
-                    key={index}
-                    className="group relative"
-                  >
-                    {/* Hexagonal Image Container */}
-                    <div className="relative mb-6">
-                      <div className="aspect-square max-w-[280px] mx-auto overflow-hidden rounded-[2.5rem] shadow-card group-hover:shadow-elevated transition-shadow duration-500">
-                        <Image
-                          src={excursion.image}
-                          alt={excursion.title}
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                        {/* Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      </div>
-
-                      {/* Floating Icon Badge */}
-                      <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-primary shadow-lg flex items-center justify-center transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300">
-                        <IconComponent className="w-6 h-6 text-primary-foreground" />
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="text-center pt-4">
-                      <h3 className="font-heading text-xl font-bold text-foreground mb-3">
-                        {excursion.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed px-2">
-                        {excursion.description}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        </section >
 
         {/* ===== POST-PROGRAM SUPPORT ===== */}
-        <section className="py-24 bg-background">
+        < section className="py-24 bg-background" >
           <div className="container mx-auto px-4">
             {/* Section Header */}
             <div className="text-center mb-16">
@@ -2872,7 +2294,7 @@ This is not a transactional relationship — it is a lifelong connection.`}
               </div>
             </div>
           </div>
-        </section>
+        </section >
 
         {/* ===== ACCOMMODATION ===== */}
         {/* Hero Banner with Background */}
@@ -2880,7 +2302,7 @@ This is not a transactional relationship — it is a lifelong connection.`}
           {/* Background Image */}
           <div className="absolute inset-0 -z-10">
             <Image
-              src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1920&h=1080&fit=crop"
+              src={apartPoolVilla}
               alt="Bali yoga retreat accommodation"
               fill
               className="object-cover"
@@ -2941,6 +2363,39 @@ This is not a transactional relationship — it is a lifelong connection.`}
                 <p className="font-heading text-base md:text-lg text-white text-left">
                   Only 15 km from central Ubud
                 </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        {/* ===== ACCOMMODATION GALLERY ===== */}
+        <section className="py-12 bg-background border-t border-border/50">
+          <div className="container mx-auto px-4">
+            <h3 className="font-heading text-2xl font-bold text-center text-foreground mb-8">
+              Glimpses of Your Stay
+            </h3>
+
+            <div className="relative">
+              {/* Horizontal Scroll Container */}
+              <div className="flex overflow-x-auto gap-4 pb-6 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
+                {[
+                  apartGallery1, apartGallery2, apartGallery3, apartGallery4, apartGallery5,
+                  apartGallery6, apartGallery7, apartGallery8, apartGallery9, apartGallery10
+                ].map((img, index) => (
+                  <div
+                    key={index}
+                    className="relative flex-shrink-0 w-[85vw] md:w-[400px] aspect-[4/3] rounded-2xl overflow-hidden snap-center group"
+                  >
+                    <Image
+                      src={img}
+                      alt={`Accommodation Gallery ${index + 1}`}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -3039,6 +2494,8 @@ This is not a transactional relationship — it is a lifelong connection.`}
             </div>
           </div>
         </section>
+
+
 
         {/* ===== SATTVIC FOOD ===== */}
         <section className="py-20 bg-secondary/20 relative overflow-hidden">
@@ -3212,6 +2669,147 @@ This is not a transactional relationship — it is a lifelong connection.`}
             </Collapsible>
           </div>
         </section>
+
+        {/* ===== EXCURSIONS ===== */}
+        < section className="py-24 bg-background relative overflow-hidden" >
+          {/* Decorative Elements */}
+          < div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/50 rounded-full translate-x-1/3 translate-y-1/3" />
+
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="text-center mb-16">
+              <p className="text-primary uppercase tracking-[0.2em] text-sm mb-3">Beyond The Mat</p>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Sacred Excursions
+              </h2>
+              {/* Decorative Mountain/Nature Icon */}
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/60" />
+                <svg className="w-12 h-8 text-primary" viewBox="0 0 48 32" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M4 28 L16 8 L24 18 L32 10 L44 28 Z" strokeLinejoin="round" />
+                  <circle cx="38" cy="8" r="4" />
+                </svg>
+                <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/60" />
+              </div>
+              <p className="text-muted-foreground max-w-xl mx-auto">
+                Immerse yourself in Bali's spiritual heritage through transformative experiences
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+              {excursions.map((excursion, index) => {
+                const IconComponent = excursion.icon;
+                return (
+                  <div
+                    key={index}
+                    className="group relative"
+                  >
+                    {/* Hexagonal Image Container */}
+                    <div className="relative mb-6">
+                      <div className="aspect-square max-w-[280px] mx-auto overflow-hidden rounded-[2.5rem] shadow-card group-hover:shadow-elevated transition-shadow duration-500">
+                        <Image
+                          src={excursion.image}
+                          alt={excursion.title}
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        {/* Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      </div>
+
+                      {/* Floating Icon Badge */}
+                      <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-primary shadow-lg flex items-center justify-center transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300">
+                        <IconComponent className="w-6 h-6 text-primary-foreground" />
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="text-center pt-4">
+                      <h3 className="font-heading text-xl font-bold text-foreground mb-3">
+                        {excursion.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed px-2">
+                        {excursion.description}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section >
+
+        <WhyChooseUs />
+
+        {/* ===== INCLUSIONS / EXCLUSIONS ===== */}
+        < section className="py-20 bg-secondary/30" >
+          <div className="container mx-auto px-4">
+            {/* Tab Buttons */}
+            <div className="flex justify-center gap-4 mb-12">
+              <button
+                onClick={() => setActiveInclusionTab('inclusions')}
+                className={`px-8 py-3 rounded-lg font-heading text-lg font-semibold transition-all duration-300 ${activeInclusionTab === 'inclusions'
+                  ? 'bg-primary text-primary-foreground shadow-lg'
+                  : 'bg-card text-foreground border border-border hover:bg-secondary'
+                  }`}
+              >
+                What's Included
+              </button>
+              <button
+                onClick={() => setActiveInclusionTab('exclusions')}
+                className={`px-8 py-3 rounded-lg font-heading text-lg font-semibold transition-all duration-300 ${activeInclusionTab === 'exclusions'
+                  ? 'bg-primary text-primary-foreground shadow-lg'
+                  : 'bg-card text-foreground border border-border hover:bg-secondary'
+                  }`}
+              >
+                What's Not Included
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="max-w-5xl mx-auto">
+              {activeInclusionTab === 'inclusions' ? (
+                <div className="animate-fade-in">
+                  <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-primary mb-10">
+                    What's Included
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {inclusions.map((item, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center gap-4 p-5 bg-card rounded-lg shadow-sm"
+                      >
+                        <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                          <Check className="w-5 h-5 text-accent" />
+                        </div>
+                        <span className="text-foreground font-medium">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="animate-fade-in">
+                  <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-primary mb-10">
+                    What's Not Included
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {exclusions.map((item, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center gap-4 p-5 bg-card rounded-lg shadow-sm"
+                      >
+                        <div className="w-8 h-8 rounded-full bg-destructive/20 flex items-center justify-center flex-shrink-0">
+                          <X className="w-5 h-5 text-destructive" />
+                        </div>
+                        <span className="text-foreground font-medium">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </section >
 
         {/* ===== UPCOMING DATES ===== */}
         <section id="book-now" className="py-20 bg-background scroll-mt-24">
@@ -3454,6 +3052,534 @@ This is not a transactional relationship — it is a lifelong connection.`}
             </div>
           </div>
         </section>
+
+        <StudentStoriesSection />
+
+        {/* ===== CODE OF CONDUCT & REFUND ===== */}
+        <section className="py-20 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {/* Code of Conduct */}
+              <div className="bg-card rounded-2xl p-8 border border-border shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <BookOpen className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="font-heading text-2xl font-bold text-foreground">Code of Conduct</h3>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  {[
+                    "Punctual attendance", "No alcohol/smoking", "Vegetarian only",
+                    "Silence in class", "Modest clothing", "Respect all",
+                    "No phones in class", "Full attendance required"
+                  ].map((item, i) => (
+                    <span key={i} className="px-3 py-1.5 bg-secondary/50 rounded-full text-sm font-medium text-foreground border border-border flex items-center gap-2">
+                      <Check className="w-3 h-3 text-primary" />
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Refund & Cancellation */}
+              <div className="bg-card rounded-2xl p-8 border border-border shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <RefreshCw className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="font-heading text-2xl font-bold text-foreground">Refund & Cancellation</h3>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  {[
+                    "Reschedule within 12 months", "Transfer seat allowed",
+                    "Full refund if we cancel", "Trial day policy",
+                    "No refund after Day 1"
+                  ].map((item, i) => (
+                    <span key={i} className="px-3 py-1.5 bg-secondary/50 rounded-full text-sm font-medium text-foreground border border-border flex items-center gap-2">
+                      <Check className="w-3 h-3 text-primary" />
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        {/* DAILY_SCHEDULE_REMOVED_FROM_HERE */}
+
+
+
+
+
+
+
+        <Dialog open={showQuizDialog} onOpenChange={(open) => {
+          setShowQuizDialog(open);
+          if (!open) resetQuiz();
+        }}>
+
+          <DialogContent className="sm:max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="font-heading text-2xl text-center">
+                {quizStep < quizQuestions.length
+                  ? "Discover Your Yogic Energy"
+                  : "Your Insight Awaits"}
+              </DialogTitle>
+              <DialogDescription className="text-center text-muted-foreground text-sm">
+                {quizStep < quizQuestions.length
+                  ? `Question ${quizStep + 1} of ${quizQuestions.length}: ${quizQuestions[quizStep].question}`
+                  : "Thank you for sharing. Enter your email to receive your personalized insight."
+                }
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="pt-4">
+              {quizStep < quizQuestions.length ? (
+                <div className="space-y-6">
+                  <div className="space-y-3">
+                    {quizQuestions[quizStep].options.map((option, i) => (
+                      <button
+                        key={i}
+                        onClick={() => handleQuizAnswer(option)}
+                        className="w-full p-4 text-left rounded-lg border border-border hover:border-primary hover:bg-primary/5 transition-colors"
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-4 text-center">
+                  <p className="text-muted-foreground">
+                    Thank you for sharing. Enter your email and we will send you
+                    your personalized yogic energy insight shortly.
+                  </p>
+                  <div className="space-y-2">
+                    <input
+                      type="email"
+                      placeholder="Your email address *"
+                      className={`w-full px-4 py-3 rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary ${emailError ? 'border-red-500' : 'border-border'}`}
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (emailError) setEmailError("");
+                      }}
+                    />
+                    {emailError && (
+                      <p className="text-sm text-red-500">{emailError}</p>
+                    )}
+                  </div>
+                  <Button
+                    className="w-full"
+                    size="lg"
+                    onClick={handleQuizSubmit}
+                    disabled={isSubmittingQuiz}
+                  >
+                    {isSubmittingQuiz ? "Submitting..." : "Submit & Receive My Insight"}
+                  </Button>
+                </div>
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Quiz Thank You Dialog */}
+        <Dialog open={showQuizThankYou} onOpenChange={(open) => {
+          setShowQuizThankYou(open);
+          if (!open) resetQuiz();
+        }}>
+          <DialogContent className="sm:max-w-md text-center">
+            <div className="py-6 space-y-6">
+              <div className="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
+                <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
+                  Thank You! 🙏
+                </DialogTitle>
+                <p className="text-muted-foreground">
+                  Your personalized yogic energy insight is on its way to <span className="font-medium text-foreground">{email}</span>
+                </p>
+              </div>
+              <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground">
+                <p>Please check your inbox (and spam folder) within the next 24 hours.</p>
+              </div>
+              <Button
+                onClick={() => {
+                  setShowQuizThankYou(false);
+                  resetQuiz();
+                }}
+                className="w-full"
+              >
+                Close
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+
+
+
+        <Dialog open={showWebinarDialog} onOpenChange={setShowWebinarDialog}>
+
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="font-heading text-2xl text-center">
+                Register for Free Webinar
+              </DialogTitle>
+              <DialogDescription className="text-center text-muted-foreground text-sm">
+                Fill in your details to join our live orientation session
+              </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleWebinarSubmit} className="space-y-4 pt-4">
+
+              {/* Name */}
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1 block">
+                  Full Name <span className="text-destructive">*</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter your full name"
+                  required
+                  value={webinarForm.name}
+                  onChange={(e) => setWebinarForm(prev => ({ ...prev, name: e.target.value }))}
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              {/* Email */}
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1 block">
+                  Email Address <span className="text-destructive">*</span>
+                </label>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  required
+                  value={webinarForm.email}
+                  onChange={(e) => setWebinarForm(prev => ({ ...prev, email: e.target.value }))}
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              {/* Timezone */}
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1 block">
+                  Your Timezone <span className="text-destructive">*</span>
+                </label>
+                <select
+                  required
+                  value={webinarForm.timezone}
+                  onChange={(e) => setWebinarForm(prev => ({ ...prev, timezone: e.target.value }))}
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="">Select your timezone</option>
+                  <option value="UTC-12:00">(UTC-12:00) Baker Island</option>
+                  <option value="UTC-11:00">(UTC-11:00) American Samoa</option>
+                  <option value="UTC-10:00">(UTC-10:00) Hawaii</option>
+                  <option value="UTC-09:00">(UTC-09:00) Alaska</option>
+                  <option value="UTC-08:00">(UTC-08:00) Pacific Time (US & Canada)</option>
+                  <option value="UTC-07:00">(UTC-07:00) Mountain Time (US & Canada)</option>
+                  <option value="UTC-06:00">(UTC-06:00) Central Time (US & Canada)</option>
+                  <option value="UTC-05:00">(UTC-05:00) Eastern Time (US & Canada)</option>
+                  <option value="UTC-04:00">(UTC-04:00) Atlantic Time (Canada)</option>
+                  <option value="UTC-03:00">(UTC-03:00) Buenos Aires, São Paulo</option>
+                  <option value="UTC-02:00">(UTC-02:00) Mid-Atlantic</option>
+                  <option value="UTC-01:00">(UTC-01:00) Azores</option>
+                  <option value="UTC+00:00">(UTC+00:00) London, Dublin, Lisbon</option>
+                  <option value="UTC+01:00">(UTC+01:00) Berlin, Paris, Rome, Madrid</option>
+                  <option value="UTC+02:00">(UTC+02:00) Cairo, Athens, Istanbul</option>
+                  <option value="UTC+03:00">(UTC+03:00) Moscow, Nairobi, Kuwait</option>
+                  <option value="UTC+03:30">(UTC+03:30) Tehran</option>
+                  <option value="UTC+04:00">(UTC+04:00) Dubai, Abu Dhabi</option>
+                  <option value="UTC+04:30">(UTC+04:30) Kabul</option>
+                  <option value="UTC+05:00">(UTC+05:00) Karachi, Tashkent</option>
+                  <option value="UTC+05:30">(UTC+05:30) Mumbai, New Delhi, Kolkata</option>
+                  <option value="UTC+05:45">(UTC+05:45) Kathmandu</option>
+                  <option value="UTC+06:00">(UTC+06:00) Dhaka, Almaty</option>
+                  <option value="UTC+06:30">(UTC+06:30) Yangon</option>
+                  <option value="UTC+07:00">(UTC+07:00) Bangkok, Jakarta, Hanoi</option>
+                  <option value="UTC+08:00">(UTC+08:00) Singapore, Kuala Lumpur, Bali</option>
+                  <option value="UTC+09:00">(UTC+09:00) Tokyo, Seoul</option>
+                  <option value="UTC+09:30">(UTC+09:30) Adelaide</option>
+                  <option value="UTC+10:00">(UTC+10:00) Sydney, Melbourne</option>
+                  <option value="UTC+11:00">(UTC+11:00) Solomon Islands</option>
+                  <option value="UTC+12:00">(UTC+12:00) Auckland, Fiji</option>
+                  <option value="UTC+13:00">(UTC+13:00) Samoa, Tonga</option>
+                </select>
+              </div>
+
+              {/* Preferred Date */}
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1 block">
+                  Preferred Date <span className="text-destructive">*</span>
+                </label>
+                <input
+                  type="date"
+                  required
+                  value={webinarForm.date}
+                  onChange={(e) => setWebinarForm(prev => ({ ...prev, date: e.target.value }))}
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              {/* Preferred Time */}
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1 block">
+                  Preferred Time <span className="text-destructive">*</span>
+                </label>
+                <select
+                  required
+                  value={webinarForm.time}
+                  onChange={(e) => setWebinarForm(prev => ({ ...prev, time: e.target.value }))}
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="">Select preferred time</option>
+                  <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
+                  <option value="afternoon">Afternoon (12:00 PM - 4:00 PM)</option>
+                  <option value="evening">Evening (4:00 PM - 8:00 PM)</option>
+                </select>
+              </div>
+
+              <Button
+                type="submit"
+                className={`w-full transition-all ${isWebinarFormComplete ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'bg-muted text-muted-foreground cursor-not-allowed'}`}
+                size="lg"
+                disabled={!isWebinarFormComplete || isSubmittingWebinar}
+              >
+                {isSubmittingWebinar ? "Registering..." : "Register Now"}
+              </Button>
+
+              <p className="text-xs text-center text-muted-foreground">
+                You'll receive a confirmation email with the webinar link
+              </p>
+            </form>
+          </DialogContent>
+        </Dialog>
+
+        {/* Webinar Thank You Dialog */}
+        <Dialog open={showWebinarThankYou} onOpenChange={(open) => {
+          setShowWebinarThankYou(open);
+          if (!open) {
+            setWebinarForm({ name: '', email: '', timezone: '', date: '', time: '' });
+          }
+        }}>
+          <DialogContent className="sm:max-w-md text-center">
+            <div className="py-6 space-y-6">
+              <div className="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
+                <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
+                  You're Registered! 🎉
+                </DialogTitle>
+                <DialogDescription className="text-muted-foreground">
+                  Thank you, <span className="font-medium text-foreground">{webinarForm.name}</span>! Your webinar registration is confirmed.
+                </DialogDescription>
+              </div>
+              <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground space-y-2">
+                <p>📧 Confirmation sent to: <span className="font-medium text-foreground">{webinarForm.email}</span></p>
+                <p>📅 We'll send you the webinar link before your selected date.</p>
+              </div>
+              <Button
+                onClick={() => {
+                  setShowWebinarThankYou(false);
+                  setWebinarForm({ name: '', email: '', timezone: '', date: '', time: '' });
+                }}
+                className="w-full"
+              >
+                Close
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Pre-YTTC Detail Dialog */}
+        <Dialog open={showPreYTTCDialog} onOpenChange={setShowPreYTTCDialog}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="font-heading text-2xl text-center">
+                Get Pre-YTTC Details
+              </DialogTitle>
+              <DialogDescription className="text-center text-muted-foreground text-sm">
+                Learn about our world-first Pre-YTTC preparation program
+              </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handlePreYTTCSubmit} className="space-y-4 pt-4">
+
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1 block">
+                  Full Name <span className="text-destructive">*</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter your full name"
+                  required
+                  value={preYTTCForm.name}
+                  onChange={(e) => setPreYTTCForm(prev => ({ ...prev, name: e.target.value }))}
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1 block">
+                  Email Address <span className="text-destructive">*</span>
+                </label>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  required
+                  value={preYTTCForm.email}
+                  onChange={(e) => setPreYTTCForm(prev => ({ ...prev, email: e.target.value }))}
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              <Button
+                type="submit"
+                className={`w-full transition-all ${preYTTCForm.name && preYTTCForm.email ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'bg-muted text-muted-foreground cursor-not-allowed'}`}
+                size="lg"
+                disabled={!preYTTCForm.name || !preYTTCForm.email || isSubmittingPreYTTC}
+              >
+                <GraduationCap className="w-4 h-4 mr-2" />
+                {isSubmittingPreYTTC ? "Sending..." : "Get Pre-YTTC Details"}
+              </Button>
+            </form>
+          </DialogContent>
+        </Dialog>
+
+        {/* Pre-YTTC Thank You Dialog */}
+        <Dialog open={showPreYTTCThankYou} onOpenChange={(open) => {
+          setShowPreYTTCThankYou(open);
+          if (!open) setPreYTTCForm({ name: '', email: '' });
+        }}>
+          <DialogContent className="sm:max-w-md text-center">
+            <div className="py-6 space-y-6">
+              <div className="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
+                <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
+                  Details on the Way! 🎓
+                </DialogTitle>
+                <DialogDescription className="text-muted-foreground">
+                  Thank you, <span className="font-medium text-foreground">{preYTTCForm.name}</span>! Your Pre-YTTC program details will be sent to your email.
+                </DialogDescription>
+              </div>
+              <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground">
+                📧 Sent to: <span className="font-medium text-foreground">{preYTTCForm.email}</span>
+              </div>
+              <Button
+                onClick={() => {
+                  setShowPreYTTCThankYou(false);
+                  setPreYTTCForm({ name: '', email: '' });
+                }}
+                className="w-full"
+              >
+                Close
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Manual Download Dialog */}
+        <Dialog open={showManualDialog} onOpenChange={setShowManualDialog}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="font-heading text-2xl text-center">
+                Get Free Study Manual
+              </DialogTitle>
+              <DialogDescription className="text-center text-muted-foreground text-sm">
+                Enter your details to receive our comprehensive yoga training manual
+              </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleManualSubmit} className="space-y-4 pt-4">
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1 block">
+                  Full Name <span className="text-destructive">*</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter your full name"
+                  required
+                  value={manualForm.name}
+                  onChange={(e) => setManualForm(prev => ({ ...prev, name: e.target.value }))}
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1 block">
+                  Email Address <span className="text-destructive">*</span>
+                </label>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  required
+                  value={manualForm.email}
+                  onChange={(e) => setManualForm(prev => ({ ...prev, email: e.target.value }))}
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <Button
+                type="submit"
+                className="w-full"
+                size="lg"
+                disabled={!manualForm.name || !manualForm.email || isSubmittingManual}
+              >
+                <BookOpen className="w-4 h-4 mr-2" />
+                {isSubmittingManual ? "Sending..." : "Get Free Manual"}
+              </Button>
+            </form>
+          </DialogContent>
+        </Dialog>
+
+        {/* Manual Thank You Dialog */}
+        <Dialog open={showManualThankYou} onOpenChange={setShowManualThankYou}>
+          <DialogContent className="sm:max-w-md text-center">
+            <div className="py-6 space-y-6">
+              <div className="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
+                <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <DialogTitle className="font-heading text-2xl font-bold text-primary mb-2">
+                  Manual on the Way! 📚
+                </DialogTitle>
+                <DialogDescription className="text-muted-foreground">
+                  Thank you! The study manual has been sent to <span className="font-medium text-foreground">{manualForm.email}</span>
+                </DialogDescription>
+              </div>
+              <Button
+                onClick={() => setShowManualThankYou(false)}
+                className="w-full"
+              >
+                Close
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+
+
+
+
+
+
+        {/* SPECIAL_WORKSHOPS_REMOVED_FROM_HERE */}
+
+
+
+
 
 
         {/* ===== BOOK A CALL ===== */}
@@ -3808,76 +3934,147 @@ This is not a transactional relationship — it is a lifelong connection.`}
           </div>
         </section>
 
-        {/* ===== CODE OF CONDUCT & REFUND ===== */}
-        <section className="py-12 bg-secondary/20">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row gap-6 max-w-5xl mx-auto">
-              {/* Code of Conduct */}
-              <div className="flex-1 bg-card rounded-xl p-6 border border-border shadow-sm">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <BookMarked className="w-5 h-5 text-primary" />
-                  </div>
-                  <h3 className="font-heading text-lg font-bold text-foreground">
-                    Code of Conduct
-                  </h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "Punctual attendance",
-                    "No alcohol/smoking",
-                    "Vegetarian only",
-                    "Silence in class",
-                    "Modest clothing",
-                    "Respect all",
-                    "No phones in class",
-                    "Full attendance required"
-                  ].map((item, i) => (
-                    <span
-                      key={i}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-secondary/50 rounded-full text-xs text-muted-foreground"
-                    >
-                      <Check className="w-3 h-3 text-primary" />
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
+        {/* ===== SACHIN JI'S RESEARCH & PRAKRITI SECTION ===== */}
+        <section id="sachinji-research" className="py-24 bg-background relative overflow-hidden">
+          {/* Decorative background elements */}
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
-              {/* Refund Policy */}
-              <div className="flex-1 bg-card rounded-xl p-6 border border-border shadow-sm">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <RefreshCw className="w-5 h-5 text-primary" />
+          <div className="container mx-auto px-4 relative z-10">
+            {/* Section Header */}
+            <div className="max-w-4xl mx-auto text-center mb-20">
+              <h2 className="font-heading text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+                Sachin Ji’s Research on Personalized Yoga and Prakriti
+              </h2>
+              <div className="flex items-center justify-center gap-3 mb-8">
+                <div className="h-px w-20 bg-gradient-to-r from-transparent to-primary" />
+                <Sparkles className="w-8 h-8 text-primary animate-pulse" />
+                <div className="h-px w-20 bg-gradient-to-l from-transparent to-primary" />
+              </div>
+              <p className="font-heading text-2xl md:text-3xl text-primary font-medium italic max-w-3xl mx-auto leading-relaxed">
+                "Yoga Is Not One-Size-Fits-All Because Every Body Carries a Different Energy"
+              </p>
+            </div>
+
+            {/* Research Journey - Circular Cards Layout */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-14 max-w-7xl mx-auto">
+              {[
+                {
+                  title: "The Core Question",
+                  text: <>During our Lead Teacher’s <strong className="text-foreground font-bold">Master Yoga studies</strong>, one question became impossible to ignore: Why does the same yoga practice calm some people, but leave others feeling <strong className="text-foreground font-bold">tired, restless, or mentally disturbed</strong>?</>,
+                  icon: Brain,
+                  color: "bg-amber-500/10 text-amber-600 border-amber-500/20"
+                },
+                {
+                  title: "Deep Investigation",
+                  text: <>This led to deep research into classical yoga texts, Ayurveda, and years of real student experience. The answer was simple, yet powerful: Every human being is born with a <strong className="text-foreground font-bold">unique Prakriti</strong>.</>,
+                  icon: BookOpen,
+                  color: "bg-blue-500/10 text-blue-600 border-blue-500/20"
+                },
+                {
+                  title: "The Energy Blueprint",
+                  text: <>Prakriti shapes the body, mind, emotions, and nervous system. Some people need <strong className="text-foreground font-bold">grounding</strong>, some need <strong className="text-foreground font-bold">movement</strong>, and others need <strong className="text-foreground font-bold">stillness</strong>. A fixed style for everyone can create imbalance.</>,
+                  icon: Zap,
+                  color: "bg-purple-500/10 text-purple-600 border-purple-500/20"
+                },
+                {
+                  title: "Quality of Practice",
+                  text: <>More than which yoga style you practice, what truly matters is <strong className="text-foreground font-bold italic">how you practice</strong>. How the <strong className="text-foreground font-bold">nervous system</strong> is approached, how the breath is guided, and how your <strong className="text-foreground font-bold">Dosha is supported</strong> rather than pushed.</>,
+                  icon: Layers,
+                  color: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
+                },
+                {
+                  title: "Shiv–Shakti Sadhana",
+                  text: <>Born from this realization, <strong className="text-foreground font-bold">Shiv–Shakti Sadhana</strong> is a balanced approach that harmonizes <strong className="text-foreground font-bold">stability and movement</strong>, awareness and energy. Asana here supports grounding and strength.</>,
+                  icon: RefreshCw,
+                  color: "bg-rose-500/10 text-rose-600 border-rose-500/20"
+                },
+                {
+                  title: "Back to Balance",
+                  text: <>When yoga respects your Prakriti, it becomes <strong className="text-foreground font-bold">accessible, sustainable, and deeply healing</strong>. Real yoga does not change you; it brings you back into <strong className="text-foreground font-bold">balance with yourself</strong>.</>,
+                  icon: Heart,
+                  color: "bg-cyan-500/10 text-cyan-600 border-cyan-500/20"
+                }
+              ].map((card, index) => (
+                <div key={index} className="group relative">
+                  {/* Decorative orbital line for mobile/desktop staggered effect */}
+                  <div className="absolute inset-0 border-2 border-dashed border-primary/10 rounded-full group-hover:border-primary/30 transition-all duration-500 -m-4 scale-95 opacity-0 group-hover:opacity-100 group-hover:scale-105" />
+
+                  <div className="relative aspect-square rounded-full bg-card border border-border shadow-xl p-8 flex flex-col items-center justify-center text-center overflow-hidden hover:border-primary/40 transition-all duration-500 transform hover:-translate-y-2 group">
+                    {/* Inner Radial Gradient */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_var(--card-hover-bg)_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ '--card-hover-bg': 'rgba(var(--primary-rgb), 0.05)' } as any} />
+
+                    <div className={`w-16 h-16 rounded-full ${card.color} border flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
+                      <card.icon className="w-8 h-8" />
+                    </div>
+
+                    <h4 className="font-heading text-xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
+                      {card.title}
+                    </h4>
+
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed px-4 line-clamp-6 group-hover:line-clamp-none transition-all duration-500">
+                      {card.text}
+                    </p>
+
+                    {/* Number Badge */}
+                    <div className="absolute top-6 right-10 w-8 h-8 flex items-center justify-center rounded-full bg-secondary text-primary text-xs font-bold border border-primary/20">
+                      {index + 1}
+                    </div>
                   </div>
-                  <h3 className="font-heading text-lg font-bold text-foreground">
-                    Refund & Cancellation
-                  </h3>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "Reschedule within 12 months",
-                    "Transfer seat allowed",
-                    "Full refund if we cancel",
-                    "Trial day policy",
-                    "No refund after Day 1"
-                  ].map((item, i) => (
-                    <span
-                      key={i}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-secondary/50 rounded-full text-xs text-muted-foreground"
+              ))}
+            </div>
+
+            {/* Summary Conclusion */}
+            <div className="mt-20 max-w-4xl mx-auto">
+              <div className="bg-primary/5 border border-primary/20 rounded-[3rem] p-10 md:p-14 text-center relative overflow-hidden group">
+                {/* Floating Om Icon background */}
+                <div className="absolute -bottom-10 -right-10 opacity-[0.03] rotate-12 transition-transform duration-700 group-hover:scale-125">
+                  <svg className="w-64 h-64 text-primary" viewBox="0 0 100 100" fill="currentColor">
+                    <path d="M28,68 C18,68 12,58 12,48 C12,32 24,22 40,22 C56,22 62,34 62,44 C62,56 50,62 44,62 C38,62 32,56 32,48 C32,42 38,38 44,38" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                    <path d="M62,44 C62,32 74,26 80,32 C86,38 80,50 74,56 L68,72" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                    <path d="M74,18 C80,18 84,24 84,30" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                    <circle cx="88" cy="14" r="4" />
+                  </svg>
+                </div>
+
+                <div className="relative z-10">
+                  <p className="text-lg md:text-xl text-foreground font-medium leading-relaxed mb-6">
+                    Our Lead Teacher observed that when practice does not respect the <strong className="text-foreground">nervous system and natural energy type</strong>, even correct postures can lead to restlessness, fatigue, or imbalance.
+                  </p>
+                  <p className="text-lg md:text-xl text-foreground/90 leading-relaxed italic border-t border-primary/20 pt-8 mb-8">
+                    "When yoga respects your Prakriti, it becomes <strong className="text-foreground">accessible, sustainable, and deeply healing</strong> for everyone. Here, yoga is not forced. It is <strong className="text-foreground">personalized, energy-aware, and deeply respectful</strong> of who you are."
+                  </p>
+
+                  <div className="flex justify-center">
+                    <Button
+                      size="lg"
+                      className="
+                        relative overflow-hidden
+                        bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 
+                        bg-[length:200%_100%]
+                        hover:bg-[position:100%_0]
+                        text-white font-semibold 
+                        shadow-lg hover:shadow-xl
+                        transition-all duration-500
+                        group
+                      "
+                      onClick={() => setShowQuizDialog(true)}
                     >
-                      <Check className="w-3 h-3 text-primary" />
-                      {item}
-                    </span>
-                  ))}
+                      <Sparkles className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
+                      Reveal Your Yogic Energy
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ===== STUDENT STORIES ===== */}
-        <StudentStoriesSection />
+
+
+
 
 
         {/* ===== LOCATION & MAP ===== */}
@@ -4407,17 +4604,64 @@ This is not a transactional relationship — it is a lifelong connection.`}
           </DialogContent>
         </Dialog>
 
+        {/* ===== PRE-YTTC CONTACT OPTIONS DIALOG ===== */}
+        <Dialog open={showPreYttcOptions} onOpenChange={setShowPreYttcOptions}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="font-heading text-2xl text-center">Start Your Journey</DialogTitle>
+              <DialogDescription className="text-center text-muted-foreground">
+                Connect with our founders to start your Live Online Prep sessions and join the family.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid grid-cols-1 gap-4 mt-6">
+              <Button
+                variant="outline"
+                className="h-16 rounded-2xl text-lg gap-4 border-primary/20 bg-background hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-all duration-300 shadow-sm hover:shadow-md"
+                asChild
+              >
+                <a
+                  href="https://wa.me/+917895350563"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="p-2 bg-[#25D366]/10 rounded-full group-hover:bg-white/20">
+                    <MessageCircle className="w-6 h-6" />
+                  </div>
+                  Continue on WhatsApp
+                </a>
+              </Button>
+              <Button
+                variant="outline"
+                className="h-16 rounded-2xl text-lg gap-4 border-primary/20 bg-background hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 shadow-sm hover:shadow-md"
+                asChild
+              >
+                <a href="mailto:yogagarhi@gmail.com">
+                  <div className="p-2 bg-primary/10 rounded-full group-hover:bg-white/20">
+                    <Mail className="w-6 h-6" />
+                  </div>
+                  Send us an Email
+                </a>
+              </Button>
+            </div>
+            <p className="text-center text-xs text-muted-foreground mt-6">
+              Typically replies within a few hours to help you get started.
+            </p>
+          </DialogContent>
+        </Dialog>
+
         {/* Scroll to Top Button */}
-        {showScrollTop && (
-          <button
-            onClick={scrollToTop}
-            className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-primary text-primary-foreground rounded-full shadow-elevated hover:bg-primary/90 transition-all duration-300 flex items-center justify-center animate-fade-in hover:scale-110"
-            aria-label="Scroll to top"
-          >
-            <ChevronDown className="w-6 h-6 rotate-180" />
-          </button>
-        )}
-      </Layout>
+        {
+          showScrollTop && (
+            <button
+              onClick={scrollToTop}
+              className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-primary text-primary-foreground rounded-full shadow-elevated hover:bg-primary/90 transition-all duration-300 flex items-center justify-center animate-fade-in hover:scale-110"
+              aria-label="Scroll to top"
+            >
+              <ChevronDown className="w-6 h-6 rotate-180" />
+            </button>
+          )
+        }
+      </Layout >
     </>
   );
 }

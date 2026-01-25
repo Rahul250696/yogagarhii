@@ -15,7 +15,7 @@ export function generateMetadata(): Metadata {
         "Can we do 100 hour yoga teacher training in Bali? Yes. Join YogaGarhi’s beginner-friendly residential 100 Hour Yoga TTC designed for short stays, deep yogic practice, and authentic learning in Bali.";
 
     const url =
-        "https://www.yogagarhi.com/100-hour-yoga-teacher-training-in-bali/";
+        "https://yogagarhi.com/100-hour-yoga-teacher-training-in-bali";
 
     return {
         title,
@@ -62,7 +62,7 @@ export function generateMetadata(): Metadata {
 export default function Page() {
     const course = courseData["100-hour"];
     const pageUrl =
-        "https://www.yogagarhi.com/100-hour-yoga-teacher-training-in-bali/";
+        "https://yogagarhi.com/100-hour-yoga-teacher-training-in-bali";
 
     /* =========================
        COURSE SCHEMA
@@ -125,12 +125,6 @@ export default function Page() {
             {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Yoga Teacher Training in Bali",
-                "item": "https://www.yogagarhi.com/courses"
-            },
-            {
-                "@type": "ListItem",
-                "position": 3,
                 "name": "100 Hour Yoga Teacher Training in Bali",
                 "item": pageUrl
             }

@@ -1,0 +1,32 @@
+﻿{/* ===== HERO SECTION ===== */}
+{/* ===== COURSE DETAILS BAR ===== */}
+{/* ===== ICON HIGHLIGHTS ===== */}
+{/* ===== WELCOME SECTION ===== */}
+{/* ===== WHAT YOUâ€™LL CARRY HOME - UNIQUE COMPACT DESIGN ===== */}
+{/* ===== WHAT YOU'LL RECEIVE ===== */}
+{/* ===== YOGA ALLIANCE CERTIFICATION ===== */}
+{/* ===== COURSE SYLLABUS ===== */}
+{/* ===== VIDEO TESTIMONIALS ===== */}
+{/* ===== DAILY SCHEDULE ===== */}
+{/* ===== WHAT SETS YOGAGARHI APART ===== */}
+{/* ===== WHY ONE STYLE DOESN'T FIT ALL ===== */}
+{/* ===== INCLUSIONS / EXCLUSIONS ===== */}
+{/* ===== FREE WEBINAR ===== */}
+{/* ===== WHY CHOOSE YOGAGARHI (USPs) ===== */}
+{/* ===== SPECIAL WORKSHOPS ===== */}
+{/* ===== EXCURSIONS ===== */}
+{/* ===== POST-PROGRAM SUPPORT ===== */}
+{/* ===== ACCOMMODATION ===== */}
+{/* ===== SATTVIC FOOD ===== */}
+{/* ===== UPCOMING DATES ===== */}
+{/* ===== GOOGLE REVIEWS ===== */}
+{/* ===== BOOK A CALL ===== */}
+{/* ===== SACHIN JI'S RESEARCH & PRAKRITI SECTION ===== */}
+{/* ===== CODE OF CONDUCT & REFUND ===== */}
+{/* ===== STUDENT STORIES ===== */}
+{/* ===== LOCATION & MAP ===== */}
+{/* ===== FINAL CONVERSION HUB ===== */}
+{/* ===== INSTAGRAM FOLLOW ===== */}
+{/* ===== ENROLLMENT FORM DIALOG ===== */}
+{/* ===== QUICK ENQUIRY DIALOG ===== */}
+{/* ===== PRE-YTTC CONTACT OPTIONS DIALOG ===== */}

@@ -120,7 +120,7 @@ export default function GoogleReviewsSection() {
           </div>
 
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-3">
-            What Our Students Say
+            What Our Students Say on Google
           </h2>
           <p className="text-muted-foreground text-base max-w-xl mx-auto">
             Real experiences from our yoga teacher training graduates
